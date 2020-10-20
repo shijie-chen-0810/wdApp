@@ -1,0 +1,11 @@
+@font-face {
+  font-family: 'wandou';
+  src:url('../icons/iconfont.woff') format('woff'),
+      url('../icons/iconfont.ttf') format('truetype');
+}
+
+.iconfont {
+  font-family: "wandou" !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
