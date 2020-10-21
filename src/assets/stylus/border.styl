@@ -1,0 +1,50 @@
+border_1px($border-width = 1px, $border-color = #ccc, $border-style = solid, $radius = 0) {
+  // 为边框位置提供定位参考
+  position: relative;
+  if $border-width == 0 {
+    $border-width: 0;
+  }
+
+  border-radius: $radius;
+
+  &::after {
+    // 用以解决边框layer遮盖内容
+    pointer-events: none;
+    position: absolute;
+    z-index: 999;
+    top: 0;
+    left: 0;
+    // fix当元素宽度出现小数时，边框可能显示不全的问题
+    // overflow: hidden;
+    content: "\0020";
+    border-color: $border-color;
+    border-style: $border-style;
+    border-width: $border-width;
+    // 适配dpr进行缩放
+    @media screen and (-webkit-max-device-pixel-ratio: 1.49) {
+      width: 100%;
+      height: 100%;
+      if $radius != 0 {
+        border-radius: $radius;
+      }
+    }
+
+    @media screen and (-webkit-min-device-pixel-ratio: 1.5) and (-webkit-max-device-pixel-ratio: 2.49) {
+        width: 200%;
+        height: 200%;
+        transform scale(.5);
+        if $radius != 0 {
+          border-radius: $radius * 2;
+        }
+    }
+    @media screen and (-webkit-min-device-pixel-ratio: 2.5) {
+        width: 300%;
+        height: 300%;
+        transform scale(.33333)
+        if $radius != 0 {
+          border-radius: $radius * 3;
+        }
+    }
+    transform-origin 0 0;
+  }
+}
