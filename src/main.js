@@ -5,6 +5,7 @@ import store from './store'
 
 
 import reset from 'assets/css/reset.css'
+import iconfont from 'assets/iconfont.css'
 
 Vue.config.productionTip = false
 
