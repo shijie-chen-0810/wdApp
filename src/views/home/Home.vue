@@ -1,14 +1,15 @@
 <template>
-  <div>
+  <div id="main">
     <router-view></router-view>
+    <tabbar></tabbar>
   </div>
 </template>
 
 <script>
-import Home from 'views/home/Home'
+import Tabbar from 'components/common/tabbar/Tabbar'
 export default {
   components:{
-    Home
+    Tabbar
   }
 }
 </script>
