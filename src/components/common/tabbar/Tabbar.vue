@@ -41,6 +41,7 @@ export default {
   bottom 0
   left 0
   right 0
+  background #fff
 .main-nav-icon
   background-size .64rem
   background-position center -0.15rem 
