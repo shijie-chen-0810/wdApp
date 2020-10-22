@@ -13,7 +13,7 @@
           </div>
           <div class="bottom">
             <span>￥159</span>
-            <van-stepper v-model="value" integer min="1" max="100" @plus="plus" @minus="minus" :key="n"/>
+            <van-stepper v-model="value" integer min="1" max="30" @plus="plus" @minus="minus" :key="n"/>
           </div>
           <cargoodschange></cargoodschange>
         </dd>
