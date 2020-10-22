@@ -6,7 +6,8 @@
         <div>
           <img src="../../../assets/images/profile/my_wandoulogotop.png" alt="">
         </div>
-        <p>点击登录 / 注册</p>
+        <p v-if="islogin">点击登录 / 注册</p>
+        <p v-else>{{querynum}}</p>
       </router-link>
       
       <ul class="user-content">
@@ -26,7 +27,7 @@
     </div>
     <profileorder></profileorder>
     <profileserve></profileserve>
-    <profiledownload></profiledownload>
+    <profiledownload ></profiledownload>
   </div>
 </template>
 
@@ -36,10 +37,25 @@ import Profileserve from "./profilefeature/Profileserve"
 import Profiledownload from "./profilefeature/Profiledownload"
 
 export default {
+  data(){
+    return {
+      islogin:true,
+      querynum:'',
+    }
+  },
   components:{
     Profileorder,
     Profileserve,
     Profiledownload
+  },
+  mounted(){
+    if(this.$route.query.num){
+      this.querynum = this.$route.query.num;
+      this.islogin = false;
+    }else{
+      this.querynum = '';
+      this.islogin = true;
+    }
   }
 }
 </script>

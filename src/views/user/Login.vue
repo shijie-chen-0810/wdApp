@@ -7,14 +7,23 @@
       <p>手机验证码登录</p>
       <span>登录即表明同意 <i>用户协议</i> 和 <i>隐私政策</i> </span>
       <div class="login-phone">
-        <input type="text" v-model="cellphonebumber">
+        <input 
+          type="text" 
+          v-model="cellphonebumber" 
+          placeholder="请输入手机号"
+        >
       </div>
       <em>未注册的手机号验证通过后将自动注册</em>
-      <button class="login-get" :disabled="disabled" type="button">获取短信验证码</button>
+      <button 
+        class="login-get" 
+        type="button" 
+        @click="getverify" 
+        :style="getstyle"
+      >获取短信验证码</button>
+      <!-- #ea4141  -->
       <b>密码登录</b>
       {{cellphonebumber}}
     </div>
-
   </div>
 </template>
 
@@ -23,13 +32,37 @@ export default {
   data(){
     return {
       cellphonebumber:'',
-      disabled:false,
-
+      getstyle:{
+        background:'#d7d7d9'
+      }
     }
   },
   methods:{
+    //路由返回上一级
     handleclick(){
       this.$router.go(-1)
+    },
+    //点击获取验证码
+    getverify(){
+      if(this.cellphonebumber.length === 11){
+        let reg = /^((13|14|15|17|18)[0-9]{1}\d{8})$/;
+        if (!reg.test(this.cellphonebumber)) {
+          alert('您输入的手机号码不合法，请重新输入');
+          return;
+        }
+        this.$emit("myclick")
+      }
+    }
+  },
+  watch:{
+    //cellphonenumber正常时，不能继续输入，可以获取verift
+    cellphonebumber(){
+      if(this.cellphonebumber.length >= 11){
+        this.cellphonebumber = this.cellphonebumber.slice(0,11)
+        this.getstyle.background = '#ea4141'
+      }else{
+        this.getstyle.background = '#d7d7d9'
+      }
     }
   }
 }
@@ -82,7 +115,6 @@ export default {
       line-height .4rem
       font-size .14rem
       color #ffffff
-      background #ea4141
       border-radius .2rem
       margin .14rem 0 0
     >b 
