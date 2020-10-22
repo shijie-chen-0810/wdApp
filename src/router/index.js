@@ -14,12 +14,8 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    redirect:'/wd/home'
-  },
-  {
-    path: '/wd',
+    redirect: '/home',
     component:HomeZong,
-    redirect:'/wd/home',
     children: [
       {
         path: 'home',

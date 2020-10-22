@@ -1,6 +1,8 @@
 <template>
   <div id="main">
-    <router-view></router-view>
+    <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
     <tabbar></tabbar>
   </div>
 </template>
@@ -14,6 +16,5 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang='stylus' scoped>
 </style>

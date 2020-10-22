@@ -1,11 +1,10 @@
 <template>
-  <div>
-    <router-view></router-view>
-  </div>
+  <div>8888</div>
 </template>
 
 <script>
 export default {
+
 }
 </script>
 
