@@ -9,8 +9,14 @@ const Sort =  () => import('views/home/sortpage/Sort')
 const Cart =  () => import('views/home/cartpage/Cart')
 const Profile =  () => import('views/home/profilepage/Profile')
 //profile
-import Login from '../views/user/Login.vue'
-
+import Userlogin from '../views/user/Userlogin.vue'
+//Order
+import Order from '../views/goodsorder/Order.vue'
+import Orderall from '../views/goodsorder/orderdetail/Orderall.vue'
+import Comingtake from '../views/goodsorder/orderdetail/Comingtake.vue'
+import Comingsend from '../views/goodsorder/orderdetail/Comingsend.vue'
+import Comingpay from '../views/goodsorder/orderdetail/Comingpay.vue'
+import Comingcommit from '../views/goodsorder/orderdetail/Comingcommit.vue'
 
 Vue.use(VueRouter)
 
@@ -48,9 +54,34 @@ const routes = [
   },
   {
     path: '/login',
-    components: {
-      default: Login,
-    }
+    component: Userlogin
+  },
+  {
+    path: '/order',
+    component: Order,
+    redirect:'/order/:id',
+    children:[
+      { 
+        path:'all',
+        component:Orderall
+      },
+      { 
+        path:'take',
+        component:Comingtake
+      },
+      { 
+        path:'pay',
+        component:Comingpay
+      },
+      { 
+        path:'send',
+        component:Comingsend
+      },
+      { 
+        path:'commit',
+        component:Comingcommit
+      },
+    ]
   }
 ]
 
