@@ -1,13 +1,15 @@
 <template>
   <div class="profile">
-    <div class="login">
-      <div class="login-top">
+    <div class="user">
+
+      <router-link class="user-top" tag="div" to="/login">
         <div>
-          <img src="../../assets/images/profile/my_wandoulogotop.png" alt="">
+          <img src="../../../assets/images/profile/my_wandoulogotop.png" alt="">
         </div>
         <p>点击登录 / 注册</p>
-      </div>
-      <ul class="login-content">
+      </router-link>
+      
+      <ul class="user-content">
         <li>
           <p>-</p>
           <span>低现积分</span>
@@ -24,36 +26,40 @@
     </div>
     <profileorder></profileorder>
     <profileserve></profileserve>
+    <profiledownload></profiledownload>
   </div>
 </template>
 
 <script>
-import profileorder from "./profilefeature/profileorder"
-import profileserve from "./profilefeature/profileserve"
+import Profileorder from "./profilefeature/Profileorder"
+import Profileserve from "./profilefeature/Profileserve"
+import Profiledownload from "./profilefeature/Profiledownload"
+
 export default {
   components:{
-    profileorder,
-    profileserve
+    Profileorder,
+    Profileserve,
+    Profiledownload
   }
 }
 </script>
 
 <style lang="stylus" scoped>
 .profile
-
+  overflow scroll
   display flex
   flex-direction column
   justify-content flex-start
   margin .15rem
-  .login
+  .user
     height 1.8rem
-    background url('../../assets/images/profile/my_backgroundtop.png') no-repeat
+    background url('../../../assets/images/profile/my_backgroundtop.png') no-repeat
     background-size 100% 100%
     color #ffffff
     display flex
     flex-direction column
     justify-content space-between
-    .login-top
+    .user-top
       display flex
       align-items center
       padding-top .35rem
@@ -67,7 +73,7 @@ export default {
       >p
         font-size .18rem
         margin-left .2rem
-    .login-content
+    .user-content
       display flex
       margin-bottom .1rem
       >li
@@ -76,5 +82,7 @@ export default {
         flex-direction column
         justify-content center
         align-items center
+        span 
+          font-size .12rem
 
 </style>

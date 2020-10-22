@@ -2,10 +2,10 @@
   <div class="profile-serve">
     <h3 class="myserve">我的服务</h3>
     <ul>
-      <li>
+      <li v-for="data in 6" :key="data">
         <a href="">
           <div></div>
-          <span></span>
+          <span>收藏夹</span>
         </a>
       </li>
     </ul>
@@ -19,11 +19,11 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '../../../assets/stylus/border.styl'
+@import '../../../../assets/stylus/border.styl'
 
 .profile-serve
   padding-bottom .2rem
-  margin 0 0.05rem
+  margin 0 .05rem .2rem
   display flex
   flex-direction column
   border_1px(0 0 1px 0)
@@ -34,6 +34,7 @@ export default {
     margin-bottom .08rem
   ul 
     display flex
+    flex-wrap wrap
     li 
       width 25%
       height 1rem
@@ -47,7 +48,11 @@ export default {
         >div
           width .32rem
           height .32rem
-          background url('../../../assets/images/profile/myserve/myserve1.png') no-repeat 0 0/100% 100%
+          background url('../../../../assets/images/profile/myserve/myserve1.png') no-repeat 0 0/100% 100%
+        >span 
+          font-size .14rem
+          margin-top .1rem
+          color #000
 
 
   
