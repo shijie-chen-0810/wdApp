@@ -2,34 +2,46 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 
-const Home =  () => import('views/homepage/Home')
+const Home =  () => import('views/home/homepage/Home')
+const HomeZong =  () => import('views/home/Home')
 const Detail =  () => import('views/detailpage/Detail')
-const Sort =  () => import('views/sortpage/Sort')
-const Cart =  () => import('views/cartpage/Cart')
-const Profile =  () => import('views/profilepage/Profile')
+const Sort =  () => import('views/home/sortpage/Sort')
+const Cart =  () => import('views/home/cartpage/Cart')
+const Profile =  () => import('views/home/profilepage/Profile')
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    redirect:'/home'
+    redirect:'/wd/home'
   },
   {
-    path: '/home',
-    component:Home
+    path: '/wd',
+    component:HomeZong,
+    redirect:'/wd/home',
+    children: [
+      {
+        path: 'home',
+        component:Home
+      },
+      {
+        path: 'sort',
+        component:Sort
+      },
+      {
+        path: 'cart',
+        component:Cart
+      },
+      {
+        path: 'profile',
+        component:Profile
+      },
+    ]
   },
   {
-    path: '/sort',
-    component:Sort
-  },
-  {
-    path: '/cart',
-    component:Cart
-  },
-  {
-    path: '/profile',
-    component:Profile
+    path: '/detail',
+    component:Detail
   },
 ]
 

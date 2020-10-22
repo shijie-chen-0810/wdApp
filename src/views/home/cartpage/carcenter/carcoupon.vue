@@ -13,7 +13,8 @@ export default {
 
 <style lang="stylus" scoped>
 .coupon
-  margin .14rem 0
+  overflow hidden
+  margin .14rem 0 0
   display flex
   align-items center
   p:first-child

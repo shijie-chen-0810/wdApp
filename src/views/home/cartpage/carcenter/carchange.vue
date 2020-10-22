@@ -16,6 +16,7 @@ export default {
 
 <style lang="stylus" scoped>
 .change
+  margin-left .15rem
   height .35rem
   width 3.45rem
   border 1px solid #f5c2bf
