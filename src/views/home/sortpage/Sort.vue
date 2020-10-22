@@ -35,7 +35,7 @@ data() {
 </script>
 
 <style lang="stylus" scoped>
-@import '~@a/stylus/border.styl'
+@import '~assets/stylus/border.styl'
   div
     height 100%
     display flex
