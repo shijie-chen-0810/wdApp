@@ -1,7 +1,7 @@
 @font-face {
   font-family: 'wandou-icon';
-  src: url('./icons/search.woff') format('woff'),
-       url('./icons/search.ttf') format('truetype');
+  src: url('./icons/ytw-search.woff') format('woff'),
+       url('./icons/ytw-search.ttf') format('truetype');
 }
 
 .iconfont{
