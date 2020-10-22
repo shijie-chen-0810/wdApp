@@ -26,7 +26,7 @@ import sortbd from './sortbd'
 
 export default {
 data() {
-    
+    return {}
   },
   components: {
     sortbd
