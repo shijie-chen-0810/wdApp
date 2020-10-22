@@ -8,6 +8,9 @@ const Detail =  () => import('views/detailpage/Detail')
 const Sort =  () => import('views/home/sortpage/Sort')
 const Cart =  () => import('views/home/cartpage/Cart')
 const Profile =  () => import('views/home/profilepage/Profile')
+//profile
+import Login from '../views/user/Login.vue'
+
 
 Vue.use(VueRouter)
 
@@ -39,6 +42,12 @@ const routes = [
     path: '/detail',
     component:Detail
   },
+  {
+    path: '/login',
+    components: {
+      default: Login,
+    }
+  }
 ]
 
 const router = new VueRouter({

@@ -34,6 +34,7 @@ export default {
 
 <style scoped lang='stylus'>
 .tab-bar
+  z-index 999
   background #fff
   position fixed
   z-index 999
