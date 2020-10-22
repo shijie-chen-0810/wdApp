@@ -7,10 +7,11 @@
       <p>手机验证码登录</p>
       <span>登录即表明同意 <i>用户协议</i> 和 <i>隐私政策</i> </span>
       <div class="login-phone">
-        <input type="text" v-model="cellphonebumber">
+        <input type="text" v-model="cellphonebumber" placeholder="请输入手机号">
       </div>
       <em>未注册的手机号验证通过后将自动注册</em>
       <button class="login-get" :disabled="disabled" type="button">获取短信验证码</button>
+      <!-- #ea4141  -->
       <b>密码登录</b>
       {{cellphonebumber}}
     </div>
@@ -82,7 +83,7 @@ export default {
       line-height .4rem
       font-size .14rem
       color #ffffff
-      background #ea4141
+      background #d7d7d9
       border-radius .2rem
       margin .14rem 0 0
     >b 
