@@ -1,4 +1,5 @@
 module.exports = {
+  // presets：预设，一组plugin
   presets: [
     '@vue/cli-plugin-babel/preset'
   ],
