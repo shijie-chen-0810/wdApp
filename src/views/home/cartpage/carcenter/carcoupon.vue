@@ -1,13 +1,21 @@
 <template>
   <div class="coupon">
     <p>优惠卷</p>
-    <p>再买129元减<span>29元</span><i class="iconfont">&#xe60c;</i></p>
+    <p>再买{{term[0]}}元减<span>{{term[1]}}元</span><i class="iconfont">&#xe60c;</i></p>
   </div>
+  
 </template>
 
 <script>
 export default {
-
+  props:["goods"],
+  computed:{
+    term(){
+      const parent = this.$parent.$parent.$parent.goodsAll(this.goods)
+      // console.log(parent)
+      return [parent[3],parent[4]]
+    }
+  }
 }
 </script>
 

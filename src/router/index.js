@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 
+
 const Home =  () => import('views/home/homepage/Home')
 const HomeZong =  () => import('views/home/Home')
 const Detail =  () => import('views/detailpage/Detail')
@@ -43,6 +44,10 @@ const routes = [
     path: '/detail',
     component:Detail
   },
+  {
+    path:'/pay',
+    component:()=>import('views/home/cartpage/pay/Pay')
+  }
 ]
 
 const router = new VueRouter({
