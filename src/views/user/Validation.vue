@@ -39,7 +39,7 @@ export default {
     //判断验证码是否正确
     loginsuccess(){
       if(this.verifynum.length === 4){
-        this.$router.push({ path: '/wd/profile', query: { num: this.phonenumber }});
+        this.$router.push({ path: '/profile', query: { num: this.phonenumber }});
       }else{
         alert('请输入完整的验证码');
       }

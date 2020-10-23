@@ -18,7 +18,7 @@ export default {
   },
   methods:{
     logout(){
-      this.$router.push('/wd/profile');
+      this.$router.push('/profile');
       this.isfalse = false;
     }
   },
