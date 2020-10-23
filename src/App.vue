@@ -1,15 +1,16 @@
 <template>
   <div>
-    <router-view></router-view>
+    <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
   </div>
 </template>
 
 <script>
-import Home from 'views/home/Home'
+import Vue from 'vue';
+import { Toast } from 'vant';
+Vue.use(Toast);
 export default {
-  components:{
-    Home
-  }
 }
 </script>
 

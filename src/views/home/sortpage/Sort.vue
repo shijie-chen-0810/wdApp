@@ -1,10 +1,36 @@
 <template>
-  <h2>Sort</h2>
+  <div>
+    <nav>
+      <ul>
+        <li class="active">
+          分类
+          <span></span>
+        </li>
+        <li>
+          品牌馆
+          <span></span>
+        </li>
+      </ul>
+      <div class="sousuo">
+          <span class="iconfont">&#xe65c;</span>
+      </div>
+    </nav>
+    <div class="sort-left">
+      <sortbd></sortbd>
+    </div>
+  </div>
 </template>
 
 <script>
-export default {
+import sortbd from './sortbd'
 
+export default {
+data() {
+    return {}
+  },
+  components: {
+    sortbd
+  }
 }
 </script>
 
