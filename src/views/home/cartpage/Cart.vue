@@ -3,11 +3,12 @@
     <div class="header">
       <span class="iconfont">&#xe60b;</span>
       <h2>购物袋</h2>
-      <p>编辑</p>
+      <p @click="click">{{operation}}</p>
     </div>
     <div class="info">
       <cartime></cartime>
-      <carcenter v-for="n in 2" :key="n"></carcenter>
+      <carcenter v-if="zhengzhou.length != 0" :goods="zhengzhou" ref="zhengzhou"></carcenter>
+      <carcenter v-if="japan.length != 0" :goods="japan" ref="japan"></carcenter>
     </div>
     <carfooter></carfooter>
   </div>
@@ -17,11 +18,121 @@
 import cartime from './carhead/cartime'
 import carcenter from './carcenter/carcenter'
 import carfooter from './carfooter/carfooter'
+
+import car from 'network/cartRequest/cartRequest'
 export default {
+  data(){
+    return {
+      car,
+      operation:'编辑'
+    }
+  },
   components:{
     cartime,
     carcenter,
     carfooter
+  },
+  methods:{
+    click(){
+      this.operation = this.operation === "编辑" ? "完成" : "编辑"
+    },
+    delete(goods){
+      const index = this.car.findIndex(item=>item === goods)
+      this.car.splice(index,1)
+      const good1 = this.car.filter(item=>item.house_id === 200)
+      const good2 = this.car.filter(item=>item.house_id !== 200)
+      const info1 = good1.some(item=>item === false)
+      const info2 = good2.some(item=>item === false)
+      if(info1) {
+        this.$refs.zhengzhou.checked = false
+      }else{
+        this.$refs.zhengzhou.checked = true
+      }
+      if(info2){
+        this.$refs.japan.checked = false
+      }else{
+        this.$refs.japan.checked = true
+      }
+    },
+    frg(goods,frg){
+      if(goods[0].house_id === 200){
+        this.car.forEach(item=>{
+          if(item.house_id === 200){
+            item.checked = frg
+          }
+        })
+      }else{
+        this.car.forEach(item=>{
+          if(item.house_id !== 200){
+            item.checked = frg
+          }
+        })
+      }
+    },
+    goodsAll(goods){
+      let num1 = 0
+      let num2 = 0
+      let price1 = 0
+      let price2 = 0
+      let priceY1 = 0
+      let priceY2 = 0
+      let case1 = 50
+      let case2 = 50
+      let jian1 = 8
+      let jian2 = 8
+      let type1 = 0
+      let type2 = 0
+      this.car.forEach(item=>{
+        if(item.house_id === 200 && item.checked === true){
+          num1 += item.num
+          if(price1 >= 50 && price1 <= 250){
+            case1 = 200
+            jian1 += 16
+            type1 = jian1 - 16
+          }else if(price1 >= 250 && price1 <= 650){
+            case1 = 400
+            jian1 += 50
+            type1 = jian1 - 50
+          }else if(price1 >= 650){
+            type1 = jian1
+          }
+          price1 += ((item.final_price * item.num) - type1)
+          priceY1 += ((item.market_price - item.final_price) * item.num + type1)
+        }else if((item.house_id !== 200 && item.checked === true)){
+          num2 += item.num
+          if(price2 >= 50 && price2 <= 250){
+            case2 = 200
+            jian2 += 16
+            type2 = jian2 - 16
+          }else if(price2 >= 250 && price2 <= 650){
+            case2 = 400
+            jian2 += 50
+            type2 = jian2 - 50
+          }else if(price2 >= 650){
+            type2 = jian2
+          }
+          price2 += ((item.final_price * item.num) - type2)
+          priceY2 += ((item.market_price - item.final_price) * item.num + type2)
+        }
+      })
+      if(goods[0].house_id === 200) return [num1,price1,priceY1,case1,jian1]
+      return [num2,price2,priceY2,case2,jian2]
+    }
+  },
+  computed:{
+    zhengzhou(){
+      let goodsZhengzhou = this.car.filter(item=>{ return item.house_id == 200 })
+      return goodsZhengzhou
+    },
+    japan(){
+      let goodsJapan = this.car.filter(item=>{ return item.house_id != 200 })
+      return goodsJapan
+    }
+  },
+  provide(){
+    return {
+      car
+    }
   }
 }
 </script>

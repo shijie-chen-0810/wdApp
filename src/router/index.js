@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 
+
 const Home =  () => import('views/home/homepage/Home')
 const HomeSortPage =  () => import('views/homesort/HomeSortPage')
 const HomeZong =  () => import('views/home/Home')
@@ -51,40 +52,8 @@ const routes = [
     component:Detail
   },
   {
-    path: '/homesort/:sortType',
-    name:'homesort',
-    component:HomeSortPage
-  },
-  {
-    path: '/login',
-    component: Userlogin
-  },
-  {
-    path: '/order',
-    component: Order,
-    redirect:'/order/:id',
-    children:[
-      { 
-        path:'all',
-        component:Orderall
-      },
-      { 
-        path:'take',
-        component:Comingtake
-      },
-      { 
-        path:'pay',
-        component:Comingpay
-      },
-      { 
-        path:'send',
-        component:Comingsend
-      },
-      { 
-        path:'commit',
-        component:Comingcommit
-      },
-    ]
+    path:'/pay',
+    component:()=>import('views/home/cartpage/pay/Pay')
   }
 ]
 
