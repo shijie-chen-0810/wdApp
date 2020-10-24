@@ -216,3 +216,20 @@ a {
 @font-face {
   font-family: 'yofont';
   src: url("/assets/icons/iconfont.woff") format("woff"), url("/assets/icons/iconfont.ttf") format("truetype"); }
+
+/* 单行文本超出省略号显示 加宽度！ */
+.text_ellipsis{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* 双行文本超出省略号显示 加宽度！ */
+.text_tellipsis{
+  text-overflow: -o-ellipsis-lastline;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+}

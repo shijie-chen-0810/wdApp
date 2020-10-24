@@ -1,0 +1,115 @@
+<template>
+    <div class="recommend">
+        <div>大家都在逛</div>
+        <ul>
+            <li>
+                <div><img src="../../assets/img/cxj_detail/c12a7becb68efe0df84956f22b6661e6.png" alt=""></div>
+                    <div>
+                        <p class="text_ellipsis">膜法护手的秘密</p>
+                        <p class="text_tellipsis">CATHY COSMETIC ATP 保湿面霜 35g</p>
+                        <p>95%好评</p>
+                        <div>
+                            <p><i>¥</i>266</p>
+                            <img src="../../assets/img/cxj_detail/cart_65bbdc.png" alt="">
+                        </div>
+                </div>
+            </li>
+            <li>
+                <div><img src="../../assets/img/cxj_detail/c12a7becb68efe0df84956f22b6661e6.png" alt=""></div>
+                    <div>
+                        <p class="text_ellipsis">膜法护手的秘密</p>
+                        <p class="text_tellipsis">CATHY COSMETIC ATP 保湿面霜 35g</p>
+                        <p>95%好评</p>
+                        <div>
+                            <p><i>¥</i>266</p>
+                            <img src="../../assets/img/cxj_detail/cart_65bbdc.png" alt="">
+                        </div>
+                </div>
+            </li>
+            <li>
+                <div><img src="../../assets/img/cxj_detail/c12a7becb68efe0df84956f22b6661e6.png" alt=""></div>
+                    <div>
+                        <p>膜法护手的秘密</p>
+                        <p class="text_tellipsis">CATHY COSMETIC ATP 保湿面霜 35g</p>
+                        <p>95%好评</p>
+                        <div>
+                            <p><i>¥</i>266</p>
+                            <img src="../../assets/img/cxj_detail/cart_65bbdc.png" alt="">
+                        </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</template>
+
+<script>
+export default {
+    
+}
+</script>
+
+<style lang="stylus" scoped>
+.recommend
+    width 100%
+    padding-top 0.1rem
+    background #f5f5f5
+    >div:nth-child(1)
+        height 0.45rem
+        line-height 0.22rem
+        padding 0.12rem
+        font-size 0.14rem
+        font-weight bold
+        color #191919
+        background #fff
+    >ul:nth-child(2)
+        width 100%
+        margin 0.12rem 0.12rem
+        display flex
+        flex-wrap wrap
+        >li
+            width 1.71rem
+            height 2.9rem
+            margin 0 0.1rem 0.1rem 0
+            background #fff
+            >div:nth-child(1)
+                width 1.71rem
+                height 1.71rem
+                >img 
+                    height 100%
+                    width 100%
+            >div:nth-child(2)
+                padding 0.06rem
+                >p:nth-child(1)
+                    font-size 0.14rem
+                    color #000
+                    line-height 0.18rem
+                    padding-bottom 0.05rem
+                    font-weight bold
+                >p:nth-child(2)
+                    font-size 0.12rem
+                    color #000
+                    line-height 0.16rem
+                >p:nth-child(3)
+                    display inline-block
+                    font-size 0.12rem
+                    color #000
+                    line-height 0.2rem
+                    background #FEF6A4
+                    margin 0.05rem 0
+                    padding 0 0.05rem
+                >div:nth-child(4)
+                    display flex
+                    height 0.15rem
+                    justify-content space-between
+                    >img 
+                        width 0.15rem
+                        height 0.15rem
+                    >p
+                        font-size 0.16rem
+                        font-weight bold
+                        color #000
+                        line-height 0.16rem
+                        >i
+                            font-size 0.12rem
+
+</style>
