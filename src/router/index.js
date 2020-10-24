@@ -3,23 +3,29 @@ import VueRouter from 'vue-router'
 
 
 const Home =  () => import('views/home/homepage/Home')
+const HomeSortPage =  () => import('views/homesort/HomeSortPage')
 const HomeZong =  () => import('views/home/Home')
 const Detail =  () => import('views/detailpage/Detail')
 const Sort =  () => import('views/home/sortpage/Sort')
 const Cart =  () => import('views/home/cartpage/Cart')
 const Profile =  () => import('views/home/profilepage/Profile')
+//profile
+import Userlogin from '../views/user/Userlogin.vue'
+//Order
+import Order from '../views/goodsorder/Order.vue'
+import Orderall from '../views/goodsorder/orderdetail/Orderall.vue'
+import Comingtake from '../views/goodsorder/orderdetail/Comingtake.vue'
+import Comingsend from '../views/goodsorder/orderdetail/Comingsend.vue'
+import Comingpay from '../views/goodsorder/orderdetail/Comingpay.vue'
+import Comingcommit from '../views/goodsorder/orderdetail/Comingcommit.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    redirect:'/wd/home'
-  },
-  {
-    path: '/wd',
+    redirect: '/home',
     component:HomeZong,
-    redirect:'/wd/home',
     children: [
       {
         path: 'home',
@@ -27,7 +33,7 @@ const routes = [
       },
       {
         path: 'sort',
-        component:Sort
+        component: Sort
       },
       {
         path: 'cart',
@@ -40,9 +46,46 @@ const routes = [
     ]
   },
   {
-    path: '/detail',
+    path: '/detail/:id',
+    name:'detail',
     component:Detail
   },
+  {
+    path: '/homesort/:sortType',
+    name:'homesort',
+    component:HomeSortPage
+  },
+  {
+    path: '/login',
+    component: Userlogin
+  },
+  {
+    path: '/order',
+    component: Order,
+    redirect:'/order/:id',
+    children:[
+      { 
+        path:'all',
+        component:Orderall
+      },
+      { 
+        path:'take',
+        component:Comingtake
+      },
+      { 
+        path:'pay',
+        component:Comingpay
+      },
+      { 
+        path:'send',
+        component:Comingsend
+      },
+      { 
+        path:'commit',
+        component:Comingcommit
+      },
+    ]
+  }
 ]
 
 const router = new VueRouter({

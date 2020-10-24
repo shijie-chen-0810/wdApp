@@ -1,3 +1,4 @@
+
 module.exports = {
   configureWebpack: {
     resolve: {
@@ -7,7 +8,7 @@ module.exports = {
         'components': '@/components',
         'network':'@/network',
         'views':'@/views'
-      }
+      } 
     }
   }
 }
