@@ -18,7 +18,7 @@ export default {
   },
   methods:{
     logout(){
-      this.$router.push('/wd/profile');
+      this.$router.push('/profile');
       this.isfalse = false;
     }
   },
@@ -44,7 +44,7 @@ export default {
     padding .15rem 0
   .profile-download
     height .4rem
-    margin .05rem 0 0 0
+    margin .05rem 0 .1rem 0
     span
       display block
       width 100%
@@ -59,11 +59,11 @@ export default {
     margin .05rem 0 0 0
     display block
     width 100%
-    background #191919
-    color #ffffff
-    font-size .12rem
+    color #6e6e6e
+    font-size .15rem
     text-align center
     line-height .4rem
+    border .01rem solid #d2d2d2
   .empty-bottom
     height .49rem
 </style>

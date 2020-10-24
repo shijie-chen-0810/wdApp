@@ -2,12 +2,14 @@
   <div class="order-goods">
     <div class="orderbar">
       <div>
-        <i>xx</i>
+        <i @click="gobackprofile"></i>
       </div>
       <b>我的订单</b>
       <span>关于物流</span>
     </div>
-    <div class="getgift"></div>
+    <div class="getgift">
+      <div></div>
+    </div>
     <ul>
       <router-link to="all" tag="li" active-class="active" >全部订单</router-link>
       <router-link to="pay" tag="li" active-class="active" >待付款</router-link>
@@ -22,21 +24,32 @@
 
 <script>
 export default {
-
+  methods:{
+    gobackprofile(){
+      this.$router.push('/profile')
+    }
+  }
 }
 </script>
 
 <style lang="stylus" scoped>
 div.order-goods
+  background #f0eff5
   div.orderbar
     display flex
     height .4rem
+    background #fafafa
     >div
       width .5rem
       height 100%
       padding 0 .05rem
       line-height .4rem
       text-align center
+      i 
+        display block
+        width 100%
+        height 100%
+        background url('../../assets/images/profile/myorder/gobackprofile.png') no-repeat 50%/.175rem .165rem
     >b 
       flex 1
       text-align center
@@ -53,13 +66,18 @@ div.order-goods
       line-height .4rem
       text-align center
   .getgift
-    height .7rem
-    margin .15rem .15rem 0
-    background #eee
+    height .85rem
+    background #fafafa
+    padding-top .15rem
+    >div
+      height 100%
+      margin 0 .15rem 
+      background #eee
   >ul 
     height .4rem
     padding 0 .1rem
     display flex
+    background #fafafa
     li 
       flex 1
       margin 0 .05rem .05rem

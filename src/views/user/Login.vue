@@ -28,6 +28,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   data(){
     return {
@@ -49,7 +50,40 @@ export default {
         if (!reg.test(this.cellphonebumber)) {
           alert('您输入的手机号码不合法，请重新输入');
           return;
-        }
+        };
+        //随机生成6位验证码
+        let verifycode = ''
+        for(let i = 1; i <= 6; i++){
+          let num = Math.floor(Math.random()*10);
+          verifycode += num;
+        };
+        //获取短信验证码
+        let asid = '8a216da8754a45d501755573c2c204b5'
+        let token = '19a0b29b00a648b1ae76bdb962c6339d'
+        let timenow = new Date().getTime()
+        //sig为 asid + token + timenow  md5加密
+        //Authorization 为 asid:timenow  base64加密
+        console.log(verifycode);
+        console.log(this.$store.state.profile.cellphonenumber)
+        // axios({
+        //   method: 'post',
+        //   url: '/2013-12-26/Accounts/8a216da8754a45d501755573c2c204b5/SMS/TemplateSMS?sig=0242F23FD6A21E5A678563064946EF13',
+        //   headers:{
+        //       'Accept':'application/json',
+        //       'Content-Type':'application/json;charset=utf-8',
+        //       'Authorization':'OGEyMTZkYTg3NTRhNDVkNTAxNzU1NTczYzJjMjA0YjU6MTYwMzQ2MTQwODEwOQ=='
+        //   },
+        //   data: {
+        //     "to":"17835753422",
+        //     "appId":"8a216da8754a45d501755573c3c304bc",
+        //     "reqId":`abc125652`,
+        //     "subAppend":"8888",
+        //     "templateId":"1",
+        //     "datas":[`356254`,"10"]
+        //   }  
+        // }).then(res => {
+        //   console.log(res)
+        // })
         this.$emit("myclick")
       }
     }

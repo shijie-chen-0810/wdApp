@@ -10,5 +10,13 @@ module.exports = {
         'views':'@/views'
       } 
     }
+  },
+  devServer: {
+    proxy: {
+      '/2013-12-26': {
+        target: 'https://app.cloopen.com:8883',
+        changeOrigin: true
+      }
+    }
   }
 }
