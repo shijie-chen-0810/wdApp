@@ -27,7 +27,7 @@
     </div>
     <profileorder></profileorder>
     <profileserve></profileserve>
-    <profiledownload ></profiledownload>
+    <profiledownload @logoutnow="logout"></profiledownload>
   </div>
 </template>
 
@@ -49,11 +49,17 @@ export default {
     Profiledownload
   },
   mounted(){
-    if(this.$route.query.num){
-      this.querynum = this.$route.query.num;
+    if(this.$store.state.profile.islogin){
+      this.querynum = this.$store.state.profile.cellphonenumber;
       this.islogin = false;
     }else{
       this.querynum = '';
+      this.islogin = true;
+    }
+  },
+  methods:{
+    logout(){
+      this.querynum = ''
       this.islogin = true;
     }
   }

@@ -29,10 +29,12 @@
 
 <script>
 import axios from 'axios'
+import { mapMutations } from 'vuex'
 export default {
   data(){
     return {
       cellphonebumber:'',
+      verifycode:'',
       getstyle:{
         background:'#d7d7d9'
       }
@@ -43,8 +45,11 @@ export default {
     handleclick(){
       this.$router.go(-1)
     },
+    ...mapMutations([
+      'changephonenum'
+    ]),
     //点击获取验证码
-    getverify(){
+    async getverify(){
       if(this.cellphonebumber.length === 11){
         let reg = /^((13|14|15|17|18)[0-9]{1}\d{8})$/;
         if (!reg.test(this.cellphonebumber)) {
@@ -52,38 +57,50 @@ export default {
           return;
         };
         //随机生成6位验证码
-        let verifycode = ''
+        let randomcode = ''
         for(let i = 1; i <= 6; i++){
           let num = Math.floor(Math.random()*10);
-          verifycode += num;
+          randomcode += num;
         };
-        //获取短信验证码
-        let asid = '8a216da8754a45d501755573c2c204b5'
-        let token = '19a0b29b00a648b1ae76bdb962c6339d'
-        let timenow = new Date().getTime()
-        //sig为 asid + token + timenow  md5加密
-        //Authorization 为 asid:timenow  base64加密
-        console.log(verifycode);
-        console.log(this.$store.state.profile.cellphonenumber)
-        // axios({
-        //   method: 'post',
-        //   url: '/2013-12-26/Accounts/8a216da8754a45d501755573c2c204b5/SMS/TemplateSMS?sig=0242F23FD6A21E5A678563064946EF13',
-        //   headers:{
-        //       'Accept':'application/json',
-        //       'Content-Type':'application/json;charset=utf-8',
-        //       'Authorization':'OGEyMTZkYTg3NTRhNDVkNTAxNzU1NTczYzJjMjA0YjU6MTYwMzQ2MTQwODEwOQ=='
-        //   },
-        //   data: {
-        //     "to":"17835753422",
-        //     "appId":"8a216da8754a45d501755573c3c304bc",
-        //     "reqId":`abc125652`,
-        //     "subAppend":"8888",
-        //     "templateId":"1",
-        //     "datas":[`356254`,"10"]
-        //   }  
-        // }).then(res => {
-        //   console.log(res)
-        // })
+        //判断是否是测试号码
+        if(this.cellphonebumber==='15388599827'||this.cellphonebumber==='17835753422'){
+          //获取短信验证码
+          let asid = '8a216da8754a45d501755573c2c204b5'
+          let token = '19a0b29b00a648b1ae76bdb962c6339d'
+          let timenow = new Date().getTime()
+          //sig为 asid + token + timenow  md5加密
+          //Authorization 为 asid:timenow  base64加密
+          console.log(this.$store.state.profile.cellphonenumber)
+
+          let sig = this.$md5(`${asid}${token}${timenow}`).toUpperCase()
+          let authorization = this.Base64.encode(`${asid}:${timenow}`)
+
+          let res = await axios({
+            method: 'post',
+            url: `/2013-12-26/Accounts/${asid}/SMS/TemplateSMS?sig=${sig}`,
+            headers:{
+              'Accept':'application/json',
+              'Content-Type':'application/json;charset=utf-8',
+              'Authorization':`${authorization}`
+            },
+            data: {
+              "to":`${this.cellphonebumber}`,
+              "appId":"8a216da8754a45d501755573c3c304bc",
+              "reqId":`abc${randomcode}`,
+              "subAppend":"8888",
+              "templateId":"1",
+              "datas":[`${randomcode}`,"5"]
+            }  
+          })
+          console.log(res.data)
+        }
+        this.verifycode = randomcode
+        //改变vuex中登录phonenum,verify
+        this.changephonenum({
+          type:'changephonenum',
+          cellphonenumber: this.cellphonebumber,
+          verifycode: this.verifycode
+        })
         this.$emit("myclick")
       }
     }

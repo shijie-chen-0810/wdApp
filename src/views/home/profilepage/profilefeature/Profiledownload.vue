@@ -18,13 +18,17 @@ export default {
   },
   methods:{
     logout(){
-      this.$router.push('/profile');
+      this.$store.commit('logout',{
+        islogin: false
+      })
       this.isfalse = false;
+      this.$emit('logoutnow')
+      // this.$router.push('/profile');
     }
   },
   mounted(){
-    if(this.$route.query.num){
-      this.querynum = this.$route.query.num;
+    if(this.$store.state.profile.islogin){
+      // this.querynum = this.$route.query.num;
       this.isfalse = true;
     }
   }
