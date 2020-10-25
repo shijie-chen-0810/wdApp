@@ -19,7 +19,7 @@
         </div>
         <div>
             <div>
-                <div>豌豆会员&nbsp;预计节省<i>&nbsp;7&nbsp;</i>元</div>
+                <div>豌豆会员&nbsp;预计节省<i>&nbsp;{{ detailData.finalPrice - detailData.origin_vip_final_price }}&nbsp;</i>元</div>
                 <div>开卡></div>
             </div>
         </div>
