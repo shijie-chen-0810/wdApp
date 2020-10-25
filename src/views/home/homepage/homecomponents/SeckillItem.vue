@@ -1,27 +1,29 @@
 <template>
-  <div class="item">
+  <router-link :to='{name:"detail",params:{id:item.goods_id}}' class="item">
     <div class="item-img">
-      <img src="https://oss3.wandougongzhu.cn/3cb8c17530dffbf3de990df1fa48bc61.png?x-oss-process=image/resize,w_180/format,png" alt="">
+      <img :src="item.img_middle" alt="">
     </div>
     <div class="price">
-      <span class="item-now-price">￥99</span>
-      <span class="item-pre-price">￥249</span>
+      <span class="item-now-price">￥{{item.final_price}}</span>
+      <span class="item-pre-price">￥{{item.market_price}}</span>
     </div>
-    <div class="item-title">舒适一次性口罩</div>
+    <div class="item-title">{{item.slogan}}</div>
     <div class="item-state-con">
-      <div class="item-state">已结束</div>
+      <div class="item-state">抢购中</div>
     </div>
-  </div>
+  </router-link>
 </template>
   
 <script>
 export default {
-
+  props:{
+    item:Object
+  }
 }
 </script>
 
 <style lang="stylus" scoped>
-
+@import '~assets/stylus/ellipsis.styl'
 .item-img
   width 1.04rem
   height 0.97rem
@@ -41,8 +43,10 @@ export default {
     text-decoration line-through
     color #6e6e6e
 .item-title
+  ellipsis_num(1)
   font-size 0.12rem
   height 0.18rem
+  color black
 .item-state-con
   margin-top 0.08rem
   display flex

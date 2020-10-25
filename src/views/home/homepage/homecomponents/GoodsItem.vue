@@ -1,36 +1,40 @@
 <template>
-  <li class="goods-item">
+  <router-link tag="li" :to='{name:"detail",params:{id:item.goods_id}}' class="goods-item" >
     <div class="goods-img">
-      <p>
-        <img src="https://oss2.wandougongzhu.cn/5ca20bcfac81194cc75c63d1d8120bc6.jpg?x-oss-process=image/resize,w_621/format,webp" alt="">
+      <p class='goods_img_part'>
+        <img :src="item.img_middle" alt="">
       </p>
-      <p>库存紧张</p>
+      <p class="goods_desc_part" v-if='item.img_bottom_desc!==""'>{{item.img_bottom_desc}}</p>
     </div>
     <div class="goods-desc">
       <p class="goods-item-title">
-        轻松缓解酸痛疲劳
+        {{item.slogan}}
       </p>
       <p class="goods-item-desc">
-        啊实打实大苏打实打实大苏打啊实打实的啊啊实打实的
+        {{item.goods_name}}
       </p>
       <p class="goods-item-tip">
-        <span>99%好评</span>
+        <span v-if="item.display_act_tag!==''">{{item.display_act_tag}}</span>
+        <span v-else>{{item.praise_desc}}</span>
       </p>
       <p class="goods-item-price">
-        <span>￥<i>36</i></span>
-        <span>￥34</span>
+        <span>￥<i>{{item.final_price}}</i></span>
+        <span v-if='item.market_price-item.final_price!==0'>￥{{item.market_price}}</span>
       </p>
     </div>
-  </li>
+  </router-link>
 </template>
 
 <script>
 export default {
-
+  props:{
+    item:Object
+  }
 }
 </script>
 
 <style lang="stylus" scoped>
+@import '~assets/stylus/ellipsis.styl'
 .goods-item
   width 1.71rem
   height 3.03rem
@@ -40,11 +44,11 @@ export default {
     width 1.71rem
     height 1.71rem
     position relative
-    >p:nth-child(1)
+    >p.goods_img_part
       img 
         width 100%
         height 100%
-    >p:last-child
+    >p.goods_desc_part
       position absolute
       bottom 0
       height 0.19rem
@@ -58,9 +62,13 @@ export default {
     font-size 0.13rem
     padding 0.09rem
     .goods-item-title
+      ellipsis_num(1)
       margin-bottom 0.05rem
       height 0.185rem
+      font-weight 700
+      color black
     .goods-item-desc
+      ellipsis_num(2)
       height 0.32rem
       font-size 0.12rem
       color #1a1819

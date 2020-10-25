@@ -1,17 +1,7 @@
 <template>
   <div class="goods-list">
     <ul class="goods-con">
-      <goods-item></goods-item>
-      <goods-item></goods-item>
-      <goods-item></goods-item>
-      <goods-item></goods-item>
-      <goods-item></goods-item>
-      <goods-item></goods-item>
-      <goods-item></goods-item>
-      <goods-item></goods-item>
-      <goods-item></goods-item>
-      <goods-item></goods-item>
-      <goods-item></goods-item>
+      <goods-item v-for="(item,index) in list" :key='index' :item='item'></goods-item>
     </ul>
   </div>
 </template>
@@ -19,6 +9,11 @@
 <script>
 import GoodsItem from './GoodsItem'
 export default {
+  props:{
+    list:{
+      type:Array
+    }
+  },
   components:{
     GoodsItem
   }

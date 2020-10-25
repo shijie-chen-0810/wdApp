@@ -1,10 +1,10 @@
 <template>
   <div>
     <div class="center">
-      <carshop></carshop>
+      <carshop :goods="goods" :checked="checked" @frag="frag"></carshop>
       <carchange></carchange>
-      <cargoods></cargoods>
-      <carpay></carpay>
+      <cargoods :goods="goods" :checked="checked"></cargoods>
+      <carpay :goods="goods"></carpay>
     </div>
     <div class="xian"></div>
   </div>
@@ -16,12 +16,38 @@ import carchange from './carchange'
 import cargoods from './cargoods'
 import carpay from './carpay'
 export default {
+  props:['goods'],
+  data(){
+    return {
+      checked:true
+    }
+  },
   components:{
     carshop,
     carchange,
     cargoods,
     carpay
+  },
+  methods:{
+    frag(frg){
+      // console.log(frg)
+      this.checked = frg
+      this.$parent.frg(this.goods,frg)
+      // console.log(this.checked)
+      // this.goods.forEach(item=>{
+      //   item.checked === frg
+      //   console.log(item.checked)
+      // })
+    }
   }
+  // watch:{
+  //   checked(value){
+  //     console.log(value)
+  //     console.log(this.goods)
+  //     this.goods.forEach(item=>item.checked === value)
+  //     console.log(this.goods)
+  //   }
+  // }
 }
 </script>
 

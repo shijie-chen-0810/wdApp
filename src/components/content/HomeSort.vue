@@ -1,16 +1,16 @@
 <template>
   <div class="sort">
       <div class="line">
-        <p class="sort-item" v-for="sortitem in sort1" :key='sortitem.tick'>
+        <router-link :to="{name:'homesort',params:{sortType:sortitem.title}}" tag="p" class="sort-item" v-for="sortitem in sort1" :key='sortitem.tick'>
           <img :src="JSON.parse(sortitem.list)[0].img" alt="">
           <span>{{sortitem.title}}</span>
-        </p>
+        </router-link>
       </div>
       <div class="line">
-        <p class="sort-item" v-for="sortitem in sort2" :key='sortitem.tick'>
+        <router-link :to="{name:'homesort',params:{sortType:sortitem.title}}" tag="p" class="sort-item" v-for="sortitem in sort2" :key='sortitem.tick'>
           <img :src="JSON.parse(sortitem.list)[0].img" alt="">
           <span>{{sortitem.title}}</span>
-        </p>
+        </router-link>
       </div>
   </div>
 </template>
@@ -63,5 +63,4 @@ export default {
         overflow hidden 
         text-overflow emphasis 
         white-space nowrap
-      
 </style>

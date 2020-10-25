@@ -19,7 +19,7 @@
       <div class="title-con content-con">
         <div class="title-list content-list" ref="seckillItemScrol">
           <ul>
-            <seckill-item class="content-item" v-for="(item,index) in 8" :key="index"></seckill-item>
+            <seckill-item class="content-item" v-for="item in list" :key="item.goods_id" :item='item'></seckill-item>
           </ul>
         </div>
       </div>
@@ -30,34 +30,48 @@
 <script>
 import BScroll from '@better-scroll/core'
 import SeckillItem from './SeckillItem'
+
+
+import { getGoods } from 'network/homeRequest/homeRequest'
+
 export default {
   data(){
     return {
       currentTitleIndex: 0,
       seckillTitleScroll: null,
-      seckillItemScrol:null
+      seckillItemScrol:null,
+      list:[]
     }
   },
   components:{
     SeckillItem
   },
+    
   methods:{
-    titleClick(index){
+    async titleClick(index){
       this.currentTitleIndex = index
+      const result = await getGoods((index+5)*8,8)
+      this.seckillItemScrol.scrollTo(0,0,200)
+      this.list = result.data
     },
     init() {
         this.seckillTitleScroll = new BScroll(this.$refs.seckillTitleScroll, {
           scrollX: true,
-          click:true
+          click:false
         })
         this.seckillItemScrol = new BScroll(this.$refs.seckillItemScrol, {
           scrollX: true,
-          click:true
+          click:false
         })
       },
   },
-  mounted(){
-    this.init()
+   async mounted(){
+    const result = await getGoods((0+5)*8,8)
+    this.list = result.data
+    this.$nextTick(()=>{
+      this.init()
+    })
+    
   }
 }
 </script>
@@ -118,7 +132,6 @@ export default {
 .content-list
   width 3.43rem
   height 1.875rem
-  padding-left 0.04rem 
   align-items center
   border-1px(1px 0 0 0)
   .content-item

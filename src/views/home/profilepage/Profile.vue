@@ -4,7 +4,7 @@
 
       <router-link class="user-top" tag="div" to="/login">
         <div>
-          <img src="../../../assets/images/profile/my_wandoulogotop.png" alt="">
+          <img src="~assets/images/profile/my_wandoulogotop.png" alt="">
         </div>
         <p v-if="islogin">点击登录 / 注册</p>
         <p v-else>{{querynum}}</p>
@@ -84,7 +84,7 @@ export default {
   margin .15rem
   .user
     height 1.8rem
-    background url('../../../assets/images/profile/my_backgroundtop.png') no-repeat
+    background url('~assets/images/profile/my_backgroundtop.png') no-repeat
     background-size 100% 100%
     color #ffffff
     display flex

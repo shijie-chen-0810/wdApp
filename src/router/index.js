@@ -2,7 +2,9 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 
+
 const Home =  () => import('views/home/homepage/Home')
+const HomeSortPage =  () => import('views/homesort/HomeSortPage')
 const HomeZong =  () => import('views/home/Home')
 const Detail =  () => import('views/detailpage/Detail')
 const Sort =  () => import('views/home/sortpage/Sort')
@@ -32,11 +34,11 @@ const routes = [
       },
       {
         path: 'sort',
-        component:Sort
+        component: Sort
       },
       {
         path: 'cart',
-        component:Cart
+        component:Cart,
       },
       {
         path: 'profile',
@@ -45,8 +47,22 @@ const routes = [
     ]
   },
   {
-    path: '/detail',
+    path:'/pay',
+    component:()=>import('views/home/cartpage/pay/Pay')
+  },
+  {
+    path:'/cart/see',
+    component:()=>import('views/home/cartpage/see/See')
+  },
+  {
+    path: '/detail/:id',
+    name:'detail',
     component:Detail
+  },
+  {
+    path: '/homesort/:sortType',
+    name:'homesort',
+    component:HomeSortPage
   },
   {
     path: '/login',
