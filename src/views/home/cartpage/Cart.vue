@@ -10,7 +10,7 @@
       <carcenter v-if="zhengzhou.length != 0" :goods="zhengzhou" ref="zhengzhou"></carcenter>
       <carcenter v-if="japan.length != 0" :goods="japan" ref="japan"></carcenter>
     </div>
-    <carfooter></carfooter>
+    <carfooter :list="goodsList"></carfooter>
   </div>
 </template>
 
@@ -19,12 +19,15 @@ import cartime from './carhead/cartime'
 import carcenter from './carcenter/carcenter'
 import carfooter from './carfooter/carfooter'
 
-import car from 'network/cartRequest/cartRequest'
+// import car from 'network/cartRequest/cartRequest'
+
+import {getGoods} from 'network/homeRequest/homeRequest'
 export default {
   data(){
     return {
-      car,
-      operation:'编辑'
+      car:[],
+      operation:'编辑',
+      goodsList:[]
     }
   },
   components:{
@@ -87,34 +90,38 @@ export default {
           num1 += item.num
           if(price1 >= 50 && price1 <= 250){
             case1 = 200
-            jian1 += 16
-            type1 = jian1 - 16
+            jian1 = 16 
+            type1 = jian1 - 16 + 8
           }else if(price1 >= 250 && price1 <= 650){
             case1 = 400
-            jian1 += 50
-            type1 = jian1 - 50
+            jian1 = 50
+            type1 = jian1 - 50 + 24
           }else if(price1 >= 650){
-            type1 = jian1
+            type1 = jian1 + 24
           }
-          price1 += ((item.final_price * item.num) - type1)
-          priceY1 += ((item.market_price - item.final_price) * item.num + type1)
+          price1 += item.final_price * item.num
+          priceY1 += (item.market_price - item.final_price) * item.num
         }else if((item.house_id !== 200 && item.checked === true)){
           num2 += item.num
           if(price2 >= 50 && price2 <= 250){
             case2 = 200
-            jian2 += 16
-            type2 = jian2 - 16
+            jian2 = 16
+            type2 = jian2 - 16 + 8
           }else if(price2 >= 250 && price2 <= 650){
             case2 = 400
-            jian2 += 50
-            type2 = jian2 - 50
+            jian2 = 50
+            type2 = jian2 - 50 + 24
           }else if(price2 >= 650){
-            type2 = jian2
+            type2 = jian2 + 24
           }
-          price2 += ((item.final_price * item.num) - type2)
-          priceY2 += ((item.market_price - item.final_price) * item.num + type2)
+          price2 += item.final_price * item.num
+          priceY2 += (item.market_price - item.final_price) * item.num 
         }
       })
+      price1 = price1 - type1
+      priceY1 = priceY1 + type1
+      price2 = price2 - type2
+      priceY2 = priceY2 + type2
       if(goods[0].house_id === 200) return [num1,price1,priceY1,case1,jian1]
       return [num2,price2,priceY2,case2,jian2]
     }
@@ -129,10 +136,16 @@ export default {
       return goodsJapan
     }
   },
-  provide(){
-    return {
-      car
-    }
+  async mounted(){
+    const a = await getGoods(100,24)
+    this.goodsList = a.data
+    a.data.forEach(item=>{
+      this.car.push({
+        ...item,
+        checked:true,
+        num:1
+      })
+    })
   }
 }
 </script>

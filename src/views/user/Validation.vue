@@ -5,13 +5,14 @@
     </div>
     <div class="login-content">
       <p>请输入验证码</p>
-      <span>验证码已发送至{{phonenumber}}</span>
+      <span>验证码已发送至{{phonenum}}</span>
       <div class="login-phone">
         <input 
           type="text" 
           placeholder="请输入验证码"
           v-model="verifynum"
         >
+        <span>{{count}}s</span>
       </div>
       <em>未注册的手机号验证通过后将自动注册</em>
       <button 
@@ -21,36 +22,86 @@
       >登录</button>
       <!-- #ea4141  -->
     </div>
+    {{randomcode}}
   </div>
 </template>
 
 <script>
+import axios from 'axios'
+import { mapState } from 'vuex'
+import { mapMutations } from 'vuex'
 export default {
   data(){
     return {
-      phonenumber:"15388599827",
-      verifynum:''
+      verifynum:'',
+      show: true,
+	    count: '',
+      timer: null,
+      phonenum:'',
+      randomcode:''
     }
   },
   methods:{
+    ...mapMutations([
+      'changeislogin'
+    ]),
     handlegologin(){
       this.$emit("mychange")
     },
-    //判断验证码是否正确
-    loginsuccess(){
-      if(this.verifynum.length === 4){
-        this.$router.push({ path: '/profile', query: { num: this.phonenumber }});
+    //点击验证判断验证码是否正确
+    async loginsuccess(){
+      if(this.verifynum.length === 6 && this.verifynum === this.$store.state.profile.verifycode){
+        //根据状态码判断后端是否正确处理phonenum,
+        // let res = await axios({
+        //   method: 'post',
+        //   url:'http://10.9.64.245:5000/profile/users/login',
+        //   data:{
+        //     "cellphonenumber":`${this.$store.state.profile.cellphonenumber}`
+        //   }
+        // })
+        // console.log(res)
+
+        // if(res.data.statuCode === '000000'){
+        if(true){ 
+          //修改vuex中登录状态位true
+          this.changeislogin({
+            type:'profile/changeislogin',
+            islogin: true
+          })
+        }
+        // this.$router.push({ path: '/profile', query: { num: this.phonenumber }});
+         this.$router.push('/profile')
       }else{
-        alert('请输入完整的验证码');
+        alert('请输入正确的的验证码');
       }
-      
+    }
+    
+  },
+  mounted(){
+    this.phonenumber = this.$store.state.profile.cellphonenumber
+    this.randomcode = this.$store.state.profile.verifycode
+    //60s倒计时
+    const TIME_COUNT = 300;
+    if (!this.timer) {
+      this.count = TIME_COUNT;
+      this.show = false;
+      this.timer = setInterval(() => {
+        if (this.count > 0 && this.count <= TIME_COUNT) {
+          this.count -= 1;
+        } else {
+          this.show = true;
+          clearInterval(this.timer);
+          this.timer = null;
+        }
+      }, 1000);
     }
   },
-  //控制验证码输入
+  
   watch:{
+    //控制验证码输入
     verifynum(){
-      if(this.verifynum >= 4){
-        this.verifynum = this.verifynum.slice(0, 4);
+      if(this.verifynum >= 6){
+        this.verifynum = this.verifynum.slice(0, 6);
       }
     }
   }
@@ -88,12 +139,19 @@ export default {
       padding-left .15rem
       background #f8f8f8
       border-radius  .2rem 
+      position relative
       input 
         border none 
         height 100%
         width 100%
         background #f8f8f8
         border-radius 0 .2rem .2rem 0
+      span 
+        position absolute
+        top .1rem
+        right .2rem
+        color #8a8b90
+        font-size .12rem
     >em 
       font-size .12rem
       color #aaabaf

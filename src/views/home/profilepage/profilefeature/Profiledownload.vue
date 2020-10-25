@@ -18,13 +18,17 @@ export default {
   },
   methods:{
     logout(){
-      this.$router.push('/profile');
+      this.$store.commit('logout',{
+        islogin: false
+      })
       this.isfalse = false;
+      this.$emit('logoutnow')
+      // this.$router.push('/profile');
     }
   },
   mounted(){
-    if(this.$route.query.num){
-      this.querynum = this.$route.query.num;
+    if(this.$store.state.profile.islogin){
+      // this.querynum = this.$route.query.num;
       this.isfalse = true;
     }
   }
@@ -44,7 +48,7 @@ export default {
     padding .15rem 0
   .profile-download
     height .4rem
-    margin .05rem 0 0 0
+    margin .05rem 0 .1rem 0
     span
       display block
       width 100%
@@ -59,11 +63,11 @@ export default {
     margin .05rem 0 0 0
     display block
     width 100%
-    background #191919
-    color #ffffff
-    font-size .12rem
+    color #6e6e6e
+    font-size .15rem
     text-align center
     line-height .4rem
+    border .01rem solid #d2d2d2
   .empty-bottom
     height .49rem
 </style>

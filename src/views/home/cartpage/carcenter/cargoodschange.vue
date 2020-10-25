@@ -1,7 +1,7 @@
 <template>
   <div class="youhui">
       <p>{{fuli}}</p>
-      <b>{{goods.dispaly_act_tag}}</b>
+      <b>{{goods.display_act_tag}}</b>
       <i>更换</i>
   </div>
 </template>
@@ -12,9 +12,9 @@ export default {
   computed:{
     fuli(){
       const reg = /^\d{2}/
-      if(reg.test(this.goods.dispaly_act_tag)) return "N元自选"
-      if(this.goods.dispaly_act_tag==="新人专享") return "新人"
-      if(this.goods.dispaly_act_tag==="限时折扣") return "折扣"
+      if(reg.test(this.goods.display_act_tag)) return "N元自选"
+      if(this.goods.display_act_tag=="新人专享") return "新人"
+      if(this.goods.display_act_tag=="限时折扣") return "折扣"
     }
   }
 }

@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import profile from './profile/profile'
 
 import cart from './cart/cart'
 
@@ -13,6 +14,7 @@ export default new Vuex.Store({
   actions: {
   },
   modules: {
+    profile,
     cart
   }
 })
