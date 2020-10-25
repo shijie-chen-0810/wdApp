@@ -34,7 +34,7 @@ const routes = [
       },
       {
         path: 'sort',
-        component: Sort
+        component:Sort,
       },
       {
         path: 'cart',
