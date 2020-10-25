@@ -4,29 +4,22 @@
 
       <router-link class="user-top" tag="div" to="/login">
         <div>
-          <img src="../../../assets/images/profile/my_wandoulogotop.png" alt="">
+          <img src="~assets/images/profile/my_wandoulogotop.png" alt="">
         </div>
-        <p>点击登录 / 注册</p>
+        <p v-if="islogin">点击登录 / 注册</p>
+        <p v-else>{{querynum}}</p>
       </router-link>
       
       <ul class="user-content">
-        <li>
-          <p>-</p>
-          <span>低现积分</span>
-        </li>
-        <li>
-          <p>-</p>
-          <span>优惠卷</span>
-        </li>
-        <li>
-          <p>-</p>
-          <span>公主说</span>
+        <li v-for="data in datalist" :key="data.id">
+          <p>{{islogin? '-':data.number}}</p>
+          <span>{{data.modulename}}</span>
         </li>
       </ul>
     </div>
     <profileorder></profileorder>
     <profileserve></profileserve>
-    <profiledownload></profiledownload>
+    <profiledownload @logoutnow="logout"></profiledownload>
   </div>
 </template>
 
@@ -36,10 +29,48 @@ import Profileserve from "./profilefeature/Profileserve"
 import Profiledownload from "./profilefeature/Profiledownload"
 
 export default {
+  data(){
+    return {
+      islogin:true,
+      querynum:'',
+      datalist:[
+        {
+          id:'001',
+          number:0,
+          modulename:'低现积分'
+        },
+        {
+          id:'002',
+          number:0,
+          modulename:'优惠卷'
+        },
+        {
+          id:'003',
+          number:0,
+          modulename:'公主说'
+        }
+      ]
+    }
+  },
   components:{
     Profileorder,
     Profileserve,
     Profiledownload
+  },
+  mounted(){
+    if(this.$store.state.profile.islogin){
+      this.querynum = this.$store.state.profile.cellphonenumber;
+      this.islogin = false;
+    }else{
+      this.querynum = '';
+      this.islogin = true;
+    }
+  },
+  methods:{
+    logout(){
+      this.querynum = ''
+      this.islogin = true;
+    }
   }
 }
 </script>
@@ -53,7 +84,7 @@ export default {
   margin .15rem
   .user
     height 1.8rem
-    background url('../../../assets/images/profile/my_backgroundtop.png') no-repeat
+    background url('~assets/images/profile/my_backgroundtop.png') no-repeat
     background-size 100% 100%
     color #ffffff
     display flex

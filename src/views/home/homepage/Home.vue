@@ -1,12 +1,13 @@
 <template>
   <div class="content">
     <div class="search">
-      <input v-model="value" placeholder="输入商品或品牌名称" class="search-box" />
+      <router-link tag="input" to="/search" placeholder="输入商品或品牌名称" />
+      <span class="iconfont">&#xe65c;</span>
     </div>
-    <better-scroll :isLoadingMore='true' @getmoregoods='getmoregoods' ref='bscroll'>
+    <better-scroll :isLoadingMore='true' @getmoregoods='getmoregoods' ref='bscroll' class="betterscroll">
       <swipe-x></swipe-x>
       <div class="health">
-        <img src="https://oss1.wandougongzhu.cn/8e415cd8201d8d1933ba8bbedc7a8d33.png?x-oss-process=image/resize,w_1242/format,webp" alt="" @click='test'>
+        <img src="https://oss1.wandougongzhu.cn/8e415cd8201d8d1933ba8bbedc7a8d33.png?x-oss-process=image/resize,w_1242/format,webp" alt="">
       </div>
       <sort></sort>
       <div class="new-con">
@@ -43,40 +44,40 @@
       </div>
       <h4>限时秒杀</h4>
       <swipe-y></swipe-y>
-      <h4>日本一物</h4>
-      <div class="one-thing">
-        <p>
-          <img src="https://oss4.wandougongzhu.cn/7a9f14083a40100d36dcdf2613249d3a.png?x-oss-process=image/resize,w_1242/format,webp" alt="" @load='refresh'>
-        </p>
-        <p>
-          <img src="https://oss5.wandougongzhu.cn/e16770acf98f9ead0f775a041d53f370.png?x-oss-process=image/resize,w_1242/format,webp" alt="" @load='refresh'>
-        </p>
-      </div>
+      <JapanOneThing @refresh = 'refresh' :imgList='imgList'></JapanOneThing>
       <h4>权威榜单</h4>
-      <authority-list></authority-list>
+      <authority-list :data='authoritylistdata'></authority-list>
       <div class='recommand'>
         <img src="https://oss5.wandougongzhu.cn/f16f89df44cf7f8d9590b5c926ded7b3.png?x-oss-process=image/resize,w_1242/format,webp" alt="" @load='refresh'>
       </div>
-      <goods-list></goods-list>
+      <goods-list :list='goodsList'></goods-list>
     </better-scroll>
   </div>
 </template>
 
 <script>
+import authoritylistdata from 'assets/data/AuthorityList'
+import { getGoods } from 'network/homeRequest/homeRequest'
+
 
 
 import BetterScroll from 'components/common/bscroll/BetterScroll'
-import Sort from './HomeSort'
-import SwipeX from './Swipe-X'
-import SwipeY from './Swipe-Y'
-import AuthorityList from './AuthorityList'
-import GoodsList from './GoodsList'
+import Sort from 'components/content/HomeSort'
+import SwipeX from './homecomponents/Swipe-X'
+import SwipeY from './homecomponents/Swipe-Y'
+import JapanOneThing from 'components/content/JapanOneThing'
+import AuthorityList from './homecomponents/AuthorityList'
+import GoodsList from './homecomponents/GoodsList'
 
 export default {
   data(){
     return{
-      value:'',
-      timer: 0
+      imgList:['https://oss4.wandougongzhu.cn/fa60681750d104f54e426560d3d1789e.png?x-oss-process=image/resize,w_1242/format,webp','https://oss2.wandougongzhu.cn/f963e4b9e401800fba8e380700344e6c.png?x-oss-process=image/resize,w_1242/format,webp'],
+      timer: 0,
+      authoritylistdata,
+      goodsList:[],
+      offset:0,
+      total:0
     }
   },
   components:{
@@ -84,22 +85,34 @@ export default {
     SwipeX,
     SwipeY,
     BetterScroll,
+    JapanOneThing,
     AuthorityList,
     GoodsList
   },
   methods:{
-    test(){
-      this.$router.push('/detail')
+    async loadData(offset){
+      const tmpResult = await getGoods(offset,10)
+      this.$toast.clear()
+      this.$refs.bscroll.bscroll.finishPullUp()
+      this.goodsList.push(...tmpResult.data)
+      this.total = tmpResult.total
+      this.offset += 10
+      console.log(this.offset,this.total)
     },
-    getmoregoods(){
-      console.log('loadingmore')
+    async getmoregoods(){
+      if(this.offset===this.total&&this.offset!==0){
+        this.$toast('没有更多了')
+        this.$refs.bscroll.bscroll.finishPullUp()
+        return
+      }
+      await this.loadData(this.offset)
+      this.$refs.bscroll.bscroll.refresh()
     },
     refresh(){
       clearTimeout(this.timer)
       this.timer = setTimeout(()=>{
         this.$refs.bscroll.bscroll.refresh()
       },300)
-
     }
   },
   
@@ -107,9 +120,12 @@ export default {
 </script>
 
 <style scoped lang='stylus'>
+.betterscroll
+  flex 1
 .content
   padding-top 0.44rem
   height 100vh
+  display flex
   padding-bottom 0.49rem
   overflow-y scroll
 .search
@@ -125,9 +141,17 @@ export default {
     width 100%
     height 100%
     border none
+    font-size 0.14rem
     padding-left 0.275rem
     background-color #f3f3f3
-
+  span 
+    position absolute
+    top 0.12rem
+    left 0.2rem
+    font-size 0.14rem
+h4
+  padding 0.1rem 0.12rem
+  font-size 0.2rem
 .health
   height 0.77rem
   width 100%
@@ -154,19 +178,7 @@ export default {
     img 
       width 100%
       height 100%
-h4
-  padding 0.1rem 0.12rem
-  font-size 0.2rem
-.one-thing
-  height 2.4rem
-  display flex
-  flex-direction column
-  justify-content space-between
-  p
-    height 1.2rem
-    img 
-      width 100%
-      height 100%
+
 .recommand
   img 
     width 100%

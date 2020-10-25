@@ -13,6 +13,16 @@ export function getSortData() {
   })
 }
 
-
+export function getGoods(offset,limit) {
+  return instance({
+    url: '/home/getGoods',
+    methods: 'GET',
+    params: {
+      offset,
+      limit
+    },
+    responceType: 'JSON'
+  })
+}
 
 

@@ -4,7 +4,10 @@
 
 <script>
 export default {
-
+  name:'detail',
+  created(){
+    console.log('create')
+  }
 }
 </script>
 

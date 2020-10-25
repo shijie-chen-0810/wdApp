@@ -33,23 +33,22 @@ export default {
         top:false
       },
       disableMouse: false,
-      disableTouch: false
+      disableTouch: false,
+      mouseWheel:true
     });
-    this.pullingLoad()
-    this.scrolling()
+    if(this.isLoadingMore){
+       this.pullingLoad()
+    }
   },
   methods:{
     pullingLoad(){
       this.bscroll.on('pullingUp',()=>{
+        console.log('loadingh')
+        this.$toast.loading({
+          message:'加载中',
+          forbidClick: true,
+        })
         this.$emit('getmoregoods')
-        setTimeout(()=>{
-          this.bscroll.finishPullUp()           
-        },2000)
-      })
-    },
-    scrolling(){
-      this.bscroll.on('scroll',(position)=>{
-        this.$emit('contentscroll',position)
       })
     },
     scrollTo(x,y,time = 500){
@@ -59,14 +58,7 @@ export default {
 }
 </script>
 
-<style>
-.wrapper{
-  height: calc(100vh - 0.93rem);
-  overflow: hidden;
-  position: absolute;
-  top: 44px;
-  bottom: 49px;
-  left: 0;
-  right: 0;
-}
+<style lang='stylus' scoped>
+.wrapper
+  width 100vw
 </style>
