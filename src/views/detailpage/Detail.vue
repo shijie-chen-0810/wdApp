@@ -45,6 +45,7 @@ import GoodsDetail from './GoodsDetail'
 import Recommend from './Recommend'
 
 export default {
+  name:'detail',
   data() {
     return {
       isCollect: true,
