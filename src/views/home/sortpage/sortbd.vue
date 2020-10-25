@@ -66,7 +66,7 @@ export default {
         .sort-cat
             display flex
             justify-content center
-            flex-direction: column;
+            flex-direction column
             background-color #fafafa
             overflow hidden
             position relative
