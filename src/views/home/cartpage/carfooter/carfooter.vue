@@ -2,9 +2,9 @@
   <div class="footer">
     <div class="top">大家都在买</div>
     <van-swipe class="my-swipe" :autoplay="0" indicator-color="white" :touchable="true">
-      <van-swipe-item v-for="n in 4" :key="n">
+      <van-swipe-item v-for="(datalist,index) in goods" :key="index">
         <ul>
-          <li v-for="key in car" :key="key.goods_id">
+          <router-link tag="li" v-for="key in datalist" :key="key.goods_id" :to="{name:'detail',params:{id:key.goods_id}}">
             <dl>
               <dt>
                 <img :src="key.img_middle" alt="">
@@ -15,7 +15,7 @@
                 <p>￥{{key.final_price}}</p>
               </dd>
             </dl>
-          </li>
+          </router-link>
         </ul>
       </van-swipe-item>
     </van-swipe>
@@ -29,7 +29,16 @@ import { Swipe, SwipeItem } from 'vant';
 Vue.use(Swipe);
 Vue.use(SwipeItem);
 export default {
-  inject:["car"]
+  props:['list'],
+  computed:{
+    goods(){
+      const list1 = this.list.slice(0,6)
+      const list2 = this.list.slice(6,12)
+      const list3 = this.list.slice(12,18)
+      const list4 = this.list.slice(18)
+      return [list1,list2,list3,list4]
+    }
+  }
 }
 </script>
 

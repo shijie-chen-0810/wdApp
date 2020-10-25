@@ -3,11 +3,13 @@
     <div v-for="key in goods" :key="key.goods_id">
       <van-checkbox class="btn" :value="key.checked" @click="change(key)" checked-color="#000" icon-size=".2rem"></van-checkbox>
       <dl>
-        <dt>
+        <router-link tag="dt" :to="{name:'detail',params:{id:key.goods_id}}">
           <img :src="key.img_middle" alt="">
-        </dt>
+        </router-link>
         <dd>
-          <p>{{key.slogan}}{{key.goods_name}}</p>
+          <router-link tag="p" :to="{name:'detail',params:{id:key.goods_id}}">
+            {{key.slogan}}{{key.goods_name}}
+          </router-link>
           <div class="change">
             <div class="case">{{type}}<span class="iconfont">&#xe665;</span></div>
           </div>
@@ -19,9 +21,7 @@
             <van-stepper v-model="key.num" integer min="1" :max="key.residue_count" @plus="plus(key)" @minus="minus(key)" :key="key.goods_id"/>
             <span @click="clickDelete(key)">删除</span>
           </div>
-          <div v-if="key.dispaly_act_tag">
-            <cargoodschange  :goods="key"></cargoodschange>
-          </div>
+          <cargoodschange v-if="key.display_act_tag" :goods="key"></cargoodschange>
         </dd>
       </dl>
     </div>
@@ -123,15 +123,16 @@ export default {
           -webkit-line-clamp 2
           margin-bottom .05rem
         .change
-          width .83rem
+          width 100%
           height .22rem
-          background #ededed
-          border-radius .05rem
+          display flex
           .case
+            background #ededed
+            border-radius .05rem
+            padding 0 .05rem
             font-size .12rem
             color #6e6e6e   
             line-height .22rem
-            margin-left .05rem
             span 
               margin-left .02rem
         .bottom

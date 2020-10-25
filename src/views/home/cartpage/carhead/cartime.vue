@@ -33,7 +33,7 @@ export default {
     carbtn
   },
   created(){
-    this.time = new Date('2020-11-10 00:00:00') - new Date()
+    this.time = new Date('2020-11-30 00:00:00') - new Date()
   }
 }
 </script>

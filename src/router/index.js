@@ -38,13 +38,21 @@ const routes = [
       },
       {
         path: 'cart',
-        component:Cart
+        component:Cart,
       },
       {
         path: 'profile',
         component:Profile
       },
     ]
+  },
+  {
+    path:'/pay',
+    component:()=>import('views/home/cartpage/pay/Pay')
+  },
+  {
+    path:'/cart/see',
+    component:()=>import('views/home/cartpage/see/See')
   },
   {
     path: '/detail/:id',
