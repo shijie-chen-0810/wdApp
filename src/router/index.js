@@ -52,8 +52,40 @@ const routes = [
     component:Detail
   },
   {
-    path:'/pay',
-    component:()=>import('views/home/cartpage/pay/Pay')
+    path: '/homesort/:sortType',
+    name:'homesort',
+    component:HomeSortPage
+  },
+  {
+    path: '/login',
+    component: Userlogin
+  },
+  {
+    path: '/order',
+    component: Order,
+    redirect:'/order/:id',
+    children:[
+      { 
+        path:'all',
+        component:Orderall
+      },
+      { 
+        path:'take',
+        component:Comingtake
+      },
+      { 
+        path:'pay',
+        component:Comingpay
+      },
+      { 
+        path:'send',
+        component:Comingsend
+      },
+      { 
+        path:'commit',
+        component:Comingcommit
+      },
+    ]
   }
 ]
 

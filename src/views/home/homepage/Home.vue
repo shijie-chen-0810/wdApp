@@ -4,7 +4,7 @@
       <router-link tag="input" to="/search" placeholder="输入商品或品牌名称" />
       <span class="iconfont">&#xe65c;</span>
     </div>
-    <better-scroll :isLoadingMore='true' @getmoregoods='getmoregoods' ref='bscroll'>
+    <better-scroll :isLoadingMore='true' @getmoregoods='getmoregoods' ref='bscroll' class="betterscroll">
       <swipe-x></swipe-x>
       <div class="health">
         <img src="https://oss1.wandougongzhu.cn/8e415cd8201d8d1933ba8bbedc7a8d33.png?x-oss-process=image/resize,w_1242/format,webp" alt="">
@@ -44,7 +44,7 @@
       </div>
       <h4>限时秒杀</h4>
       <swipe-y></swipe-y>
-      <JapanOneThing @refresh = 'refresh'></JapanOneThing>
+      <JapanOneThing @refresh = 'refresh' :imgList='imgList'></JapanOneThing>
       <h4>权威榜单</h4>
       <authority-list :data='authoritylistdata'></authority-list>
       <div class='recommand'>
@@ -72,6 +72,7 @@ import GoodsList from './homecomponents/GoodsList'
 export default {
   data(){
     return{
+      imgList:['https://oss4.wandougongzhu.cn/fa60681750d104f54e426560d3d1789e.png?x-oss-process=image/resize,w_1242/format,webp','https://oss2.wandougongzhu.cn/f963e4b9e401800fba8e380700344e6c.png?x-oss-process=image/resize,w_1242/format,webp'],
       timer: 0,
       authoritylistdata,
       goodsList:[],
@@ -119,9 +120,12 @@ export default {
 </script>
 
 <style scoped lang='stylus'>
+.betterscroll
+  flex 1
 .content
   padding-top 0.44rem
   height 100vh
+  display flex
   padding-bottom 0.49rem
   overflow-y scroll
 .search
@@ -145,7 +149,9 @@ export default {
     top 0.12rem
     left 0.2rem
     font-size 0.14rem
-
+h4
+  padding 0.1rem 0.12rem
+  font-size 0.2rem
 .health
   height 0.77rem
   width 100%

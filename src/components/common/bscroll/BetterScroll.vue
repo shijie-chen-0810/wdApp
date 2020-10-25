@@ -36,7 +36,9 @@ export default {
       disableTouch: false,
       mouseWheel:true
     });
-    this.pullingLoad()
+    if(this.isLoadingMore){
+       this.pullingLoad()
+    }
   },
   methods:{
     pullingLoad(){
@@ -56,11 +58,7 @@ export default {
 }
 </script>
 
-<style>
-.wrapper{
-  height: calc(100vh - 0.93rem);
-  overflow: hidden;
-  position: absolute;
-  flex: 1;
-}
+<style lang='stylus' scoped>
+.wrapper
+  width 100vw
 </style>

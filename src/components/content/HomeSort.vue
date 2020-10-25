@@ -25,7 +25,7 @@ export default {
     }
   },
   async mounted(){
-    const result = await getSortData().then()
+    const result = await getSortData()
     this.sort1 = result.slice(0,5)
     this.sort2 = result.slice(5)
   }
