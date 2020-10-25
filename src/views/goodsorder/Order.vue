@@ -8,7 +8,9 @@
       <span>关于物流</span>
     </div>
     <div class="getgift">
-      <div></div>
+      <div>
+        <cartime></cartime>
+      </div>
     </div>
     <ul>
       <router-link to="all" tag="li" active-class="active" >全部订单</router-link>
@@ -23,16 +25,21 @@
 </template>
 
 <script>
+import cartime from 'views/home/cartpage/carhead/cartime'
 export default {
   methods:{
     gobackprofile(){
       this.$router.push('/profile')
     }
+  },
+  components:{
+    cartime
   }
 }
 </script>
 
 <style lang="stylus" scoped>
+@import '~@/assets/stylus/border.styl'
 div.order-goods
   background #f0eff5
   height 100vh
@@ -40,6 +47,8 @@ div.order-goods
     display flex
     height .4rem
     background #fafafa
+    border_1px(0 0 1px 0, solid, hsla(0,0%,84.7%,.5))
+    border
     >div
       width .5rem
       height 100%
@@ -72,8 +81,7 @@ div.order-goods
     padding-top .15rem
     >div
       height 100%
-      margin 0 .15rem 
-      background #eee
+      background #fafafa
   >ul 
     height .4rem
     padding 0 .1rem
