@@ -1,22 +1,23 @@
 <template>
   <div class="detail">
-    <header v-if="false">
-    </header>
-    <header v-else>
+    <header v-if="topShow">
       <div>
         <svg t="1603350461898" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2787" width="16" height="16"><path d="M896 544H193.3312a32 32 0 1 1 0-64H896a32 32 0 0 1 0 64z" fill="#191919" p-id="2788"></path><path d="M426.5984 798.72a31.8976 31.8976 0 0 1-22.6304-9.3696L126.8736 512 403.968 234.9056a32 32 0 0 1 45.2608 45.2608L217.3952 512l231.8336 231.8336A32 32 0 0 1 426.5984 798.72z" fill="#191919" p-id="2789"></path></svg>
       </div>
       <ul>
         <li :class="{ active: isSelected === 'goods' }">商品</li>
-        <li>评价</li>
-        <li>详情</li>
-        <li>推荐</li>
+        <li :class="{ active: isSelected === 'comment' }">评价</li>
+        <li :class="{ active: isSelected === 'goodsdetail' }">详情</li>
+        <li :class="{ active: isSelected === 'recommend' }">推荐</li>
       </ul>
     </header>
+    <header v-else>
+      <div class="active"><svg t="1603350461898" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2787" width="16" height="16"><path d="M896 544H193.3312a32 32 0 1 1 0-64H896a32 32 0 0 1 0 64z" fill="#191919" p-id="2788"></path><path d="M426.5984 798.72a31.8976 31.8976 0 0 1-22.6304-9.3696L126.8736 512 403.968 234.9056a32 32 0 0 1 45.2608 45.2608L217.3952 512l231.8336 231.8336A32 32 0 0 1 426.5984 798.72z" fill="#191919" p-id="2789"></path></svg></div>
+    </header>
     <main>
-        <div>
+        <div ref="scroTop">
           <goods></goods>
-          <comment ref="aaa"></comment>
+          <comment></comment>
           <goods-detail></goods-detail>
           <recommend></recommend>
         </div>
@@ -38,7 +39,6 @@
 </template>
 
 <script>
-// import BetterScroll from '@better-scroll/core'
 import Goods from './Goods'
 import Comment from './Comment'
 import GoodsDetail from './GoodsDetail'
@@ -48,7 +48,8 @@ export default {
   data() {
     return {
       isCollect: true,
-      isSelected: 'goods'
+      isSelected: 'goods',
+      topShow: false
     }
   },  
   components: {
@@ -58,27 +59,36 @@ export default {
     Recommend
   },
   mounted() {
-    // this.init()
     window.addEventListener('scroll',this.handleScrolly, true)
   },
   methods: {
     handleScrolly() {
-        let topy = this.$refs.aaa.getBoundingClientRect().top
-        console.log(topy)
-    },
-    // init() {
-    //   const bs = new BetterScroll('main', {
-    //     probeType:3
-    //   })
-    //   bs.on('scroll', (position) => {
-    //     console.log(position.x, position.y)
-    //   })
-    // }
+      // console.log('距离顶部高度',this.$refs.scroTop.getBoundingClientRect().top)
+      let topy = this.$refs.scroTop.getBoundingClientRect().top
+      if(topy <= 0){
+        this.topShow = true
+      } else {
+        this.topShow = false
+      }
+      if(Math.abs(topy) < 780 ){
+        this.isSelected = 'goods'
+      }
+      if(Math.abs(topy) >= 780 ){
+        this.isSelected = 'comment'
+      }
+      if(Math.abs(topy) >= 1100 ){
+        this.isSelected = 'goodsdetail'
+      }
+      if(Math.abs(topy) >= 2600 ){
+        this.isSelected = 'recommend'
+      }
+    }
   }
 }
 </script>
 
 <style lang="stylus" scoped>
+@import '~@/assets/stylus/border.styl'
 .detail
   display flex
   height 100vh
@@ -86,12 +96,17 @@ export default {
   header
     height 0.45rem
     display flex
+    align-items center
     padding-left 0.12rem
     div
       height 100%
       display flex
       align-items center
       justify-content center
+      &.active
+        width 0.35rem
+        height 0.35rem
+        border_1px(1px, solid, #ccc, 50%)
     ul
       display flex
       margin-left 0.1rem

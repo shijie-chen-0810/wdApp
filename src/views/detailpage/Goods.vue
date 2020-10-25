@@ -1,21 +1,21 @@
 <template>
     <div class="goods_detail">
         <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
-            <van-swipe-item><img src="https://oss5.wandougongzhu.cn/96bbb11af010f3e77270fcc9c10176cc.jpg?x-oss-process=image/resize,w_1242/format,webp" alt=""></van-swipe-item>
-            <van-swipe-item><img src="https://oss4.wandougongzhu.cn/cb0ae18833c6950e874d47b64626b2df.png?x-oss-process=image/resize,w_1242/format,webp" alt=""></van-swipe-item>
-            <van-swipe-item><img src="https://oss3.wandougongzhu.cn/d1bfae6ff0f669c506d066ce41df232a.png?x-oss-process=image/resize,w_1242/format,webp" alt=""></van-swipe-item>
+            <van-swipe-item v-for="(val,i) in imgList" :key="i">
+                <img :src="val" alt="">
+            </van-swipe-item>
         </van-swipe>
         <div>
             <div>
                 <p>尝鲜OMG</p>
                 <div>
-                    <span><i>¥</i>235</span>
+                    <span><i>¥</i>{{ detailData.finalPrice }}</span>
                     <div>会员</div>
-                    <div>¥228</div>
+                    <div>¥{{ detailData.origin_vip_final_price }}</div>
                 </div>
             </div>
-            <p>护手界靠谱担当</p>
-            <p class="text_ellipsis">TOUT VERT 十全大补多效修护啫喱 100g</p>
+            <p>{{ detailData.slogan }}</p>
+            <p class="text_ellipsis">{{ detailData.goods_name }}</p>
         </div>
         <div>
             <div>
@@ -51,10 +51,7 @@
             </div>
         </div>
         <ul>
-            <li>假一赔十</li>
-            <li>包税</li>
-            <li>日本直邮</li>
-            <li>跨境商品</li>
+            <li v-for="(val,i) in tipList" :key="i">{{ val }}</li>
         </ul>
     </div>
 </template>
@@ -63,10 +60,24 @@
 import Vue from 'vue';
 import { Swipe, SwipeItem } from 'vant';
 
+import {getDetail} from 'network/detailRequest/detailRequest'
+
 Vue.use(Swipe);
 Vue.use(SwipeItem);
 export default {
-   
+    data() {
+        return {
+            detailData: Object,
+            imgList: [],
+            tipList: []
+        }
+    },
+    async mounted() {
+        this.detailData = await getDetail(this.$route.params.id)
+        this.imgList = JSON.parse(this.detailData.imgList)
+        this.tipList = JSON.parse(this.detailData.tipList)
+        // console.log(this.detailData)
+    }
 }
 </script>
 

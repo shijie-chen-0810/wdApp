@@ -2,38 +2,14 @@
     <div class="recommend">
         <div>大家都在逛</div>
         <ul>
-            <li>
-                <div><img src="../../assets/img/cxj_detail/c12a7becb68efe0df84956f22b6661e6.png" alt=""></div>
+            <li v-for="(goods,i) in goodsData" :key="i">
+                <div><img :src="goods.img_middle" alt=""></div>
                     <div>
-                        <p class="text_ellipsis">膜法护手的秘密</p>
-                        <p class="text_tellipsis">CATHY COSMETIC ATP 保湿面霜 35g</p>
-                        <p>95%好评</p>
+                        <p class="text_ellipsis">{{ goods.slogan }}</p>
+                        <p class="text_tellipsis">{{ goods.goods_name }}</p>
+                        <p>{{ goods.praise_desc }}</p>
                         <div>
-                            <p><i>¥</i>266</p>
-                            <img src="../../assets/img/cxj_detail/cart_65bbdc.png" alt="">
-                        </div>
-                </div>
-            </li>
-            <li>
-                <div><img src="../../assets/img/cxj_detail/c12a7becb68efe0df84956f22b6661e6.png" alt=""></div>
-                    <div>
-                        <p class="text_ellipsis">膜法护手的秘密</p>
-                        <p class="text_tellipsis">CATHY COSMETIC ATP 保湿面霜 35g</p>
-                        <p>95%好评</p>
-                        <div>
-                            <p><i>¥</i>266</p>
-                            <img src="../../assets/img/cxj_detail/cart_65bbdc.png" alt="">
-                        </div>
-                </div>
-            </li>
-            <li>
-                <div><img src="../../assets/img/cxj_detail/c12a7becb68efe0df84956f22b6661e6.png" alt=""></div>
-                    <div>
-                        <p>膜法护手的秘密</p>
-                        <p class="text_tellipsis">CATHY COSMETIC ATP 保湿面霜 35g</p>
-                        <p>95%好评</p>
-                        <div>
-                            <p><i>¥</i>266</p>
+                            <p><i>¥</i>{{ goods.finalPrice }}</p>
                             <img src="../../assets/img/cxj_detail/cart_65bbdc.png" alt="">
                         </div>
                 </div>
@@ -43,8 +19,19 @@
 </template>
 
 <script>
+import { getGoods } from 'network/homeRequest/homeRequest'
+
 export default {
-    
+    data() {
+        return {
+            goodsData: Array
+        }
+    },    
+    async mounted() {
+        const data = await getGoods(Math.floor(Math.random() * (300 - 10 + 1) + 10), 10)
+        this.goodsData = data.data
+        console.log(this.goodsData)
+    }
 }
 </script>
 

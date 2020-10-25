@@ -2,139 +2,57 @@
     <div class="goods_detail">
         <div>
             <div>
-                <div><img src="../../assets/img/cxj_detail/ef80e3d62060e7047e999c90d0204663.jpg" alt=""></div>
+                <div><img :src="companyInfo.logo" alt=""></div>
                 <div>
-                    <p>TOUT VERT</p>
-                    <p>在售商品&nbsp;14&nbsp;件，总售&nbsp;702&nbsp;件</p>
+                    <p>{{ companyInfo.name }}</p>
+                    <p>在售商品&nbsp;{{ detailData.residue_count }}&nbsp;件，总售&nbsp;702&nbsp;件</p>
                 </div>
             </div>
         </div>
         <div>相关推荐</div>
         <div>
             <ul>
-                <li>
-                    <div><img src="../../assets/img/cxj_detail/c12a7becb68efe0df84956f22b6661e6.png" alt=""></div>
+                <li v-for="(goods,i) in goodsData" :key="i">
+                    <div><img :src="goods.img_middle" alt=""></div>
                     <div>
-                        <p class="text_tellipsis">CATHY COSMETIC ATP 保湿面霜 35g</p>
-                        <p>95%好评</p>
-                        <p><i>¥</i>266</p>
+                        <p class="text_tellipsis">{{ goods.goods_name }}</p>
+                        <p>{{ goods.praise_desc }}</p>
+                        <p><i>¥</i>{{ goods.finalPrice }}</p>
                         <div>
                             <img src="../../assets/img/cxj_detail/cart_65bbdc.png" alt="">
                         </div>
                     </div>
-                    
-                </li>
-                <li>
-                    <div><img src="../../assets/img/cxj_detail/c12a7becb68efe0df84956f22b6661e6.png" alt=""></div>
-                    <div>
-                        <p class="text_tellipsis">CATHY COSMETIC ATP 保湿面霜 35g</p>
-                        <p>95%好评</p>
-                        <p><i>¥</i>266</p>
-                        <div>
-                            <img src="../../assets/img/cxj_detail/cart_65bbdc.png" alt="">
-                        </div>
-                    </div>
-                    
-                </li>
-                <li>
-                    <div><img src="../../assets/img/cxj_detail/c12a7becb68efe0df84956f22b6661e6.png" alt=""></div>
-                    <div>
-                        <p class="text_tellipsis">CATHY COSMETIC ATP 保湿面霜 35g</p>
-                        <p>95%好评</p>
-                        <p><i>¥</i>266</p>
-                        <div>
-                            <img src="../../assets/img/cxj_detail/cart_65bbdc.png" alt="">
-                        </div>
-                    </div>
-                    
-                </li>
-                <li>
-                    <div><img src="../../assets/img/cxj_detail/c12a7becb68efe0df84956f22b6661e6.png" alt=""></div>
-                    <div>
-                        <p class="text_tellipsis">CATHY COSMETIC ATP 保湿面霜 35g</p>
-                        <p>95%好评</p>
-                        <p><i>¥</i>266</p>
-                        <div>
-                            <img src="../../assets/img/cxj_detail/cart_65bbdc.png" alt="">
-                        </div>
-                    </div>
-                    
-                </li>
-                <li>
-                    <div><img src="../../assets/img/cxj_detail/c12a7becb68efe0df84956f22b6661e6.png" alt=""></div>
-                    <div>
-                        <p class="text_tellipsis">CATHY COSMETIC ATP 保湿面霜 35g</p>
-                        <p>95%好评</p>
-                        <p><i>¥</i>266</p>
-                        <div>
-                            <img src="../../assets/img/cxj_detail/cart_65bbdc.png" alt="">
-                        </div>
-                    </div>
-                    
-                </li>
-                <li>
-                    <div><img src="../../assets/img/cxj_detail/c12a7becb68efe0df84956f22b6661e6.png" alt=""></div>
-                    <div>
-                        <p class="text_tellipsis">CATHY COSMETIC ATP 保湿面霜 35g</p>
-                        <p>95%好评</p>
-                        <p><i>¥</i>266</p>
-                        <div>
-                            <img src="../../assets/img/cxj_detail/cart_65bbdc.png" alt="">
-                        </div>
-                    </div>
-                    
-                </li>
-                <li>
-                    <div><img src="../../assets/img/cxj_detail/c12a7becb68efe0df84956f22b6661e6.png" alt=""></div>
-                    <div>
-                        <p class="text_tellipsis">CATHY COSMETIC ATP 保湿面霜 35g</p>
-                        <p>95%好评</p>
-                        <p><i>¥</i>266</p>
-                        <div>
-                            <img src="../../assets/img/cxj_detail/cart_65bbdc.png" alt="">
-                        </div>
-                    </div>
-                    
-                </li>
-                <li>
-                    <div><img src="../../assets/img/cxj_detail/c12a7becb68efe0df84956f22b6661e6.png" alt=""></div>
-                    <div>
-                        <p class="text_tellipsis">CATHY COSMETIC ATP 保湿面霜 35g</p>
-                        <p>95%好评</p>
-                        <p><i>¥</i>266</p>
-                        <div>
-                            <img src="../../assets/img/cxj_detail/cart_65bbdc.png" alt="">
-                        </div>
-                    </div>
-                    
-                </li>
-                <li>
-                    <div><img src="../../assets/img/cxj_detail/c12a7becb68efe0df84956f22b6661e6.png" alt=""></div>
-                    <div>
-                        <p class="text_tellipsis">CATHY COSMETIC ATP 保湿面霜 35g</p>
-                        <p>95%好评</p>
-                        <p><i>¥</i>266</p>
-                        <div>
-                            <img src="../../assets/img/cxj_detail/cart_65bbdc.png" alt="">
-                        </div>
-                    </div>
-                    
                 </li>
             </ul>
         </div>
         <div><img src="../../assets/img/cxj_detail/102x_460c12.png" alt=""></div>
         <div>产品特点</div>
         <ul>
-            <li><img src="../../assets/img/cxj_detail/57e07a05ef194289d58a501dc44555e7.png" alt=""></li>
-            <li><img src="../../assets/img/cxj_detail/57e07a05ef194289d58a501dc44555e7.png" alt=""></li>
-            <li><img src="../../assets/img/cxj_detail/57e07a05ef194289d58a501dc44555e7.png" alt=""></li>
+            <li v-for="(val,i) in detailImgList" :key="i"><img :src="val" alt=""></li>
         </ul>
     </div>
 </template>
 
 <script>
+import {getDetail} from 'network/detailRequest/detailRequest'
+import { getGoods } from 'network/homeRequest/homeRequest'
 export default {
-
+    data() {
+        return {
+            detailData: Object,
+            companyInfo: Object,
+            detailImgList: [],
+            goodsData:[]
+        }
+    },    
+    async mounted() {
+        this.detailData = await getDetail(this.$route.params.id)
+        const data = await getGoods(Math.floor(Math.random() * (300 - 10 + 1) + 10), 10)
+        this.goodsData = data.data
+        this.companyInfo = JSON.parse(this.detailData.companyInfo)
+        this.detailImgList = JSON.parse(this.detailData.detailImgList)
+        // console.log(this.goodsData)
+    }
 }
 </script>
 

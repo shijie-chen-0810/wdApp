@@ -2,7 +2,7 @@
     <div class="comment">
         <div>
             <p>商品评价（2193）</p>
-            <p>99%好评</p>
+            <p>{{ detailData.praise_desc }}</p>
         </div>
         <div>
             <ul>
@@ -14,16 +14,16 @@
             </ul>
         </div>
         <div>
-            <img src="../../assets/img/cxj_detail/6e1d245c935beaf82a5b801fa022530b.jpg" alt="">
-            <p>于书欢</p>
+            <img :src="userImg" alt="">
+            <p>{{ userName }}</p>
             <div><img src="../../assets/img/cxj_detail/vip_ccef4e.png" alt=""></div>
             <div><img src="../../assets/img/cxj_detail/__805ead.png" alt=""></div>
         </div>
         <div>
-            <p>第二次买了，肤感滋润，味道不错</p>
+            <p>{{ commentText }}</p>
         </div>
         <ul>
-            <li><img src="//img.alicdn.com/imgextra/i3/191008125/O1CN01p1Rukx29tIfG5FSCE_!!191008125.jpg_760x760Q90s50.jpg_.webp" alt=""></li>
+            <li v-if="commentImg"><img :src="commentImg" alt=""></li>
         </ul>
         <div>
             <div>查看全部评价</div>
@@ -32,7 +32,32 @@
 </template>
 
 <script>
+import {getDetail} from 'network/detailRequest/detailRequest'
+
 export default {
+    data() {
+        return {
+            detailData: Object,
+            commontList: [],
+            userImg:'',
+            userName:'',
+            commentText:'',
+            commentImg:''
+        }
+    },
+    async mounted() {
+        this.detailData = await getDetail(this.$route.params.id)
+        try {
+            this.commontList = JSON.parse(this.detailData.commontList)
+            this.userImg = this.commontList[0].userImg
+            this.userName = this.commontList[0].userName
+            this.commentText = this.commontList[0].commentText
+            this.commentImg = this.commontList[0].commentImg
+        } catch (e) {
+            console.log('数据不是json格式')
+        }
+        
+    }
     
 }
 </script>
