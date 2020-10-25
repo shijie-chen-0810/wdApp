@@ -35,6 +35,7 @@ export default {
 <style lang="stylus" scoped>
 div.order-goods
   background #f0eff5
+  height 100vh
   div.orderbar
     display flex
     height .4rem

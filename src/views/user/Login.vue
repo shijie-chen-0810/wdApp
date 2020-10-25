@@ -48,7 +48,7 @@ export default {
     ...mapMutations([
       'changephonenum'
     ]),
-    //点击获取验证码
+    //点击获取验证码,将手机号与验证码存入vuex,登录状态为false
     async getverify(){
       if(this.cellphonebumber.length === 11){
         let reg = /^((13|14|15|17|18)[0-9]{1}\d{8})$/;
@@ -97,7 +97,7 @@ export default {
         this.verifycode = randomcode
         //改变vuex中登录phonenum,verify
         this.changephonenum({
-          type:'changephonenum',
+          type:'profile/changephonenum',
           cellphonenumber: this.cellphonebumber,
           verifycode: this.verifycode
         })

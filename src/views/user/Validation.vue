@@ -48,7 +48,7 @@ export default {
     handlegologin(){
       this.$emit("mychange")
     },
-    //判断验证码是否正确
+    //点击验证判断验证码是否正确
     async loginsuccess(){
       if(this.verifynum.length === 6 && this.verifynum === this.$store.state.profile.verifycode){
         //根据状态码判断后端是否正确处理phonenum,
@@ -65,7 +65,7 @@ export default {
         if(true){ 
           //修改vuex中登录状态位true
           this.changeislogin({
-            type:'changeislogin',
+            type:'profile/changeislogin',
             islogin: true
           })
         }
@@ -96,8 +96,9 @@ export default {
       }, 1000);
     }
   },
-  //控制验证码输入
+  
   watch:{
+    //控制验证码输入
     verifynum(){
       if(this.verifynum >= 6){
         this.verifynum = this.verifynum.slice(0, 6);

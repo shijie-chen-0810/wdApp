@@ -1,10 +1,15 @@
 <template>
-  <div>coming send</div>
+  <div>
+    <Comingcon></Comingcon>
+  </div>
 </template>
 
 <script>
+import Comingcon from './ordercoming/Comingcon'
 export default {
-
+  components:{
+    Comingcon
+  }
 }
 </script>
 
