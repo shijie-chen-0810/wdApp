@@ -11,23 +11,15 @@
       </router-link>
       
       <ul class="user-content">
-        <li>
-          <p>-</p>
-          <span>低现积分</span>
-        </li>
-        <li>
-          <p>-</p>
-          <span>优惠卷</span>
-        </li>
-        <li>
-          <p>-</p>
-          <span>公主说</span>
+        <li v-for="data in datalist" :key="data.id">
+          <p>{{islogin? '-':data.number}}</p>
+          <span>{{data.modulename}}</span>
         </li>
       </ul>
     </div>
     <profileorder></profileorder>
     <profileserve></profileserve>
-    <profiledownload ></profiledownload>
+    <profiledownload @logoutnow="logout"></profiledownload>
   </div>
 </template>
 
@@ -41,6 +33,23 @@ export default {
     return {
       islogin:true,
       querynum:'',
+      datalist:[
+        {
+          id:'001',
+          number:0,
+          modulename:'低现积分'
+        },
+        {
+          id:'002',
+          number:0,
+          modulename:'优惠卷'
+        },
+        {
+          id:'003',
+          number:0,
+          modulename:'公主说'
+        }
+      ]
     }
   },
   components:{
@@ -49,11 +58,17 @@ export default {
     Profiledownload
   },
   mounted(){
-    if(this.$route.query.num){
-      this.querynum = this.$route.query.num;
+    if(this.$store.state.profile.islogin){
+      this.querynum = this.$store.state.profile.cellphonenumber;
       this.islogin = false;
     }else{
       this.querynum = '';
+      this.islogin = true;
+    }
+  },
+  methods:{
+    logout(){
+      this.querynum = ''
       this.islogin = true;
     }
   }

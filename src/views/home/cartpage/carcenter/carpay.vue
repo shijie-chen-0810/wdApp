@@ -1,15 +1,16 @@
 <template>
   <div class="pay">
     <div class="left">
-      <p>合计: <span>￥158.00</span> <i>已优惠￥0.00</i></p>
+      <p>合计: <span>{{$parent.$parent.goodsAll(goods)[1]}}</span> <i>已优惠￥{{$parent.$parent.goodsAll(goods)[2]}}</i></p>
       <b>不含运费和综合税</b>
     </div>
-    <button>结算郑州保税仓(1)</button>
+    <router-link :to="{path:'/pay',query:{price:$parent.$parent.goodsAll(goods)[1]}}" tag="button">结算郑州保税仓({{$parent.$parent.goodsAll(goods)[0]}})</router-link>
   </div>
 </template>
 
 <script>
 export default {
+  props:["goods"]
 
 }
 </script>
