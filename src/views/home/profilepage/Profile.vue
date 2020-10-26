@@ -61,7 +61,6 @@ export default {
       this.querynum = '';
       this.islogin = true;
     }
-    console.log(this.$store.state.islogin)
   },
   components:{
 
