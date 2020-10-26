@@ -31,8 +31,6 @@
                 </div>
                 <div class="cat-name">面膜</div>
             </a>
-        </div>
-        <div class="right-cat-group">
             <a href="" class="item">
                 <div class="img-box">
                     <img src="https://oss4.wandougongzhu.cn/8f21335ffb9223314ff1ac24ce6a7dfa.png?x-oss-process=image/resize,w_360,h_4000/format,webp">
@@ -58,6 +56,9 @@
                 <div class="cat-name">面膜</div>
             </a>
         </div>
+        <!-- <div class="right-cat-group">
+            
+        </div> -->
         <div class="right-cat-name">
             个性美妆
         </div>
@@ -186,8 +187,13 @@
 </template> 
 
 <script>
+import Category from 'assets/static/Category.js'
 export default {
-    
+    data() {
+        return {
+            Category
+        } 
+    },
 }
 </script>
 
@@ -212,6 +218,7 @@ export default {
         margin-right .1rem
         margin-top .15rem
     .right-cat-group
+       
         display flex
         -webkit-box-pack justify
         justify-content space-between

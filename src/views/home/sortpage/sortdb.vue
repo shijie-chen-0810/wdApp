@@ -2,7 +2,7 @@
     <div class="right-box">
         <div
             class="mbbox"
-            v-for="(item,index) in Category"
+            v-for="(item,index) in Category[0].sub"
             :key="index" 
         >
             <div class="right-top">
@@ -14,57 +14,33 @@
                 </div>
             </a> 
             </div>
-            <div class="right-body" >
+            <div 
+                class="right-body" 
+                v-for="(v,k,i) in item.sub" 
+                :key="i" 
+                :style="`background-image:url(&quot;${v.bg_img}&quot;);background-size: cover; background-position: 50%;`"
+            >
                 <a href="" class="lj">
                     <div class="right-body-left">
                         <div class="right-body-left-box">
-                            <div class="right-body-left-img">
+                            <div class="right-body-left-img"> 
                                 <img src="https://s1.wandougongzhu.cn/s/a9/icon----3x_c9985b.png">
                             </div>
-                            <div class="right-body-left-title">面膜豌豆甄选</div>
+                            <div class="right-body-left-title">{{v.title}}</div>
                         </div>
                     </div>
                     <div class="right-body-right">
                         <div class="image-con">
-                            <div class="right-body-right-one right-gg" style="background-image: url(&quot;https://oss4.wandougongzhu.cn/5a6cda83371f6e5db6f3b3fbd85a5feb.png?x-oss-process=image/resize,w_360,h_4000/format,webp&quot;);">
+                            <div class="right-body-right-one right-gg" :style="`background-image:url(&quot;${v.goods_img_list[0]}&quot;)`">
                             </div>
-                            <div class="right-body-right-two right-gg" style="background-image: url(&quot;https://oss2.wandougongzhu.cn/26db3085a28ec3d38b3d04e22560505c.png?x-oss-process=image/resize,w_360,h_4000/format,webp&quot;);">
+                            <div class="right-body-right-two right-gg" :style="`background-image:url(&quot;${v.goods_img_list[1]}&quot;)`">
                             </div>
-                            <div class="right-body-right-three right-gg" style="background-image: url(&quot;https://oss2.wandougongzhu.cn/0a1ce15340324afd44574a004418c86f.png?x-oss-process=image/resize,w_360,h_4000/format,webp&quot;);">
+                            <div class="right-body-right-three right-gg" :style="`background-image:url(&quot;${v.goods_img_list[2]}&quot;)`">
                             </div>
                         </div>
                     </div>
                 </a>
-                
             </div>
-            <!-- <div class="right-body">
-                <a href="" class="lj">
-                    <div class="right-body-left">
-                        <div class="right-body-left-box">
-                            <div class="right-body-left-img">
-                                <img src="https://s1.wandougongzhu.cn/s/a9/icon----3x_c9985b.png">
-                            </div>
-                            <div class="right-body-left-title">面膜豌豆甄选</div>
-                        </div>
-                    </div>
-                    <div class="right-body-right"></div>
-                </a>
-                
-            </div>
-            <div class="right-body">
-                <a href="" class="lj">
-                    <div class="right-body-left">
-                        <div class="right-body-left-box">
-                            <div class="right-body-left-img">
-                                <img src="https://s1.wandougongzhu.cn/s/a9/icon----3x_c9985b.png">
-                            </div>
-                            <div class="right-body-left-title">面膜豌豆甄选</div>
-                        </div>
-                    </div>
-                    <div class="right-body-right"></div>
-                </a>
-                
-            </div> -->
         </div>
     </div>
     
@@ -76,11 +52,13 @@ import Category from 'assets/static/Category.js'
 export default {
     data() {
         return {
-            Category
-        }
+            Category,
+            Categoryzx:Category[0].sub
+
+        } 
     },
     mounted () {
-        // console.log(this.Category)
+        console.log(this.Category[0].sub)
     }
 }
 </script>
@@ -122,7 +100,7 @@ export default {
         background-position 50%
         border-radius .1rem
         position relative
-        background-image url("https://oss2.wandougongzhu.cn/193741da29d99a5ae64f5b30fc628305.png")
+        
         .lj
             display flex
             height 100%
@@ -153,7 +131,7 @@ export default {
             font-size .14rem
             margin-top .05rem
             max-width 2.64rem
-            font-weight 700
+            font-weight 600
         .right-gg
             display inline-block
             vertical-align middle

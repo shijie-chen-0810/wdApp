@@ -67,11 +67,8 @@ export default {
             indexList: ['#L','A','B','C','D','E','F','G','H','I','J','K','L','N','M','O','P','Q','R','S','T','U','V','W','X','Y','Z','ｇ','#'],
             BrandSort:BrandSort.hot_list,
             BrandSortlist:BrandSort.list,
-            // BrandSortlistitem:BrandSort.list[5].list
+            
         }
-    },
-    created () {
-        
     },
     filters: {
         capitalize: function (value) {
@@ -134,9 +131,9 @@ export default {
     .group
         margin 0 .25rem 0 .15rem
     .group-title
-        font-size .2rem
-        font-weight 700
-        color #191919
+        font-size .2rem!important
+        font-weight 700!important
+        color #191919!important
         height .2rem
         line-height .2rem
         margin .1rem 0
