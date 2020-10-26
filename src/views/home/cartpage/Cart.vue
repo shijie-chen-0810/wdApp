@@ -97,7 +97,6 @@ export default {
             case1 = 200
             jian1 = 16 
             type1 = jian1 - 16 + 8
-            console.log(price1 + '---')
           }else if(price1 >= 250 && price1 <= 650){
             case1 = 400
             jian1 = 50
