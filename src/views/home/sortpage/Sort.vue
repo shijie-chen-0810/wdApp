@@ -46,7 +46,7 @@ data() {
     return {
       currentpage:'sort',
       currentqh:'sort',
-      indexList: ['#L','A'],
+      
     }
   },
   components: {
@@ -115,7 +115,7 @@ data() {
   .sort-right
     flex 1
     overflow-y scroll
-    height 100%
+    height 100vh
   .brand-body
     padding-top .44rem
     padding-bottom .49rem
