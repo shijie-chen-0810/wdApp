@@ -1,6 +1,6 @@
 <template>
   <div id="main">
-    <keep-alive>
+    <keep-alive exclude="profile">
       <router-view></router-view>
     </keep-alive>
     <tabbar></tabbar>

@@ -29,6 +29,7 @@ import Profileserve from "./profilefeature/Profileserve"
 import Profiledownload from "./profilefeature/Profiledownload"
 
 export default {
+  name:'profile',
   data(){
     return {
       islogin:true,
@@ -51,6 +52,12 @@ export default {
         }
       ]
     }
+  },
+  created(){
+    console.log('asdasdasd')
+  },
+  activated(){
+    console.log('pppppppppppp')
   },
   components:{
     Profileorder,

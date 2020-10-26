@@ -1,7 +1,7 @@
 <template>
   <router-link :to='{name:"detail",params:{id:item.goods_id}}' class="item">
     <div class="item-img">
-      <img :src="item.img_middle" alt="">
+      <van-image :src="item.img_middle" alt=""></van-image>
     </div>
     <div class="price">
       <span class="item-now-price">￥{{item.final_price}}</span>

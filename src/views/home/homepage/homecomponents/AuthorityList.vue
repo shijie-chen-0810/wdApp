@@ -8,7 +8,7 @@
           <span>已下单{{item.num}}件</span>
         </p>
         <p>
-          <img :src="item.imgURL" alt="">
+          <van-image :src="item.imgURL" alt=""></van-image>
         </p>
       </li>
     </ul>
@@ -54,8 +54,11 @@ export default {
         span:nth-child(3)
           color #6e6e9b
       p:nth-child(2)
-        img
+        div
           width 0.79rem
           height 0.79rem
+          img
+            width 100%
+            
     
 </style>

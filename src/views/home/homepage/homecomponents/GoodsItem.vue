@@ -2,7 +2,7 @@
   <router-link tag="li" :to='{name:"detail",params:{id:item.goods_id}}' class="goods-item" >
     <div class="goods-img">
       <p class='goods_img_part'>
-        <img :src="item.img_middle" alt="">
+        <van-image :src="item.img_middle" alt=""></van-image>
       </p>
       <p class="goods_desc_part" v-if='item.img_bottom_desc!==""'>{{item.img_bottom_desc}}</p>
     </div>
