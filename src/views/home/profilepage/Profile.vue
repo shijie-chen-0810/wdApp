@@ -53,25 +53,21 @@ export default {
       ]
     }
   },
-  created(){
-    console.log('asdasdasd')
-  },
   activated(){
-    console.log('pppppppppppp')
-  },
-  components:{
-    Profileorder,
-    Profileserve,
-    Profiledownload
-  },
-  mounted(){
-    if(this.$store.state.profile.islogin){
+    if(this.$store.state.islogin){
       this.querynum = this.$store.state.profile.cellphonenumber;
       this.islogin = false;
     }else{
       this.querynum = '';
       this.islogin = true;
     }
+    console.log(this.$store.state.islogin)
+  },
+  components:{
+
+    Profileorder,
+    Profileserve,
+    Profiledownload
   },
   methods:{
     logout(){
