@@ -27,8 +27,9 @@
 </template>
 
 <script>
-import axios from 'axios'
-import { mapMutations } from 'vuex'
+import { Dialog } from 'vant';
+import axios from 'axios';
+import { mapMutations } from 'vuex';
 export default {
   data(){
     return {
@@ -45,14 +46,20 @@ export default {
       this.$router.go(-1)
     },
     ...mapMutations([
-      'changephonenum'
+      'changephonenum',
+      'changephonenumroot'
     ]),
     //点击获取验证码,将手机号与验证码存入vuex,登录状态为false
     async getverify(){
       if(this.cellphonebumber.length === 11){
         let reg = /^((13|14|15|17|18)[0-9]{1}\d{8})$/;
         if (!reg.test(this.cellphonebumber)) {
-          alert('您输入的手机号码不合法，请重新输入');
+          Dialog.alert({
+            message: '请输入正确的手机号',
+            theme: 'round-button',
+          }).then(() => {
+            // on close
+          });
           return;
         };
         //随机生成6位验证码
@@ -93,11 +100,15 @@ export default {
         }
         this.verifycode = randomcode
         //改变vuex中登录phonenum,verify
+        this.changephonenumroot({
+          type:'changephonenumroot',
+          cellphonenumber: this.cellphonebumber,
+        })
         this.changephonenum({
           type:'profile/changephonenum',
-          cellphonenumber: this.cellphonebumber,
           verifycode: this.verifycode
         })
+        // console.log(this.$store.state.cellphonenumber)
         this.$emit("myclick")
       }
     }
