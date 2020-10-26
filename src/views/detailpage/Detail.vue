@@ -17,9 +17,9 @@
     <main>
         <div ref="scroTop">
           <goods></goods>
-          <comment></comment>
-          <goods-detail></goods-detail>
-          <recommend></recommend>
+          <div ref="commentTop"><comment></comment></div>
+          <div ref="detailTop"><goods-detail></goods-detail></div>
+          <div ref="recommendTop"><recommend></recommend></div>
         </div>
     </main>
     <footer>
@@ -45,11 +45,16 @@ import GoodsDetail from './GoodsDetail'
 import Recommend from './Recommend'
 
 export default {
+  name: 'detail',
   data() {
     return {
       isCollect: true,
       isSelected: 'goods',
-      topShow: false
+      topShow: false,
+      flag: true,
+      commentTop: Number,
+      detailTop: Number,
+      recommendTop: Number
     }
   },  
   components: {
@@ -63,23 +68,28 @@ export default {
   },
   methods: {
     handleScrolly() {
-      // console.log('距离顶部高度',this.$refs.scroTop.getBoundingClientRect().top)
+      if(this.flag){
+        this.flag = false
+        this.commentTop = this.$refs.commentTop.getBoundingClientRect().top
+        this.detailTop = this.$refs.detailTop.getBoundingClientRect().top
+        this.recommendTop = this.$refs.recommendTop.getBoundingClientRect().top
+      }
       let topy = this.$refs.scroTop.getBoundingClientRect().top
       if(topy <= 0){
         this.topShow = true
       } else {
         this.topShow = false
       }
-      if(Math.abs(topy) < 780 ){
+      if(Math.abs(topy) < this.commentTop - 90){
         this.isSelected = 'goods'
       }
-      if(Math.abs(topy) >= 780 ){
+      if(Math.abs(topy) >= this.commentTop - 90){
         this.isSelected = 'comment'
       }
-      if(Math.abs(topy) >= 1100 ){
+      if(Math.abs(topy) >= this.detailTop - 90){
         this.isSelected = 'goodsdetail'
       }
-      if(Math.abs(topy) >= 2600 ){
+      if(Math.abs(topy) >= this.recommendTop - 90){
         this.isSelected = 'recommend'
       }
     },
