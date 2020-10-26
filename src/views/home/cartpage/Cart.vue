@@ -1,7 +1,7 @@
 <template>
   <div class="all">
     <div class="header">
-      <span class="iconfont">&#xe60b;</span>
+      <span class="iconfont" @click="back">&#xe60b;</span>
       <h2>购物袋</h2>
       <p @click="click">{{operation}}</p>
     </div>
@@ -36,6 +36,9 @@ export default {
     carfooter
   },
   methods:{
+    back(){
+      this.$router.go(-1)
+    },
     click(){
       this.operation = this.operation === "编辑" ? "完成" : "编辑"
     },
@@ -44,8 +47,8 @@ export default {
       this.car.splice(index,1)
       const good1 = this.car.filter(item=>item.house_id === 200)
       const good2 = this.car.filter(item=>item.house_id !== 200)
-      const info1 = good1.some(item=>item === false)
-      const info2 = good2.some(item=>item === false)
+      const info1 = good1.some(item=>item.checked === false)
+      const info2 = good2.some(item=>item.checked === false)
       if(info1) {
         this.$refs.zhengzhou.checked = false
       }else{
@@ -139,6 +142,7 @@ export default {
   async mounted(){
     const a = await getGoods(100,24)
     this.goodsList = a.data
+    console.log()
     a.data.forEach(item=>{
       this.car.push({
         ...item,
