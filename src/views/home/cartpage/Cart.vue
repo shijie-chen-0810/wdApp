@@ -91,10 +91,13 @@ export default {
       this.car.forEach(item=>{
         if(item.house_id === 200 && item.checked === true){
           num1 += item.num
+          price1 += item.final_price * item.num
+          priceY1 += (item.market_price - item.final_price) * item.num
           if(price1 >= 50 && price1 <= 250){
             case1 = 200
             jian1 = 16 
             type1 = jian1 - 16 + 8
+            console.log(price1 + '---')
           }else if(price1 >= 250 && price1 <= 650){
             case1 = 400
             jian1 = 50
@@ -102,10 +105,10 @@ export default {
           }else if(price1 >= 650){
             type1 = jian1 + 24
           }
-          price1 += item.final_price * item.num
-          priceY1 += (item.market_price - item.final_price) * item.num
         }else if((item.house_id !== 200 && item.checked === true)){
           num2 += item.num
+          price2 += item.final_price * item.num
+          priceY2 += (item.market_price - item.final_price) * item.num 
           if(price2 >= 50 && price2 <= 250){
             case2 = 200
             jian2 = 16
@@ -117,8 +120,6 @@ export default {
           }else if(price2 >= 650){
             type2 = jian2 + 24
           }
-          price2 += item.final_price * item.num
-          priceY2 += (item.market_price - item.final_price) * item.num 
         }
       })
       price1 = price1 - type1
@@ -142,7 +143,7 @@ export default {
   async mounted(){
     const a = await getGoods(100,24)
     this.goodsList = a.data
-    console.log()
+    // console.log(this.$store.state('profile/cellphonenumber'))
     a.data.forEach(item=>{
       this.car.push({
         ...item,
