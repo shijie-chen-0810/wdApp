@@ -14,13 +14,13 @@
     <header v-else>
       <div class="active" @click="goback"><svg t="1603350461898" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2787" width="16" height="16"><path d="M896 544H193.3312a32 32 0 1 1 0-64H896a32 32 0 0 1 0 64z" fill="#191919" p-id="2788"></path><path d="M426.5984 798.72a31.8976 31.8976 0 0 1-22.6304-9.3696L126.8736 512 403.968 234.9056a32 32 0 0 1 45.2608 45.2608L217.3952 512l231.8336 231.8336A32 32 0 0 1 426.5984 798.72z" fill="#191919" p-id="2789"></path></svg></div>
     </header>
-    <main>
-        <div ref="scroTop">
-          <goods></goods>
-          <div ref="commentTop"><comment></comment></div>
-          <div ref="detailTop"><goods-detail></goods-detail></div>
-          <div ref="recommendTop"><recommend></recommend></div>
-        </div>
+    <main ref='scroll'>
+      <div ref="scroTop">
+        <goods @refresh='refresh'></goods>
+        <div ref="commentTop"><comment @refresh='refresh'></comment></div>
+        <div ref="detailTop"><goods-detail @refresh='refresh'></goods-detail></div>
+        <div ref="recommendTop"><recommend @refresh='refresh'></recommend></div>
+      </div>
     </main>
     <footer>
       <div>
@@ -43,6 +43,7 @@ import Goods from './Goods'
 import Comment from './Comment'
 import GoodsDetail from './GoodsDetail'
 import Recommend from './Recommend'
+import BScroll from '@better-scroll/core'
 
 export default {
   name: 'detail',
@@ -52,49 +53,67 @@ export default {
       isSelected: 'goods',
       topShow: false,
       flag: true,
-      commentTop: Number,
-      detailTop: Number,
-      recommendTop: Number
+      commentTop: '',
+      detailTop: '',
+      recommendTop: '',
+      bs:null
     }
   },  
   components: {
     Goods,
     Comment,
     GoodsDetail,
-    Recommend
+    Recommend,
   },
   mounted() {
-    window.addEventListener('scroll',this.handleScrolly, true)
+    this.$nextTick(()=>{
+      this.bs = new BScroll(this.$refs.scroll,{
+        probeType:3,
+        click:true,
+        bounce:{
+          top:false
+        },
+        mouseWheel:true
+      })
+      this.bs.on('scroll',this.scrollPos)
+    })
   },
   methods: {
-    handleScrolly() {
+    scrollPos(position){
       if(this.flag){
         this.flag = false
         this.commentTop = this.$refs.commentTop.getBoundingClientRect().top
         this.detailTop = this.$refs.detailTop.getBoundingClientRect().top
         this.recommendTop = this.$refs.recommendTop.getBoundingClientRect().top
       }
-      let topy = this.$refs.scroTop.getBoundingClientRect().top
+      let topy = position.y
       if(topy <= 0){
         this.topShow = true
       } else {
         this.topShow = false
       }
-      if(Math.abs(topy) < this.commentTop - 90){
+      if(Math.abs(topy) < this.commentTop - 45){
         this.isSelected = 'goods'
       }
-      if(Math.abs(topy) >= this.commentTop - 90){
+      if(Math.abs(topy) >= this.commentTop - 45){
         this.isSelected = 'comment'
       }
-      if(Math.abs(topy) >= this.detailTop - 90){
+      if(Math.abs(topy) >= this.detailTop - 45){
         this.isSelected = 'goodsdetail'
       }
-      if(Math.abs(topy) >= this.recommendTop - 90){
+      if(Math.abs(topy) >= this.recommendTop - 45){
         this.isSelected = 'recommend'
       }
     },
     goback(){
-      this.$router.go(-1)
+      this.$router.push('/home')
+      // this.$nextTick(()=>{
+        
+      //   location.reload()
+      // })
+    },
+    refresh(){
+      this.bs.refresh()
     }
   }
 }
@@ -102,6 +121,7 @@ export default {
 
 <style lang="stylus" scoped>
 @import '~@/assets/stylus/border.styl'
+
 .detail
   display flex
   height 100vh

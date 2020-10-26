@@ -67,7 +67,7 @@ import SwipeX from './homecomponents/Swipe-X'
 import SwipeY from './homecomponents/Swipe-Y'
 import JapanOneThing from 'components/content/JapanOneThing'
 import AuthorityList from './homecomponents/AuthorityList'
-import GoodsList from './homecomponents/GoodsList'
+import GoodsList from 'components/content/GoodsList'
 
 export default {
   data(){
@@ -91,13 +91,21 @@ export default {
   },
   methods:{
     async loadData(offset){
-      const tmpResult = await getGoods(offset,10)
-      this.$toast.clear()
-      this.$refs.bscroll.bscroll.finishPullUp()
-      this.goodsList.push(...tmpResult.data)
-      this.total = tmpResult.total
-      this.offset += 10
-      console.log(this.offset,this.total)
+      try{
+        const tmpResult = await getGoods(offset,10)
+        this.$toast.clear()
+        this.$refs.bscroll.bscroll.finishPullUp()
+        this.goodsList.push(...tmpResult.data)
+        this.total = tmpResult.total
+        this.offset += 10
+        console.log(this.offset,this.total)
+      }catch(e){
+        console.log(e)
+        this.$refs.bscroll.bscroll.finishPullUp()
+        this.$toast.clear()
+      }
+
+      
     },
     async getmoregoods(){
       if(this.offset===this.total&&this.offset!==0){
