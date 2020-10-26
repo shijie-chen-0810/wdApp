@@ -147,11 +147,11 @@ export default {
     .hot-desc
         color #9e9e9e
         font-size .12rem
-        width 1.38rem
+        width 1.34rem
         ellipsis_num(1)
     .hot-count
         color #9e9e9e
-        margin-right .1rem
+        margin-right .11rem
     .hot-number
         color #EA4141
         font-size .12rem
