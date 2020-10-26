@@ -1,7 +1,7 @@
 <template>
   <div class="all">
     <div class="header">
-      <span class="iconfont">&#xe60b;</span>
+      <span class="iconfont" @click="back">&#xe60b;</span>
       <h2>购物袋</h2>
       <p @click="click">{{operation}}</p>
     </div>
@@ -36,6 +36,9 @@ export default {
     carfooter
   },
   methods:{
+    back(){
+      this.$router.go(-1)
+    },
     click(){
       this.operation = this.operation === "编辑" ? "完成" : "编辑"
     },
@@ -44,8 +47,8 @@ export default {
       this.car.splice(index,1)
       const good1 = this.car.filter(item=>item.house_id === 200)
       const good2 = this.car.filter(item=>item.house_id !== 200)
-      const info1 = good1.some(item=>item === false)
-      const info2 = good2.some(item=>item === false)
+      const info1 = good1.some(item=>item.checked === false)
+      const info2 = good2.some(item=>item.checked === false)
       if(info1) {
         this.$refs.zhengzhou.checked = false
       }else{
@@ -88,10 +91,13 @@ export default {
       this.car.forEach(item=>{
         if(item.house_id === 200 && item.checked === true){
           num1 += item.num
+          price1 += item.final_price * item.num
+          priceY1 += (item.market_price - item.final_price) * item.num
           if(price1 >= 50 && price1 <= 250){
             case1 = 200
             jian1 = 16 
             type1 = jian1 - 16 + 8
+            console.log(price1 + '---')
           }else if(price1 >= 250 && price1 <= 650){
             case1 = 400
             jian1 = 50
@@ -99,10 +105,10 @@ export default {
           }else if(price1 >= 650){
             type1 = jian1 + 24
           }
-          price1 += item.final_price * item.num
-          priceY1 += (item.market_price - item.final_price) * item.num
         }else if((item.house_id !== 200 && item.checked === true)){
           num2 += item.num
+          price2 += item.final_price * item.num
+          priceY2 += (item.market_price - item.final_price) * item.num 
           if(price2 >= 50 && price2 <= 250){
             case2 = 200
             jian2 = 16
@@ -114,8 +120,6 @@ export default {
           }else if(price2 >= 650){
             type2 = jian2 + 24
           }
-          price2 += item.final_price * item.num
-          priceY2 += (item.market_price - item.final_price) * item.num 
         }
       })
       price1 = price1 - type1
@@ -139,6 +143,7 @@ export default {
   async mounted(){
     const a = await getGoods(100,24)
     this.goodsList = a.data
+    // console.log(this.$store.state('profile/cellphonenumber'))
     a.data.forEach(item=>{
       this.car.push({
         ...item,

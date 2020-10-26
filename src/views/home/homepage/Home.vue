@@ -7,39 +7,39 @@
     <better-scroll :isLoadingMore='true' @getmoregoods='getmoregoods' ref='bscroll' class="betterscroll">
       <swipe-x></swipe-x>
       <div class="health">
-        <img src="https://oss1.wandougongzhu.cn/8e415cd8201d8d1933ba8bbedc7a8d33.png?x-oss-process=image/resize,w_1242/format,webp" alt="">
+        <van-image src="https://oss1.wandougongzhu.cn/8e415cd8201d8d1933ba8bbedc7a8d33.png?x-oss-process=image/resize,w_1242/format,webp" alt=""></van-image>
       </div>
       <sort></sort>
       <div class="new-con">
         <p>
-          <img src="https://oss3.wandougongzhu.cn/9b77a5f16a29215e35d6de02fe0deb2b.gif?x-oss-process=image/resize,w_484" alt="" @load='refresh'>
+          <van-image src="https://oss3.wandougongzhu.cn/9b77a5f16a29215e35d6de02fe0deb2b.gif?x-oss-process=image/resize,w_484" alt="" @load='refresh'></van-image>
         </p>
         <p>
-          <img src="https://oss3.wandougongzhu.cn/00a791a83fb76bb8b12f4c8a3186df6e.png?x-oss-process=image/resize,w_443/format,webp" alt="" @load='refresh'>
-        </p>
-      </div>
-      <div class="holiday">
-        <p>
-          <img src="https://oss3.wandougongzhu.cn/5c0c81a629d340f2a0ef6753ea3d001d.png?x-oss-process=image/resize,w_621/format,webp" alt="" @load='refresh'>
-        </p>
-        <p>
-          <img src="https://oss4.wandougongzhu.cn/24057f1e842d6d55a5f3047fac9a611d.png?x-oss-process=image/resize,w_621/format,webp" alt="" @load='refresh'>
+          <van-image src="https://oss3.wandougongzhu.cn/00a791a83fb76bb8b12f4c8a3186df6e.png?x-oss-process=image/resize,w_443/format,webp" alt="" @load='refresh'></van-image>
         </p>
       </div>
       <div class="holiday">
         <p>
-          <img src="https://oss5.wandougongzhu.cn/352ec7ff13e1dae56ab092176c292bb2.png?x-oss-process=image/resize,w_622/format,webp" alt="" @load='refresh'>
+          <van-image src="https://oss3.wandougongzhu.cn/5c0c81a629d340f2a0ef6753ea3d001d.png?x-oss-process=image/resize,w_621/format,webp" alt="" @load='refresh'></van-image>
         </p>
         <p>
-          <img src="https://oss3.wandougongzhu.cn/a7cc713af9a83aaed55e71047967a9c5.png?x-oss-process=image/resize,w_621/format,webp" alt="" @load='refresh'>
+          <van-image src="https://oss4.wandougongzhu.cn/24057f1e842d6d55a5f3047fac9a611d.png?x-oss-process=image/resize,w_621/format,webp" alt="" @load='refresh'></van-image>
         </p>
       </div>
       <div class="holiday">
         <p>
-          <img src="https://oss3.wandougongzhu.cn/e9674e8f48779e075745c0425231fdfe.png?x-oss-process=image/resize,w_622/format,webp" alt="" @load='refresh'>
+          <van-image src="https://oss5.wandougongzhu.cn/352ec7ff13e1dae56ab092176c292bb2.png?x-oss-process=image/resize,w_622/format,webp" alt="" @load='refresh'></van-image>
         </p>
         <p>
-          <img src="https://oss3.wandougongzhu.cn/d13ae93bcd4507c853483021b4b17331.png?x-oss-process=image/resize,w_621/format,webp" alt="" @load='refresh'>
+          <van-image src="https://oss3.wandougongzhu.cn/a7cc713af9a83aaed55e71047967a9c5.png?x-oss-process=image/resize,w_621/format,webp" alt="" @load='refresh'></van-image>
+        </p>
+      </div>
+      <div class="holiday">
+        <p>
+          <van-image src="https://oss3.wandougongzhu.cn/e9674e8f48779e075745c0425231fdfe.png?x-oss-process=image/resize,w_622/format,webp" alt="" @load='refresh'></van-image>
+        </p>
+        <p>
+          <van-image src="https://oss3.wandougongzhu.cn/d13ae93bcd4507c853483021b4b17331.png?x-oss-process=image/resize,w_621/format,webp" alt="" @load='refresh'></van-image>
         </p>
       </div>
       <h4>限时秒杀</h4>
@@ -48,7 +48,7 @@
       <h4>权威榜单</h4>
       <authority-list :data='authoritylistdata'></authority-list>
       <div class='recommand'>
-        <img src="https://oss5.wandougongzhu.cn/f16f89df44cf7f8d9590b5c926ded7b3.png?x-oss-process=image/resize,w_1242/format,webp" alt="" @load='refresh'>
+        <van-image src="https://oss5.wandougongzhu.cn/f16f89df44cf7f8d9590b5c926ded7b3.png?x-oss-process=image/resize,w_1242/format,webp" alt="" @load='refresh'></van-image>
       </div>
       <goods-list :list='goodsList'></goods-list>
     </better-scroll>

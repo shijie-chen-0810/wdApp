@@ -29,6 +29,7 @@ import Profileserve from "./profilefeature/Profileserve"
 import Profiledownload from "./profilefeature/Profiledownload"
 
 export default {
+  name:'profile',
   data(){
     return {
       islogin:true,
@@ -52,19 +53,20 @@ export default {
       ]
     }
   },
-  components:{
-    Profileorder,
-    Profileserve,
-    Profiledownload
-  },
-  mounted(){
-    if(this.$store.state.profile.islogin){
+  activated(){
+    if(this.$store.state.islogin){
       this.querynum = this.$store.state.profile.cellphonenumber;
       this.islogin = false;
     }else{
       this.querynum = '';
       this.islogin = true;
     }
+  },
+  components:{
+
+    Profileorder,
+    Profileserve,
+    Profiledownload
   },
   methods:{
     logout(){

@@ -1,7 +1,7 @@
 <template>
   <div class="detail">
     <header v-if="topShow">
-      <div>
+      <div @click="goback">
         <svg t="1603350461898" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2787" width="16" height="16"><path d="M896 544H193.3312a32 32 0 1 1 0-64H896a32 32 0 0 1 0 64z" fill="#191919" p-id="2788"></path><path d="M426.5984 798.72a31.8976 31.8976 0 0 1-22.6304-9.3696L126.8736 512 403.968 234.9056a32 32 0 0 1 45.2608 45.2608L217.3952 512l231.8336 231.8336A32 32 0 0 1 426.5984 798.72z" fill="#191919" p-id="2789"></path></svg>
       </div>
       <ul>
@@ -12,14 +12,14 @@
       </ul>
     </header>
     <header v-else>
-      <div class="active"><svg t="1603350461898" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2787" width="16" height="16"><path d="M896 544H193.3312a32 32 0 1 1 0-64H896a32 32 0 0 1 0 64z" fill="#191919" p-id="2788"></path><path d="M426.5984 798.72a31.8976 31.8976 0 0 1-22.6304-9.3696L126.8736 512 403.968 234.9056a32 32 0 0 1 45.2608 45.2608L217.3952 512l231.8336 231.8336A32 32 0 0 1 426.5984 798.72z" fill="#191919" p-id="2789"></path></svg></div>
+      <div class="active" @click="goback"><svg t="1603350461898" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2787" width="16" height="16"><path d="M896 544H193.3312a32 32 0 1 1 0-64H896a32 32 0 0 1 0 64z" fill="#191919" p-id="2788"></path><path d="M426.5984 798.72a31.8976 31.8976 0 0 1-22.6304-9.3696L126.8736 512 403.968 234.9056a32 32 0 0 1 45.2608 45.2608L217.3952 512l231.8336 231.8336A32 32 0 0 1 426.5984 798.72z" fill="#191919" p-id="2789"></path></svg></div>
     </header>
     <main>
         <div ref="scroTop">
           <goods></goods>
-          <comment></comment>
-          <goods-detail></goods-detail>
-          <recommend></recommend>
+          <div ref="commentTop"><comment></comment></div>
+          <div ref="detailTop"><goods-detail></goods-detail></div>
+          <div ref="recommendTop"><recommend></recommend></div>
         </div>
     </main>
     <footer>
@@ -45,11 +45,16 @@ import GoodsDetail from './GoodsDetail'
 import Recommend from './Recommend'
 
 export default {
+  name: 'detail',
   data() {
     return {
       isCollect: true,
       isSelected: 'goods',
-      topShow: false
+      topShow: false,
+      flag: true,
+      commentTop: Number,
+      detailTop: Number,
+      recommendTop: Number
     }
   },  
   components: {
@@ -63,25 +68,33 @@ export default {
   },
   methods: {
     handleScrolly() {
-      // console.log('距离顶部高度',this.$refs.scroTop.getBoundingClientRect().top)
+      if(this.flag){
+        this.flag = false
+        this.commentTop = this.$refs.commentTop.getBoundingClientRect().top
+        this.detailTop = this.$refs.detailTop.getBoundingClientRect().top
+        this.recommendTop = this.$refs.recommendTop.getBoundingClientRect().top
+      }
       let topy = this.$refs.scroTop.getBoundingClientRect().top
       if(topy <= 0){
         this.topShow = true
       } else {
         this.topShow = false
       }
-      if(Math.abs(topy) < 780 ){
+      if(Math.abs(topy) < this.commentTop - 90){
         this.isSelected = 'goods'
       }
-      if(Math.abs(topy) >= 780 ){
+      if(Math.abs(topy) >= this.commentTop - 90){
         this.isSelected = 'comment'
       }
-      if(Math.abs(topy) >= 1100 ){
+      if(Math.abs(topy) >= this.detailTop - 90){
         this.isSelected = 'goodsdetail'
       }
-      if(Math.abs(topy) >= 2600 ){
+      if(Math.abs(topy) >= this.recommendTop - 90){
         this.isSelected = 'recommend'
       }
+    },
+    goback(){
+      this.$router.go(-1)
     }
   }
 }

@@ -34,7 +34,7 @@ const routes = [
       },
       {
         path: 'sort',
-        component: Sort
+        component:Sort,
       },
       {
         path: 'cart',
@@ -42,6 +42,7 @@ const routes = [
       },
       {
         path: 'profile',
+        name:'profile',
         component:Profile
       },
     ]
