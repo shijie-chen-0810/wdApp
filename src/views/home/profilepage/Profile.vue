@@ -58,13 +58,14 @@ export default {
     Profiledownload
   },
   mounted(){
-    if(this.$store.state.profile.islogin){
+    if(this.$store.state.islogin){
       this.querynum = this.$store.state.profile.cellphonenumber;
       this.islogin = false;
     }else{
       this.querynum = '';
       this.islogin = true;
     }
+    console.log(this.$store.state.islogin)
   },
   methods:{
     logout(){

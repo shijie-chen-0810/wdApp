@@ -27,7 +27,7 @@ export default {
     }
   },
   mounted(){
-    if(this.$store.state.profile.islogin){
+    if(this.$store.state.islogin){
       // this.querynum = this.$route.query.num;
       this.isfalse = true;
     }

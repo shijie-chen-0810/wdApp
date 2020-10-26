@@ -22,7 +22,6 @@
       >获取短信验证码</button>
       <!-- #ea4141  -->
       <b>密码登录</b>
-      {{cellphonebumber}}
     </div>
   </div>
 </template>
@@ -70,8 +69,6 @@ export default {
           let timenow = new Date().getTime()
           //sig为 asid + token + timenow  md5加密
           //Authorization 为 asid:timenow  base64加密
-          console.log(this.$store.state.profile.cellphonenumber)
-
           let sig = this.$md5(`${asid}${token}${timenow}`).toUpperCase()
           let authorization = this.Base64.encode(`${asid}:${timenow}`)
 

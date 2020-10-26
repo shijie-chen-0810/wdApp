@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import Login from './Login'
-import Validation from './Validation'
+import Login from './usercon/Login'
+import Validation from './usercon/Validation'
 export default {
   data(){
     return {

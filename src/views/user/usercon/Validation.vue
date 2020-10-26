@@ -22,7 +22,6 @@
       >登录</button>
       <!-- #ea4141  -->
     </div>
-    {{randomcode}}
   </div>
 </template>
 
@@ -65,7 +64,7 @@ export default {
         if(true){ 
           //修改vuex中登录状态位true
           this.changeislogin({
-            type:'profile/changeislogin',
+            type:'changeislogin',
             islogin: true
           })
         }
@@ -78,8 +77,9 @@ export default {
     
   },
   mounted(){
-    this.phonenumber = this.$store.state.profile.cellphonenumber
+    this.phonenum = this.$store.state.profile.cellphonenumber
     this.randomcode = this.$store.state.profile.verifycode
+    console.log(this.randomcode)
     //60s倒计时
     const TIME_COUNT = 300;
     if (!this.timer) {
