@@ -20,7 +20,7 @@
         <div class="discount-coupon">
           <img src="https://oss4.wandougongzhu.cn/e5d1905f329ec9da970e3bfe8471a2b9.png?x-oss-process=image/resize,w_1242/format,webp" alt="" @load='refresh'>
         </div>
-        <sort></sort>
+        <sort class="sort"></sort>
         <JapanOneThing :imgList='imgList'></JapanOneThing>
         <h4>一周新草</h4>
         <div class="new-grass-con">
@@ -39,11 +39,15 @@
         <authority-list></authority-list>
         <h4>百里挑一</h4>
         <one-in-hundred v-for="(item,index) in bannerImgList" :key='index' :bannerImg='item'></one-in-hundred>
+        <h4>更多推荐</h4>
+        <goods-list :list='goodsList'></goods-list>
     </better-scroll>
   </div>
 </template>
 
 <script>
+import { getGoods } from 'network/homeRequest/homeRequest'
+
 import Vue from 'vue';
 import { NavBar } from 'vant';
 
@@ -56,7 +60,7 @@ import JapanOneThing from 'components/content/JapanOneThing'
 import SwiperY from './SwiperY'
 import AuthorityList from './AuthorityList'
 import OneInHundred from './OneInHundred'
-
+import GoodsList from 'components/content/GoodsList'
 
 export default {
   data(){
@@ -69,7 +73,8 @@ export default {
         'https://oss4.wandougongzhu.cn/73c513d2502084243361be5a83739bd5.png?x-oss-process=image/resize,w_1242/format,webp',
         'https://oss5.wandougongzhu.cn/2f14fcae383899e62e5209408a78f27b.jpg?x-oss-process=image/resize,w_1242/format,webp',
         'https://oss2.wandougongzhu.cn/5508b75edbb2f97c50e548b4f5738052.png?x-oss-process=image/resize,w_1242/format,webp'
-      ]
+      ],
+      goodsList:null
     }
   },
   components:{
@@ -79,7 +84,11 @@ export default {
     BetterScroll,
     SwiperY,
     AuthorityList,
-    OneInHundred
+    OneInHundred,
+    GoodsList
+  },
+  async mounted(){
+    this.goodsList = await getGoods(230,6)
   },
   methods:{
     onClickLeft(){
@@ -91,7 +100,6 @@ export default {
     refresh(){
       clearTimeout(this.timer)
       this.timer = setTimeout(()=>{
-        console.log('aaa')
         this.$refs.bscroll.bscroll.refresh()
       },200)
     }
@@ -117,6 +125,9 @@ export default {
   .title-bar-left
     font-size 0.2rem
     font-weight 900
+.sort
+  padding-top 0rem
+  height 1.76rem
 h4
   padding 0.1rem 0.12rem
   font-size 0.2rem

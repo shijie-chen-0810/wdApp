@@ -3,14 +3,14 @@
         <div>大家都在逛</div>
         <ul>
             <li v-for="(goods,i) in goodsData" :key="i">
-                <div><img :src="goods.img_middle" alt=""></div>
+                <div><img :src="goods.img_middle" alt="" @load="refresh"></div>
                     <div>
                         <p class="text_ellipsis">{{ goods.slogan }}</p>
                         <p class="text_tellipsis">{{ goods.goods_name }}</p>
                         <p>{{ goods.praise_desc }}</p>
                         <div>
                             <p><i>¥</i>{{ goods.finalPrice }}</p>
-                            <img src="../../assets/img/cxj_detail/cart_65bbdc.png" alt="">
+                            <img src="../../assets/img/cxj_detail/cart_65bbdc.png" alt="" @load="refresh">
                         </div>
                 </div>
             </li>
@@ -31,6 +31,11 @@ export default {
         const data = await getGoods(Math.floor(Math.random() * (300 - 10 + 1) + 10), 10)
         this.goodsData = data.data
         // console.log(this.goodsData)
+    },
+    methods:{
+        refresh(){
+            this.$emit('refresh')
+        }
     }
 }
 </script>
