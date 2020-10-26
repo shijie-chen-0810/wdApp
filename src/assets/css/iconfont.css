@@ -19,6 +19,16 @@
   src:url('../icons/csj/iconfont.woff') format('woff'),
       url('../icons/csj/iconfont.ttf') format('truetype');
 }
+@font-face {
+  font-family: 'iconfont';
+  src:url('../icons/csj/left-arrow-iconfont.woff') format('woff'),
+      url('../icons/csj/left-arrow-iconfont.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'iconfont';
+  src:url('../icons/csj/shopping-bag-iconfont.woff') format('woff'),
+      url('../icons/csj/shopping-bag-iconfont.ttf') format('truetype');
+}
 .iconfont {
   font-family: "iconfont" !important;
   -webkit-font-smoothing: antialiased;

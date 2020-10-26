@@ -9,5 +9,21 @@ module.exports = {
         'views':'@/views'
       } 
     }
+  },
+  devServer: {
+    proxy: {
+      '/2013-12-26': {
+        target: 'https://app.cloopen.com:8883',
+        changeOrigin: true
+      },
+      '/users': {
+        target: 'http://106.13.129.90:5000',
+        changeOrigin: true
+      },
+      '/resource': {
+        target: 'https://m.wandougongzhu.cn/',
+        changeOrigin: true
+      }
+    }
   }
 }

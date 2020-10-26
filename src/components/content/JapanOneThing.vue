@@ -3,10 +3,10 @@
     <h4>日本一物</h4>
     <div class="one-thing">
       <p>
-        <img src="https://oss4.wandougongzhu.cn/7a9f14083a40100d36dcdf2613249d3a.png?x-oss-process=image/resize,w_1242/format,webp" alt="" @load='refresh'>
+        <van-image :src="imgList[0]" alt=""></van-image>
       </p>
       <p>
-        <img src="https://oss5.wandougongzhu.cn/e16770acf98f9ead0f775a041d53f370.png?x-oss-process=image/resize,w_1242/format,webp" alt="" @load='refresh'>
+        <van-image :src="imgList[1]" alt=""></van-image>
       </p>
     </div>
   </div>
@@ -14,10 +14,8 @@
 
 <script>
 export default {
-  methods:{
-    refresh(){
-      this.$emit('refresh')
-    }
+  props:{
+    imgList:Array
   }
 }
 </script>

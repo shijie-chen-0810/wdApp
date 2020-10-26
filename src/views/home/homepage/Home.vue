@@ -4,51 +4,51 @@
       <router-link tag="input" to="/search" placeholder="输入商品或品牌名称" />
       <span class="iconfont">&#xe65c;</span>
     </div>
-    <better-scroll :isLoadingMore='true' @getmoregoods='getmoregoods' ref='bscroll'>
+    <better-scroll :isLoadingMore='true' @getmoregoods='getmoregoods' ref='bscroll' class="betterscroll">
       <swipe-x></swipe-x>
       <div class="health">
-        <img src="https://oss1.wandougongzhu.cn/8e415cd8201d8d1933ba8bbedc7a8d33.png?x-oss-process=image/resize,w_1242/format,webp" alt="">
+        <van-image src="https://oss1.wandougongzhu.cn/8e415cd8201d8d1933ba8bbedc7a8d33.png?x-oss-process=image/resize,w_1242/format,webp" alt=""></van-image>
       </div>
       <sort></sort>
       <div class="new-con">
         <p>
-          <img src="https://oss3.wandougongzhu.cn/9b77a5f16a29215e35d6de02fe0deb2b.gif?x-oss-process=image/resize,w_484" alt="" @load='refresh'>
+          <van-image src="https://oss3.wandougongzhu.cn/9b77a5f16a29215e35d6de02fe0deb2b.gif?x-oss-process=image/resize,w_484" alt="" @load='refresh'></van-image>
         </p>
         <p>
-          <img src="https://oss3.wandougongzhu.cn/00a791a83fb76bb8b12f4c8a3186df6e.png?x-oss-process=image/resize,w_443/format,webp" alt="" @load='refresh'>
-        </p>
-      </div>
-      <div class="holiday">
-        <p>
-          <img src="https://oss3.wandougongzhu.cn/5c0c81a629d340f2a0ef6753ea3d001d.png?x-oss-process=image/resize,w_621/format,webp" alt="" @load='refresh'>
-        </p>
-        <p>
-          <img src="https://oss4.wandougongzhu.cn/24057f1e842d6d55a5f3047fac9a611d.png?x-oss-process=image/resize,w_621/format,webp" alt="" @load='refresh'>
+          <van-image src="https://oss3.wandougongzhu.cn/00a791a83fb76bb8b12f4c8a3186df6e.png?x-oss-process=image/resize,w_443/format,webp" alt="" @load='refresh'></van-image>
         </p>
       </div>
       <div class="holiday">
         <p>
-          <img src="https://oss5.wandougongzhu.cn/352ec7ff13e1dae56ab092176c292bb2.png?x-oss-process=image/resize,w_622/format,webp" alt="" @load='refresh'>
+          <van-image src="https://oss3.wandougongzhu.cn/5c0c81a629d340f2a0ef6753ea3d001d.png?x-oss-process=image/resize,w_621/format,webp" alt="" @load='refresh'></van-image>
         </p>
         <p>
-          <img src="https://oss3.wandougongzhu.cn/a7cc713af9a83aaed55e71047967a9c5.png?x-oss-process=image/resize,w_621/format,webp" alt="" @load='refresh'>
+          <van-image src="https://oss4.wandougongzhu.cn/24057f1e842d6d55a5f3047fac9a611d.png?x-oss-process=image/resize,w_621/format,webp" alt="" @load='refresh'></van-image>
         </p>
       </div>
       <div class="holiday">
         <p>
-          <img src="https://oss3.wandougongzhu.cn/e9674e8f48779e075745c0425231fdfe.png?x-oss-process=image/resize,w_622/format,webp" alt="" @load='refresh'>
+          <van-image src="https://oss5.wandougongzhu.cn/352ec7ff13e1dae56ab092176c292bb2.png?x-oss-process=image/resize,w_622/format,webp" alt="" @load='refresh'></van-image>
         </p>
         <p>
-          <img src="https://oss3.wandougongzhu.cn/d13ae93bcd4507c853483021b4b17331.png?x-oss-process=image/resize,w_621/format,webp" alt="" @load='refresh'>
+          <van-image src="https://oss3.wandougongzhu.cn/a7cc713af9a83aaed55e71047967a9c5.png?x-oss-process=image/resize,w_621/format,webp" alt="" @load='refresh'></van-image>
+        </p>
+      </div>
+      <div class="holiday">
+        <p>
+          <van-image src="https://oss3.wandougongzhu.cn/e9674e8f48779e075745c0425231fdfe.png?x-oss-process=image/resize,w_622/format,webp" alt="" @load='refresh'></van-image>
+        </p>
+        <p>
+          <van-image src="https://oss3.wandougongzhu.cn/d13ae93bcd4507c853483021b4b17331.png?x-oss-process=image/resize,w_621/format,webp" alt="" @load='refresh'></van-image>
         </p>
       </div>
       <h4>限时秒杀</h4>
       <swipe-y></swipe-y>
-      <JapanOneThing @refresh = 'refresh'></JapanOneThing>
+      <JapanOneThing @refresh = 'refresh' :imgList='imgList'></JapanOneThing>
       <h4>权威榜单</h4>
       <authority-list :data='authoritylistdata'></authority-list>
       <div class='recommand'>
-        <img src="https://oss5.wandougongzhu.cn/f16f89df44cf7f8d9590b5c926ded7b3.png?x-oss-process=image/resize,w_1242/format,webp" alt="" @load='refresh'>
+        <van-image src="https://oss5.wandougongzhu.cn/f16f89df44cf7f8d9590b5c926ded7b3.png?x-oss-process=image/resize,w_1242/format,webp" alt="" @load='refresh'></van-image>
       </div>
       <goods-list :list='goodsList'></goods-list>
     </better-scroll>
@@ -72,6 +72,7 @@ import GoodsList from './homecomponents/GoodsList'
 export default {
   data(){
     return{
+      imgList:['https://oss4.wandougongzhu.cn/fa60681750d104f54e426560d3d1789e.png?x-oss-process=image/resize,w_1242/format,webp','https://oss2.wandougongzhu.cn/f963e4b9e401800fba8e380700344e6c.png?x-oss-process=image/resize,w_1242/format,webp'],
       timer: 0,
       authoritylistdata,
       goodsList:[],
@@ -119,9 +120,12 @@ export default {
 </script>
 
 <style scoped lang='stylus'>
+.betterscroll
+  flex 1
 .content
   padding-top 0.44rem
   height 100vh
+  display flex
   padding-bottom 0.49rem
   overflow-y scroll
 .search
@@ -145,7 +149,9 @@ export default {
     top 0.12rem
     left 0.2rem
     font-size 0.14rem
-
+h4
+  padding 0.1rem 0.12rem
+  font-size 0.2rem
 .health
   height 0.77rem
   width 100%
