@@ -26,7 +26,7 @@ export default {
       // this.$router.push('/profile');
     }
   },
-  mounted(){
+  activated(){
     if(this.$store.state.islogin){
       // this.querynum = this.$route.query.num;
       this.isfalse = true;

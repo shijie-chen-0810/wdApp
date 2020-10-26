@@ -69,7 +69,7 @@ export default {
           })
         }
         // this.$router.push({ path: '/profile', query: { num: this.phonenumber }});
-         this.$router.push('/profile')
+         this.$router.replace('/profile')
       }else{
         alert('请输入正确的的验证码');
       }

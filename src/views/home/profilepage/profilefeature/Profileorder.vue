@@ -50,7 +50,11 @@ export default {
   },
   methods:{
     handleclick(v){
-      this.$router.push('/order/' + v)
+      if(this.$store.state.islogin){
+        this.$router.push('/order/' + v)
+      }else{
+        this.$router.push('/login')
+      }
     }
   }
 }
