@@ -32,11 +32,11 @@ export default {
   border_1px(0 0 1px 0,solid,#ddd)
   .authority-list
     display flex
-    width 3.51rem
+    width 93.6vw
     justify-content space-between
     flex-wrap wrap
     .authority-item
-      width 1.7rem
+      width 45.6vw
       display flex
       margin-bottom 0.09rem
       background-color #fafafa
