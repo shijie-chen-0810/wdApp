@@ -33,5 +33,13 @@ export default new Vuex.Store({
     profile,
     cart
   },
-  plugins: [persistedState()]
+  plugins: [persistedState({
+    reducer(val){
+        return {
+          islogin: val.islogin,
+          cellphonenumber: val.cellphonenumber
+        }
+      }
+    })
+  ]
 })

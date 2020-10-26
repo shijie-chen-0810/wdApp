@@ -27,8 +27,9 @@
 </template>
 
 <script>
-import axios from 'axios'
-import { mapMutations } from 'vuex'
+import { Dialog } from 'vant';
+import axios from 'axios';
+import { mapMutations } from 'vuex';
 export default {
   data(){
     return {
@@ -53,7 +54,12 @@ export default {
       if(this.cellphonebumber.length === 11){
         let reg = /^((13|14|15|17|18)[0-9]{1}\d{8})$/;
         if (!reg.test(this.cellphonebumber)) {
-          alert('您输入的手机号码不合法，请重新输入');
+          Dialog.alert({
+            message: '请输入正确的手机号',
+            theme: 'round-button',
+          }).then(() => {
+            // on close
+          });
           return;
         };
         //随机生成6位验证码
