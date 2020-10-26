@@ -68,8 +68,7 @@ export default {
           })
         }
         this.$emit("mychange")
-        // this.$router.push({ path: '/profile', query: { num: this.phonenumber }});
-         this.$router.replace('/profile')
+        this.$router.replace('/profile')
       }else{
         alert('请输入正确的的验证码');
       }
@@ -77,7 +76,7 @@ export default {
     
   },
   mounted(){
-    this.phonenum = this.$store.state.profile.cellphonenumber
+    this.phonenum = this.$store.state.cellphonenumber
     this.randomcode = this.$store.state.profile.verifycode
     console.log(this.randomcode)
     //60s倒计时

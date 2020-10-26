@@ -45,7 +45,8 @@ export default {
       this.$router.go(-1)
     },
     ...mapMutations([
-      'changephonenum'
+      'changephonenum',
+      'changephonenumroot'
     ]),
     //点击获取验证码,将手机号与验证码存入vuex,登录状态为false
     async getverify(){
@@ -93,11 +94,15 @@ export default {
         }
         this.verifycode = randomcode
         //改变vuex中登录phonenum,verify
+        this.changephonenumroot({
+          type:'changephonenumroot',
+          cellphonenumber: this.cellphonebumber,
+        })
         this.changephonenum({
           type:'profile/changephonenum',
-          cellphonenumber: this.cellphonebumber,
           verifycode: this.verifycode
         })
+        // console.log(this.$store.state.cellphonenumber)
         this.$emit("myclick")
       }
     }

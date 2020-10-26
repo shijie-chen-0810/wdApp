@@ -55,7 +55,16 @@ export default {
   },
   activated(){
     if(this.$store.state.islogin){
-      this.querynum = this.$store.state.profile.cellphonenumber;
+      this.querynum = this.$store.state.cellphonenumber;
+      this.islogin = false;
+    }else{
+      this.querynum = '';
+      this.islogin = true;
+    }
+  },
+  mounted(){
+    if(this.$store.state.islogin){
+      this.querynum = this.$store.state.cellphonenumber;
       this.islogin = false;
     }else{
       this.querynum = '';
