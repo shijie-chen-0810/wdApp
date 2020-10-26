@@ -8,7 +8,7 @@
                 :class="{active:index === currentIndex}"
                 @click="sortclick(index)"
             >
-                <div class="sort-first">{{item.type === 'rank'?'M':index}}階</div>
+                <div class="sort-first">{{item.type === 'rank'?'M':index}}<span class="smalltitle">階</span></div>
                 <div class="sort-center">{{item.cat_name}}</div>
                 <div class="sort-last">{{item.sub_name}}</div>
             </div>
@@ -20,25 +20,27 @@
 <script>
 import BScroll from '@better-scroll/core'
 import Category from 'assets/static/Category.js'
-// import bus from 'assets/static/eventbus.js'
+import bus from 'assets/static/bus.js'
 export default {
     data() {
         return {
             Category,
-            currentIndex:0
+            currentIndex:0,
+            bus
         }
     },
 
     methods: {
         sortclick(index){
             this.currentIndex = index
-            // bus.$emit('sortbus',this.currentIndex)
+            bus.$emit('clicktbus',this.currentIndex)
         }
     },
     mounted () {
         let bs = new BScroll(this.$refs.sort, {
             probeType: 3,
-            click:true
+            click:true,
+            mousewheel:true
         })
     }
 }
@@ -48,10 +50,8 @@ export default {
     div.left-box
         display flex
         width 1rem
-        height 100vh
+        height 100%
         flex-direction column
-        .item-box
-            padding-bottom 0.93rem
         .sort-cat
             display flex
             justify-content center
@@ -63,9 +63,11 @@ export default {
             padding 0 0 0 .125rem
             .sort-first
                 color rgba(234,65,65,.5)
-                font-size .2rem
-                line-height .33rem
+                font-size .30rem
+                line-height .30rem
                 opacity .8
+                .smalltitle
+                    font-size .14rem
             .sort-center
                 font-size .15rem
             .sort-last

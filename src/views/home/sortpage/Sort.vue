@@ -26,7 +26,8 @@
         <sortbd></sortbd>
       </div>
       <div class="sort-right">
-        <sortdb></sortdb>
+        <sortdb v-if="currentIndex === 0"></sortdb>
+        <sortdbtwo :index="currentIndex" v-else></sortdbtwo>
       </div>
     </div>
     <div class="brand-body" v-show="currentpage =='brand'">
@@ -40,13 +41,15 @@ import sortbd from './sortbd'
 import sortdb from './sortdb'
 import sortdbtwo from './sortdbtwo'
 import branditem from './branditem'
-
+import bus from 'assets/static/bus.js'
 export default {
 data() {
     return {
       currentpage:'sort',
       currentqh:'sort',
-      
+      bus,
+      currentIndex:0
+
     }
   },
   components: {
@@ -64,6 +67,11 @@ data() {
       this.currentpage = 'brand'
       this.currentqh = 'brand'
     }
+  },
+  created () {
+    bus.$on('clicktbus',data=>{
+      this.currentIndex = data
+    })
   }
 }
 
@@ -104,18 +112,20 @@ data() {
       justify-content center
       align-items center
   .sort-body
-    flex 1
+    height 100vh
     display flex
+    overflow-y scroll
     flex-direction row
     padding-top .44rem
     padding-bottom .49rem
   .sort-left
     width 1rem
-    height 100vh
+    overflow-y scroll
+    height 100%
   .sort-right
     flex 1
     overflow-y scroll
-    height 100vh
+    height 100%
   .brand-body
     padding-top .44rem
     padding-bottom .49rem

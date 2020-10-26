@@ -1,203 +1,64 @@
 <template>
     <div class="right-boxtwo">
-        <a href="" class="right-topa">
-            <img src="https://oss1.wandougongzhu.cn/cbf70c1c43b06f61747063c8a7d98798.png?x-oss-process=image/resize,w_800,h_200/format,webp">
-        </a>
-        <div class="right-cat-name">
-            基础护肤
-        </div>
-        <div class="right-cat-group">
-            <a href="" class="item">
-                <div class="img-box">
-                    <img src="https://oss4.wandougongzhu.cn/8f21335ffb9223314ff1ac24ce6a7dfa.png?x-oss-process=image/resize,w_360,h_4000/format,webp">
-                </div>
-                <div class="cat-name">面膜</div>
+
+            <a href="" class="right-topa" v-if="Category.banner.length !== 0">
+                <img :src="Category.banner.img">
             </a>
-            <a href="" class="item">
-                <div class="img-box">
-                    <img src="https://oss4.wandougongzhu.cn/8f21335ffb9223314ff1ac24ce6a7dfa.png?x-oss-process=image/resize,w_360,h_4000/format,webp">
+            <div 
+                class="bigitem"
+                v-for="(item,index) in Category.sub"
+                :key="index"
+            >
+                <div class="right-cat-name">
+                    {{item.cat_name}} 
                 </div>
-                <div class="cat-name">面膜</div>
-            </a>
-            <a href="" class="item">
-                <div class="img-box">
-                    <img src="https://oss4.wandougongzhu.cn/8f21335ffb9223314ff1ac24ce6a7dfa.png?x-oss-process=image/resize,w_360,h_4000/format,webp">
+                <div class="right-cat-group">
+                    <a href="" class="item" v-for="(v,i) in item.sub" :key="i">
+                        <div class="img-box">
+                            <img :src="v.cat_icon">
+                        </div>
+                        <div class="cat-name">{{v.cat_name}}</div>
+                    </a>
                 </div>
-                <div class="cat-name">面膜</div>
-            </a>
-            <a href="" class="item">
-                <div class="img-box">
-                    <img src="https://oss4.wandougongzhu.cn/8f21335ffb9223314ff1ac24ce6a7dfa.png?x-oss-process=image/resize,w_360,h_4000/format,webp">
-                </div>
-                <div class="cat-name">面膜</div>
-            </a>
-            <a href="" class="item">
-                <div class="img-box">
-                    <img src="https://oss4.wandougongzhu.cn/8f21335ffb9223314ff1ac24ce6a7dfa.png?x-oss-process=image/resize,w_360,h_4000/format,webp">
-                </div>
-                <div class="cat-name">面膜</div>
-            </a>
-            <a href="" class="item">
-                <div class="img-box">
-                    <img src="https://oss4.wandougongzhu.cn/8f21335ffb9223314ff1ac24ce6a7dfa.png?x-oss-process=image/resize,w_360,h_4000/format,webp">
-                </div>
-                <div class="cat-name">面膜</div>
-            </a>
-            <a href="" class="item">
-                <div class="img-box">
-                    <img src="https://oss4.wandougongzhu.cn/8f21335ffb9223314ff1ac24ce6a7dfa.png?x-oss-process=image/resize,w_360,h_4000/format,webp">
-                </div>
-                <div class="cat-name">面膜</div>
-            </a>
-            <a href="" class="item">
-                <div class="img-box">
-                    <img src="https://oss4.wandougongzhu.cn/8f21335ffb9223314ff1ac24ce6a7dfa.png?x-oss-process=image/resize,w_360,h_4000/format,webp">
-                </div>
-                <div class="cat-name">面膜</div>
-            </a>
-        </div>
-        <!-- <div class="right-cat-group">
-            
-        </div> -->
-        <div class="right-cat-name">
-            个性美妆
-        </div>
-        <div class="right-cat-group">
-            <a href="" class="item">
-                <div class="img-box">
-                    <img src="https://oss4.wandougongzhu.cn/8f21335ffb9223314ff1ac24ce6a7dfa.png?x-oss-process=image/resize,w_360,h_4000/format,webp">
-                </div>
-                <div class="cat-name">面膜</div>
-            </a>
-            <a href="" class="item">
-                <div class="img-box">
-                    <img src="https://oss4.wandougongzhu.cn/8f21335ffb9223314ff1ac24ce6a7dfa.png?x-oss-process=image/resize,w_360,h_4000/format,webp">
-                </div>
-                <div class="cat-name">面膜</div>
-            </a>
-            <a href="" class="item">
-                <div class="img-box">
-                    <img src="https://oss4.wandougongzhu.cn/8f21335ffb9223314ff1ac24ce6a7dfa.png?x-oss-process=image/resize,w_360,h_4000/format,webp">
-                </div>
-                <div class="cat-name">面膜</div>
-            </a>
-            <a href="" class="item">
-                <div class="img-box">
-                    <img src="https://oss4.wandougongzhu.cn/8f21335ffb9223314ff1ac24ce6a7dfa.png?x-oss-process=image/resize,w_360,h_4000/format,webp">
-                </div>
-                <div class="cat-name">面膜</div>
-            </a>
-        </div>
-        <div class="right-cat-group">
-            <a href="" class="item">
-                <div class="img-box">
-                    <img src="https://oss4.wandougongzhu.cn/8f21335ffb9223314ff1ac24ce6a7dfa.png?x-oss-process=image/resize,w_360,h_4000/format,webp">
-                </div>
-                <div class="cat-name">面膜</div>
-            </a>
-            <a href="" class="item">
-                <div class="img-box">
-                    <img src="https://oss4.wandougongzhu.cn/8f21335ffb9223314ff1ac24ce6a7dfa.png?x-oss-process=image/resize,w_360,h_4000/format,webp">
-                </div>
-                <div class="cat-name">面膜</div>
-            </a>
-            <a href="" class="item">
-                <div class="img-box">
-                    <img src="https://oss4.wandougongzhu.cn/8f21335ffb9223314ff1ac24ce6a7dfa.png?x-oss-process=image/resize,w_360,h_4000/format,webp">
-                </div>
-                <div class="cat-name">面膜</div>
-            </a>
-            <a href="" class="item">
-                <div class="img-box">
-                    <img src="https://oss4.wandougongzhu.cn/8f21335ffb9223314ff1ac24ce6a7dfa.png?x-oss-process=image/resize,w_360,h_4000/format,webp">
-                </div>
-                <div class="cat-name">面膜</div>
-            </a>
-        </div>
-        <div class="right-cat-nametwo">
-            热门品牌
-        </div>
-        <div class="hot-itembox">
-            <a href="" class="hot-item">
-                <div class="hot-img">
-                    <img src="https://oss4.wandougongzhu.cn/6aad670d582c50dbc652265f12947498.png?x-oss-process=image/resize,w_300,h_300/format,webp">
-                </div>
-                <div class="hot-info">
-                    <div class="hot-name">
-                        ASTALIFT 艾诗缇
+            </div>
+            <div class="right-cat-nametwo">
+                热门品牌
+            </div>
+            <div class="hot-itembox">
+                <a href="" class="hot-item" v-for="(item,index) in Category.hot_brand_list" :key="index">
+                    <div class="hot-img">
+                        <img :src="item.icon">
                     </div>
-                    <div class="hot-meta">
-                        <div class="hot-desc">延续女性自然肌肤美</div>
-                        <div class="hot-count">
-                            <span class="hot-number">112</span>款商品
+                    <div class="hot-info">
+                        <div class="hot-name">
+                            {{item.brand_name}}
+                        </div>
+                        <div class="hot-meta">
+                            <div class="hot-desc">{{item.desc}}</div>
+                            <div class="hot-count">
+                                <span class="hot-number">{{item.goods_count}}</span>款商品
+                            </div>
                         </div>
                     </div>
-                </div>
-            </a>
-            <a href="" class="hot-item">
-                <div class="hot-img">
-                    <img src="https://oss4.wandougongzhu.cn/6aad670d582c50dbc652265f12947498.png?x-oss-process=image/resize,w_300,h_300/format,webp">
-                </div>
-                <div class="hot-info">
-                    <div class="hot-name">
-                        ASTALIFT 艾诗缇
-                    </div>
-                    <div class="hot-meta">
-                        <div class="hot-desc">延续女性自然肌肤美</div>
-                        <div class="hot-count">
-                            <span class="hot-number">112</span>款商品
-                        </div>
-                    </div>
-                </div>
-            </a>
-            <a href="" class="hot-item">
-                <div class="hot-img">
-                    <img src="https://oss4.wandougongzhu.cn/6aad670d582c50dbc652265f12947498.png?x-oss-process=image/resize,w_300,h_300/format,webp">
-                </div>
-                <div class="hot-info">
-                    <div class="hot-name">
-                        ASTALIFT 艾诗缇
-                    </div>
-                    <div class="hot-meta">
-                        <div class="hot-desc">延续女性自然肌肤美</div>
-                        <div class="hot-count">
-                            <span class="hot-number">112</span>款商品
-                        </div>
-                    </div>
-                </div>
-            </a>
-            <a href="" class="hot-item">
-                <div class="hot-img">
-                    <img src="https://oss4.wandougongzhu.cn/6aad670d582c50dbc652265f12947498.png?x-oss-process=image/resize,w_300,h_300/format,webp">
-                </div>
-                <div class="hot-info">
-                    <div class="hot-name">
-                        ASTALIFT 艾诗缇
-                    </div>
-                    <div class="hot-meta">
-                        <div class="hot-desc">延续女性自然肌肤美</div>
-                        <div class="hot-count">
-                            <span class="hot-number">112</span>款商品
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div>
+                </a>
+            </div>
     </div>
 </template> 
 
 <script>
 import Category from 'assets/static/Category.js'
 export default {
-    data() {
-        return {
-            Category
-        } 
-    },
+    props: ['index'],
+    computed: {
+       Category(){
+           return Category[this.index]
+       } 
+    }
 }
 </script>
 
 <style lang="stylus" scoped>
+    @import  '~assets/stylus/ellipsis.styl'
     .right-boxtwo
         height 100%
         display flex
@@ -218,10 +79,11 @@ export default {
         margin-right .1rem
         margin-top .15rem
     .right-cat-group
-       
+        flex-wrap wrap
+        
         display flex
         -webkit-box-pack justify
-        justify-content space-between
+        justify-content flex-start
         padding-top .1rem
     .item
         width .5rem
@@ -229,8 +91,8 @@ export default {
         -webkit-box-align center
         align-items center
         flex-direction column
-        margin-left .1rem
-        margin-right .1rem
+        margin-left .09rem
+        margin-right .09rem
     .img-box
         height .5rem
         -webkit-box-pack center
@@ -240,6 +102,7 @@ export default {
             max-width .5rem
     .cat-name
         color #000
+        font-size .12rem
     .right-cat-nametwo
         line-height .4rem
         background-color #fafafa
@@ -284,6 +147,8 @@ export default {
     .hot-desc
         color #9e9e9e
         font-size .12rem
+        width 1.38rem
+        ellipsis_num(1)
     .hot-count
         color #9e9e9e
         margin-right .1rem
