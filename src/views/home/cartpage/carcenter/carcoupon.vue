@@ -12,7 +12,7 @@ export default {
   computed:{
     term(){
       const parent = this.$parent.$parent.$parent.goodsAll(this.goods)
-      // console.log(parent)
+      console.log(parent)
       return [parent[3],parent[4]]
     }
   }
