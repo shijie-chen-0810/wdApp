@@ -59,7 +59,6 @@ export default {
         //   }
         // })
         // console.log(res)
-
         // if(res.data.statuCode === '000000'){
         if(true){ 
           //修改vuex中登录状态位true
@@ -68,6 +67,7 @@ export default {
             islogin: true
           })
         }
+        this.$emit("mychange")
         // this.$router.push({ path: '/profile', query: { num: this.phonenumber }});
          this.$router.replace('/profile')
       }else{
