@@ -93,6 +93,9 @@ const routes = [
         component:Comingcommit
       },
     ]
+  },
+  {
+    path:'favorite'
   }
 ]
 

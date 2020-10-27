@@ -63,6 +63,7 @@ import OneInHundred from './OneInHundred'
 import GoodsList from 'components/content/GoodsList'
 
 export default {
+  name:"homesortpage",
   data(){
     return{
       timer:0,
@@ -88,7 +89,8 @@ export default {
     GoodsList
   },
   async mounted(){
-    this.goodsList = await getGoods(230,6)
+    const list = await getGoods(230,6)
+    this.goodsList = list.data
   },
   methods:{
     onClickLeft(){
