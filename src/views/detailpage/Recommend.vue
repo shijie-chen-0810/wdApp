@@ -2,7 +2,7 @@
     <div class="recommend">
         <div>大家都在逛</div>
         <ul>
-            <li v-for="(goods,i) in goodsData" :key="i">
+            <li v-for="(goods,i) in goodsData" :key="i" @click="goDetail(goods.goods_id)">
                 <div><img :src="goods.img_middle" alt=""></div>
                     <div>
                         <p class="text_ellipsis">{{ goods.slogan }}</p>
@@ -24,13 +24,20 @@ import { getGoods } from 'network/homeRequest/homeRequest'
 export default {
     data() {
         return {
-            goodsData: Array
+            goodsData: []
         }
     },    
     async mounted() {
         const data = await getGoods(Math.floor(Math.random() * (300 - 10 + 1) + 10), 10)
         this.goodsData = data.data
         // console.log(this.goodsData)
+    },
+    methods: {
+        goDetail(goods_id) {
+            this.$router.push({ name: 'detail', params: { id: goods_id }})
+            this.$router.go(0)
+        }
+        
     }
 }
 </script>

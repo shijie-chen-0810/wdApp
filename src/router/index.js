@@ -1,12 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-
-
 const Home =  () => import('views/home/homepage/Home')
 const HomeSortPage =  () => import('views/homesort/HomeSortPage')
 const HomeZong =  () => import('views/home/Home')
 const Detail =  () => import('views/detailpage/Detail')
+const Comments = () => import('views/detailpage/comments/Comments')
 const Sort =  () => import('views/home/sortpage/Sort')
 const Cart =  () => import('views/home/cartpage/Cart')
 const Profile =  () => import('views/home/profilepage/Profile')
@@ -38,6 +37,7 @@ const routes = [
       },
       {
         path: 'cart',
+        name: 'cart',
         component:Cart,
       },
       {
@@ -94,6 +94,11 @@ const routes = [
         component:Comingcommit
       },
     ]
+  },
+  {
+    path: '/comments/:id',
+    name: 'comments',
+    component: Comments
   }
 ]
 
@@ -102,5 +107,6 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
+
 
 export default router

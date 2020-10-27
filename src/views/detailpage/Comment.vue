@@ -26,7 +26,8 @@
             <li v-if="commentImg"><img :src="commentImg" alt=""></li>
         </ul>
         <div>
-            <div>查看全部评价</div>
+            <!-- <div>查看全部评价</div> -->
+            <router-link :to="{name: 'comments', params: {id: detailData.goods_id}}" tag="div">查看全部评价</router-link>
         </div>
     </div>
 </template>

@@ -26,13 +26,13 @@
       <div>
         <img v-if="isCollect" src="../../assets/img/cxj_detail/ic_collect_76e0b9.png" alt="">
         <img v-else src="../../assets/img/cxj_detail/ic_collected_25640b.png" alt="">
-        <span>收藏</span>
+        <span @click="collect">收藏</span>
       </div>
       <div>
         <img v-if="true" src="https://s4.wandougongzhu.cn/s/07/cart_a65b3c.png" alt="">
-        <span>购物袋</span>
+        <router-link :to="{path: '/cart'}" tag="span">购物袋</router-link>
       </div>
-      <div>加入购物车</div>
+      <div @click="addToCart">加入购物车</div>
       <div>立即购买</div>
     </footer>
   </div>
@@ -44,6 +44,8 @@ import Comment from './Comment'
 import GoodsDetail from './GoodsDetail'
 import Recommend from './Recommend'
 
+import {getDetail} from 'network/detailRequest/detailRequest'
+
 export default {
   name: 'detail',
   data() {
@@ -52,9 +54,10 @@ export default {
       isSelected: 'goods',
       topShow: false,
       flag: true,
-      commentTop: Number,
-      detailTop: Number,
-      recommendTop: Number
+      commentTop: 0,
+      detailTop: 0,
+      recommendTop: 0,
+      detailData: {}
     }
   },  
   components: {
@@ -63,8 +66,10 @@ export default {
     GoodsDetail,
     Recommend
   },
-  mounted() {
+  async mounted() {
     window.addEventListener('scroll',this.handleScrolly, true)
+    this.detailData = await getDetail(this.$route.params.id)
+    console.log(this.detailData)
   },
   methods: {
     handleScrolly() {
@@ -95,6 +100,12 @@ export default {
     },
     goback(){
       this.$router.go(-1)
+    },
+    collect(){
+      this.isCollect = !this.isCollect
+    },
+    addToCart(){
+      this.$router.push({ name: 'cart', params: {goods_id: this.detailData.goods_id, residue_count: this.detailData.residue_count, checked: true}})
     }
   }
 }

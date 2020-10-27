@@ -12,7 +12,13 @@
         <div>相关推荐</div>
         <div>
             <ul>
-                <li v-for="(goods,i) in goodsData" :key="i">
+                <!-- <router-link 
+                    v-for="(goods,i) in goodsData" 
+                    :key="i"
+                    :to="{ name: 'detail', params: { id: goods.goods_id }}" 
+                    tag="li"
+                > -->
+                <li v-for="(goods,i) in goodsData" :key="i" @click="goDetail(goods.goods_id)">
                     <div><img :src="goods.img_middle" alt=""></div>
                     <div>
                         <p class="text_tellipsis">{{ goods.goods_name }}</p>
@@ -23,6 +29,7 @@
                         </div>
                     </div>
                 </li>
+                <!-- </router-link> -->
             </ul>
         </div>
         <div><img src="../../assets/img/cxj_detail/102x_460c12.png" alt=""></div>
@@ -51,7 +58,13 @@ export default {
         this.goodsData = data.data
         this.companyInfo = JSON.parse(this.detailData.companyInfo)
         this.detailImgList = JSON.parse(this.detailData.detailImgList)
-        // console.log(this.goodsData)
+    },
+    methods: {
+        goDetail(goods_id) {
+            this.$router.push({ name: 'detail', params: { id: goods_id }})
+            this.$router.go(0)
+        }
+        
     }
 }
 </script>

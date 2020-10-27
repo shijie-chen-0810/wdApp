@@ -76,7 +76,6 @@ export default {
         this.detailData = await getDetail(this.$route.params.id)
         this.imgList = JSON.parse(this.detailData.imgList)
         this.tipList = JSON.parse(this.detailData.tipList)
-        // console.log(this.detailData)
     }
 }
 </script>
