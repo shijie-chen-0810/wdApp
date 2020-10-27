@@ -29,7 +29,7 @@ const routes = [
   {
     path: '/',
     component:HomeZong,
-    // redirect: '/home',
+    redirect: '/err',
     children: [
       {
         path: 'home',
