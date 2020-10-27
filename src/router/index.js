@@ -124,9 +124,9 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.matched.length ===0) {  
-    from.name? next({ name:from.name}) : next('/err'); 
+    from.name ? next({ name:from.name}) : next('/err'); 
   } else {
-    next()
+    next();
   }
 }) 
 
