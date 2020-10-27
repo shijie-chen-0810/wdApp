@@ -89,6 +89,9 @@ export default {
     AuthorityList,
     GoodsList
   },
+  mounted(){
+    // this.$refs.bscroll.bscroll.on('scroll',this.scroll)
+  },
   methods:{
     async loadData(offset){
       try{
@@ -100,12 +103,9 @@ export default {
         this.offset += 10
         console.log(this.offset,this.total)
       }catch(e){
-        console.log(e)
         this.$refs.bscroll.bscroll.finishPullUp()
         this.$toast.clear()
       }
-
-      
     },
     async getmoregoods(){
       if(this.offset===this.total&&this.offset!==0){

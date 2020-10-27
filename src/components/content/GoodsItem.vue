@@ -36,13 +36,13 @@ export default {
 <style lang="stylus" scoped>
 @import '~assets/stylus/ellipsis.styl'
 .goods-item
-  width 1.71rem
+  width 45.6vw
   height 3.03rem
   margin-bottom 0.1rem
   background-color #fafafa
   .goods-img
-    width 1.71rem
-    height 1.71rem
+    width 45.6vw
+    height 45.6vw
     position relative
     >p.goods_img_part
       img 

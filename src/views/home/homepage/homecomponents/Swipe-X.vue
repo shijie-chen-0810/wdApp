@@ -1,6 +1,6 @@
 <template>
   <div class="fix-wh536">
-        <van-swipe class="my-swipe" indicator-color="white" autoplay="false">
+        <van-swipe class="my-swipe" indicator-color="white" autoplay="3000" duration="300">
           <van-swipe-item><van-image src="https://oss1.wandougongzhu.cn/f0111ad6e7c64a79064d4cbb44a3d799.png?x-oss-process=image/resize,w_1242/format,webp" alt=""></van-image></van-swipe-item>
           <van-swipe-item><van-image src="https://oss4.wandougongzhu.cn/6718349957128cc5fe233dbc325e2e02.png?x-oss-process=image/resize,w_1242/format,webp" alt=""></van-image></van-swipe-item>
           <van-swipe-item><van-image src="https://oss4.wandougongzhu.cn/7fcc6eb757c852ebe089c3858c3da3ea.png?x-oss-process=image/resize,w_1242/format,webp" alt=""></van-image></van-swipe-item>
@@ -28,7 +28,6 @@ export default {
   color: #fff;
   font-size: 20px;
   text-align: center;
-  background-color: #39a9ed;
   img 
     width 100%
     height 100%
