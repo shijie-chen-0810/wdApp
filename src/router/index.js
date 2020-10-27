@@ -8,6 +8,8 @@ const Detail =  () => import('views/detailpage/Detail')
 const Sort =  () => import('views/home/sortpage/Sort')
 const Cart =  () => import('views/home/cartpage/Cart')
 const Profile =  () => import('views/home/profilepage/Profile')
+const Err =  () => import('views/err/err')
+const Grade =  () => import('views/grade/grade')
 //profile
 import Userlogin from '../views/user/Userlogin.vue'
 //Order
@@ -41,9 +43,19 @@ const routes = [
       {
         path: 'profile',
         name:'profile',
-        component:Profile
+        component:Profile,
+      },
+      {
+        path: 'grade',
+        name:'grade',
+        component:Grade
       },
     ]
+  },
+  {
+    path: '/err',
+    name:'err',
+    component:Err
   },
   {
     path:'/pay',

@@ -19,13 +19,13 @@
                         </div>
                         <div class="cat-name">{{v.cat_name}}</div>
                     </a>
-                </div>
+                </div> 
             </div>
             <div class="right-cat-nametwo">
                 热门品牌
             </div>
             <div class="hot-itembox">
-                <a href="" class="hot-item" v-for="(item,index) in Category.hot_brand_list" :key="index">
+                <a href="/" class="hot-item" v-for="(item,index) in Category.hot_brand_list" :key="index">
                     <div class="hot-img">
                         <img :src="item.icon">
                     </div>
