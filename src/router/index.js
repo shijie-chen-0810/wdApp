@@ -29,7 +29,7 @@ const routes = [
   {
     path: '/',
     component:HomeZong,
-    redirect: '/home',
+    // redirect: '/home',
     children: [
       {
         path: 'home',
@@ -122,21 +122,14 @@ const router = new VueRouter({
   routes,
 })
 
-// router.beforeEach((to, from, next) => {
-//   if (to.matched.length ===0) {  
-//     from.path? next({ path:from.path}) : next('/err'); 
-//   } else {
-//     next()
-//   }
-// }) 
+router.beforeEach((to, from, next) => {
+  if (to.matched.length ===0) {  
+    from.name? next({ name:from.name}) : next('/err'); 
+  } else {
+    next()
+  }
+}) 
 
-// router.beforeEach((to, from, next) => {
-//   // 此处判断条件我有看到其他人用to.matched.length ===0进行判断， 具体的还有待进一步验证，大体的思路就是这样的
-//   if (to.fullPath === '/') { 
-//     from.path ? next({ path:from.path }) : next('/err');   
-//   } else {
-//       next(); //如果匹配到正确跳转
-//   }
-// });
+
 
 export default router
