@@ -22,7 +22,7 @@
                 :key="i" 
                 :style="`background-image:url(&quot;${v.bg_img}&quot;);background-size: cover; background-position: 50%;`"
             >
-                <a href="" class="lj">
+                <a :href="`https://m.wandougongzhu.cn/${v.action}`" class="lj">
                     <div class="right-body-left">
                         <div class="right-body-left-box">
                             <div class="right-body-left-img"> 

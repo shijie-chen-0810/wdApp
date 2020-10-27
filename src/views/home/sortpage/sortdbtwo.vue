@@ -1,7 +1,7 @@
 <template>
     <div class="right-boxtwo">
 
-            <a href="" class="right-topa" v-if="Category.banner.length !== 0">
+            <a :href="`https://m.wandougongzhu.cn/${Category.banner.action}`" class="right-topa" v-if="Category.banner.length !== 0">
                 <img :src="Category.banner.img">
             </a>
             <div 
@@ -13,7 +13,7 @@
                     {{item.cat_name}} 
                 </div>
                 <div class="right-cat-group">
-                    <a href="" class="item" v-for="(v,i) in item.sub" :key="i">
+                    <a :href="`https://m.wandougongzhu.cn/${v.action}`" class="item" v-for="(v,i) in item.sub" :key="i">
                         <div class="img-box">
                             <img :src="v.cat_icon">
                         </div>
