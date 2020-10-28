@@ -1,14 +1,14 @@
 <template>
   <div>
-    <dl v-for="n in 6" :key="n">
+    <dl v-for="(item,index) in goods" :key="index">
       <dt>
-        <img src="~assets/images/see/pay4.png" alt="">
+        <img :src="item.img_middle" alt="">
       </dt>
       <dd>
-        <p>奥斯帝国v啊是加拿大阿斯很多那是考虑还是</p>
+        <p>{{item.slogan}}{{item.goods_name}}</p>
         <p>
-          <span>￥99</span>
-          <i>x 1</i>
+          <span>￥{{item.final_price}}</span>
+          <i>x {{item.num}}</i>
         </p>
       </dd>
     </dl>
@@ -17,7 +17,20 @@
 
 <script>
 export default {
-
+  computed:{
+    goods(){
+      const {house_id} = this.$route.query
+      this.$store.commit({
+        type:'cart/paygoods',
+        house:house_id
+      })
+      if(house_id == 200){
+        return this.$store.state.cart.payzhengzhou
+      }else{
+        return this.$store.state.cart.payjapan
+      }
+    }
+  },
 }
 </script>
 

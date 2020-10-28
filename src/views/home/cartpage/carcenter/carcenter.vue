@@ -27,27 +27,7 @@ export default {
     carchange,
     cargoods,
     carpay
-  },
-  methods:{
-    // frag(frg){
-    //   // console.log(frg)
-    //   this.checked = frg
-    //   this.$parent.frg(this.goods,frg)
-    //   // console.log(this.checked)
-    //   // this.goods.forEach(item=>{
-    //   //   item.checked === frg
-    //   //   console.log(item.checked)
-    //   // })
-    // }
   }
-  // watch:{
-  //   checked(value){
-  //     console.log(value)
-  //     console.log(this.goods)
-  //     this.goods.forEach(item=>item.checked === value)
-  //     console.log(this.goods)
-  //   }
-  // }
 }
 </script>
 

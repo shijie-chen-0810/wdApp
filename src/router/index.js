@@ -39,12 +39,6 @@ const routes = [
       {
         path: 'cart',
         component:Cart,
-        beforeEnter: (to, from, next) => {
-          if(to.path == "/cart"&&from.path == "/"){
-            next({path:'/login'})
-          }
-          next()
-        }
       },
       {
         path: 'profile',
