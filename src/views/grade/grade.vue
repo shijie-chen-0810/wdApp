@@ -276,7 +276,7 @@ export default {
         position relative
         font-size .13rem
         padding-right .1rem
-        padding-left 1.8rem
+        padding-left 1.7rem
         a
             color #9e9e9e
     .prerogative-wrapper

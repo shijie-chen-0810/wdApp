@@ -147,7 +147,7 @@ export default {
     .hot-desc
         color #9e9e9e
         font-size .12rem
-        width 1.34rem
+        width 1.31rem
         ellipsis_num(1)
     .hot-count
         color #9e9e9e
