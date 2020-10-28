@@ -43,6 +43,7 @@ const routes = [
           if(to.path == "/cart"&&from.path == "/"){
             next({path:'/login'})
           }
+          next()
         }
       },
       {
