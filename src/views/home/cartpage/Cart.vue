@@ -24,6 +24,7 @@ import carfooter from './carfooter/carfooter'
 
 import {getGoods} from 'network/homeRequest/homeRequest'
 export default {
+  name:'cart',
   data(){
     return {
       operation:'编辑',
@@ -93,7 +94,8 @@ export default {
       }
     }
   },
-  async mounted(){
+  async activated(){
+    console.log('asdasda')
     const b = await this.$store.dispatch('cart/goods')
     const a = await getGoods(100,24)
     this.goodsList = a.data
