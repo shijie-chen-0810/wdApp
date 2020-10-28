@@ -53,7 +53,7 @@ export default {
             this.commontList = JSON.parse(this.detailData.commontList)
             console.log(this.commontList)
         } catch (e) {
-            console.log('数据不是json格式')
+            console.log('评论数据不是json格式，无法解析~~~~~~~~')
         }
         this.$nextTick(()=>{
             let bs = new BScroll('.comment', {

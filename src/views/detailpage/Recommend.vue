@@ -30,7 +30,6 @@ export default {
     async mounted() {
         const data = await getGoods(Math.floor(Math.random() * (300 - 10 + 1) + 10), 10)
         this.goodsData = data.data
-        // console.log(this.goodsData)
     },
     methods: {
         goDetail(goods_id) {

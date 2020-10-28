@@ -55,7 +55,7 @@ export default {
             this.commentText = this.commontList[0].commentText
             this.commentImg = this.commontList[0].commentImg
         } catch (e) {
-            console.log('数据不是json格式')
+            console.log('评论数据不是json格式，无法解析~~~~~~~~')
         }
         
     }

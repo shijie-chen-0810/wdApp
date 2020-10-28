@@ -7,14 +7,14 @@
       <ul>
         <li :class="{ active: isSelected === 'goods' }">商品</li>
         <li :class="{ active: isSelected === 'comment' }">评价</li>
-        <li :class="{ active: isSelected === 'goodsdetail' }">详情</li>
+        <li :class="{ active: isSelected === 'goodsdetail' }" @click="aaa">详情</li>
         <li :class="{ active: isSelected === 'recommend' }">推荐</li>
       </ul>
     </header>
     <header v-else>
       <div class="active" @click="goback"><svg t="1603350461898" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2787" width="16" height="16"><path d="M896 544H193.3312a32 32 0 1 1 0-64H896a32 32 0 0 1 0 64z" fill="#191919" p-id="2788"></path><path d="M426.5984 798.72a31.8976 31.8976 0 0 1-22.6304-9.3696L126.8736 512 403.968 234.9056a32 32 0 0 1 45.2608 45.2608L217.3952 512l231.8336 231.8336A32 32 0 0 1 426.5984 798.72z" fill="#191919" p-id="2789"></path></svg></div>
     </header>
-    <main>
+    <main id="detail-con">
         <div ref="scroTop">
           <goods></goods>
           <div ref="commentTop"><comment></comment></div>
@@ -32,7 +32,7 @@
         <img v-if="true" src="https://s4.wandougongzhu.cn/s/07/cart_a65b3c.png" alt="">
         <router-link :to="{path: '/cart'}" tag="span">购物袋</router-link>
       </div>
-      <div @click="addToCart">加入购物车</div>
+      <div>加入购物车</div>
       <div>立即购买</div>
     </footer>
   </div>
@@ -43,6 +43,7 @@ import Goods from './Goods'
 import Comment from './Comment'
 import GoodsDetail from './GoodsDetail'
 import Recommend from './Recommend'
+import BScroll from '@better-scroll/core'
 
 import {getDetail} from 'network/detailRequest/detailRequest'
 
@@ -54,10 +55,11 @@ export default {
       isSelected: 'goods',
       topShow: false,
       flag: true,
+      bsflat: true,
       commentTop: 0,
       detailTop: 0,
       recommendTop: 0,
-      detailData: {}
+      bs: {}
     }
   },  
   components: {
@@ -66,12 +68,26 @@ export default {
     GoodsDetail,
     Recommend
   },
-  async mounted() {
-    window.addEventListener('scroll',this.handleScrolly, true)
-    this.detailData = await getDetail(this.$route.params.id)
-    console.log(this.detailData)
+  mounted() {
+    this.init()
   },
   methods: {
+    init(){
+      this.bs = new BScroll('#detail-con', {
+        probeType: 3,
+        scrollY: true,
+        click: true
+      })
+      this.bs.on('scroll', () => {
+        this.handleScrolly()
+        if(this.bs.y <= this.bs.maxScrollY){
+          if(this.bsflat){
+            this.bs.refresh()
+          }
+          this.bsflat = false
+        }
+      })
+    },
     handleScrolly() {
       if(this.flag){
         this.flag = false
@@ -79,22 +95,21 @@ export default {
         this.detailTop = this.$refs.detailTop.getBoundingClientRect().top
         this.recommendTop = this.$refs.recommendTop.getBoundingClientRect().top
       }
-      let topy = this.$refs.scroTop.getBoundingClientRect().top
-      if(topy <= 0){
+      if(this.bs.y <= 0){
         this.topShow = true
       } else {
         this.topShow = false
       }
-      if(Math.abs(topy) < this.commentTop - 90){
+      if(Math.abs(this.bs.y) < this.commentTop - 45){
         this.isSelected = 'goods'
       }
-      if(Math.abs(topy) >= this.commentTop - 90){
+      if(Math.abs(this.bs.y) >= this.commentTop - 45){
         this.isSelected = 'comment'
       }
-      if(Math.abs(topy) >= this.detailTop - 90){
+      if(Math.abs(this.bs.y) >= this.detailTop - 45){
         this.isSelected = 'goodsdetail'
       }
-      if(Math.abs(topy) >= this.recommendTop - 90){
+      if(Math.abs(this.bs.y) >= this.recommendTop - 45){
         this.isSelected = 'recommend'
       }
     },
@@ -104,8 +119,8 @@ export default {
     collect(){
       this.isCollect = !this.isCollect
     },
-    addToCart(){
-      this.$router.push({ name: 'cart', params: {goods_id: this.detailData.goods_id, residue_count: this.detailData.residue_count, checked: true}})
+    aaa(){
+      this.bs.scrollTo(0, -this.commentTop + 45)
     }
   }
 }
@@ -154,8 +169,7 @@ export default {
             bottom 0
   main
     flex 1
-    overflow-x hidden
-    overflow-y scroll
+    overflow hidden
   footer 
     height 0.48rem
     display flex
