@@ -20,11 +20,12 @@ export default {
   methods:{
     clickHandler(){
       if(this.isActive)return
-      // if(this.path=="/cart"&& true){
-      //   this.$router.push('/login')
-      // }else{
+      console.log(this.$store.state.islogin)
+      if(this.path=="/cart"&& !this.$store.state.islogin){
+        this.$router.push('/login')
+      }else{
         this.$router.push(this.path)
-      // }
+      }
       
     }
   }

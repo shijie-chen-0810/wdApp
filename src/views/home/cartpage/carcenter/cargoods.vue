@@ -39,7 +39,7 @@ export default {
   props:["goods"],
   computed:{
     type(){
-      if(this.goods[0].house_id === 200) return "郑州保税仓"
+      if(this.goods[0].house_id == 200) return "郑州保税仓"
       return "日本仓"
     }
   },
