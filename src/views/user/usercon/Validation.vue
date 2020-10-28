@@ -52,17 +52,17 @@ export default {
     async loginsuccess(){
       if(this.verifynum.length === 6 && this.verifynum === this.$store.state.profile.verifycode){
         //根据状态码判断后端是否正确处理phonenum,
-        let res = await axios({
-          method: 'post',
-          headers:{
-            'content-type':'application/json'
-          },
-          url:'http://10.9.64.245:5000/profile/users/login',
-          data:{
-            "cellphonenumber":`${this.$store.state.profile.cellphonenumber}`
-          }
-        })
-        console.log(res)
+        // let res = await axios({
+        //   method: 'post',
+        //   headers:{
+        //     'content-type':'application/json'
+        //   },
+        //   url:'http://10.9.64.245:5000/profile/users/login',
+        //   data:{
+        //     "cellphonenumber":`${this.$store.state.profile.cellphonenumber}`
+        //   }
+        // })
+        // console.log(res)
         if(true){ 
           //修改vuex中登录状态位true
           this.changeislogin({
