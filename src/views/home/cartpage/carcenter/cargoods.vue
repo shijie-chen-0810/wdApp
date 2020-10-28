@@ -36,7 +36,7 @@ Vue.use(Checkbox).use(Stepper)
 
 import cargoodschange from './cargoodschange'
 export default {
-  props:["goods",'checked'],
+  props:["goods"],
   computed:{
     type(){
       if(this.goods[0].house_id === 200) return "郑州保税仓"
@@ -49,30 +49,42 @@ export default {
   methods:{
     clickDelete(goods){
       var r = confirm("您确定要删除这个物品");
-      if (r == true) this.$parent.$parent.delete(goods)
-    },
-    fun(goods){
-      const goodsInfo = this.$parent.$parent.car
-      const index = goodsInfo.findIndex(item=>item===goods)
-      goodsInfo[index].checked = !goodsInfo[index].checked
+      if (r == true){
+        const house = this.goods[0].house_id
+        this.$store.commit({
+          type:'cart/delete',
+          house,
+          goods
+        })
+      }
     },
     plus(goods){
-      const goodsInfo = this.$parent.$parent.car
-      const index = goodsInfo.findIndex(item=>item===goods)
-      goodsInfo[index].num++
+      const house = this.goods[0].house_id
+      this.$store.commit({
+        type:'cart/addNum',
+        house,
+        goods
+      })
     },
     minus(goods){
-      const goodsInfo = this.$parent.$parent.car
-      const index = goodsInfo.findIndex(item=>item===goods)
-      goodsInfo[index].num--
+      const house = this.goods[0].house_id
+      this.$store.commit({
+        type:'cart/addNum',
+        house,
+        goods
+      })
     },
-    change(a){
-      this.fun(a)
-      const frag = this.goods.some(item=>item.checked===false)
-      if(frag){
-        this.$parent.checked = false
+    change(goods){
+      const house = this.goods[0].house_id
+      this.$store.commit({
+        type:'cart/onechecked',
+        house,
+        goods
+      })
+      if(house == 200){
+        this.$store.getters.zhengzhou
       }else{
-        this.$parent.checked = true
+        this.$store.getters.japan
       }
     }
   }
