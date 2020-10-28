@@ -13,6 +13,7 @@ const Err =  () => import('views/err/err')
 const Grade =  () => import('views/grade/grade')
 //profile
 import Userlogin from '../views/user/Userlogin.vue'
+import Setpwd from '../views/user/Setpwd.vue'
 //Order
 import Order from '../views/goodsorder/Order.vue'
 import Orderall from '../views/goodsorder/orderdetail/Orderall.vue'
@@ -96,6 +97,10 @@ const routes = [
   {
     path: '/login',
     component: Userlogin
+  },
+  {
+    path: '/setpwd',
+    component: Setpwd
   },
   {
     path: '/order',
