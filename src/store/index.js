@@ -9,7 +9,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    islogin:false   //登录状态 true为已登陆
+    islogin:false,   //登录状态 true为已登陆
+    cellphonenumber:'17835753622'
   },
   mutations: {
     //登录
