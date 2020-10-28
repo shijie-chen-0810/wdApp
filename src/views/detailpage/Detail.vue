@@ -103,10 +103,10 @@ export default {
       if(Math.abs(topy) < this.commentTop - 45){
         this.isSelected = 'goods'
       }
-      if(Math.abs(topy) >= this.commentTop - 45){
+      if(Math.abs(topy) >= this.commentTop - 48){
         this.isSelected = 'comment'
       }
-      if(Math.abs(topy) >= this.detailTop - 45){
+      if(Math.abs(topy) >= this.detailTop - 50){
         this.isSelected = 'goodsdetail'
       }
       if(Math.abs(topy) >= this.recommendTop - 45){
