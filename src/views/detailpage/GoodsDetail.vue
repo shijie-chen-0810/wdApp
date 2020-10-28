@@ -23,6 +23,7 @@
                         </div>
                     </div>
                 </li>
+                <!-- </router-link> -->
             </ul>
         </div>
         <div><img src="../../assets/img/cxj_detail/102x_460c12.png" alt="" @load="refresh"></div>
