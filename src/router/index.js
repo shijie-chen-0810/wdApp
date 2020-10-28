@@ -10,6 +10,7 @@ const Cart =  () => import('views/home/cartpage/Cart')
 const Profile =  () => import('views/home/profilepage/Profile')
 //profile
 import Userlogin from '../views/user/Userlogin.vue'
+import Setpwd from '../views/user/Setpwd.vue'
 //Order
 import Order from '../views/goodsorder/Order.vue'
 import Orderall from '../views/goodsorder/orderdetail/Orderall.vue'
@@ -66,6 +67,10 @@ const routes = [
   {
     path: '/login',
     component: Userlogin
+  },
+  {
+    path: '/setpwd',
+    component: Setpwd
   },
   {
     path: '/order',

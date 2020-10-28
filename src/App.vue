@@ -1,6 +1,6 @@
 <template>
   <div>
-    <keep-alive exclude="detail,profile">
+    <keep-alive exclude="detail,profile,setpwd">
       <router-view></router-view>
     </keep-alive>
   </div>
