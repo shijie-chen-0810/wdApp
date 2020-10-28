@@ -2,7 +2,7 @@
     <div class="goods_detail">
         <div>
             <div>
-                <div><img :src="companyInfo.logo" alt=""></div>
+                <div><img :src="companyInfo.logo" alt="" @load="refresh"></div>
                 <div>
                     <p>{{ companyInfo.name }}</p>
                     <p>在售商品&nbsp;{{ detailData.residue_count }}&nbsp;件，总售&nbsp;702&nbsp;件</p>
@@ -12,30 +12,24 @@
         <div>相关推荐</div>
         <div>
             <ul>
-                <!-- <router-link 
-                    v-for="(goods,i) in goodsData" 
-                    :key="i"
-                    :to="{ name: 'detail', params: { id: goods.goods_id }}" 
-                    tag="li"
-                > -->
-                <li v-for="(goods,i) in goodsData" :key="i" @click="goDetail(goods.goods_id)">
-                    <div><img :src="goods.img_middle" alt=""></div>
+                <li v-for="(goods,i) in goodsData" :key="i" @click="changeDetail(goods.goods_id)">
+                    <div><img :src="goods.img_middle" alt="" @load="refresh"></div>
                     <div>
                         <p class="text_tellipsis">{{ goods.goods_name }}</p>
                         <p>{{ goods.praise_desc }}</p>
                         <p><i>¥</i>{{ goods.finalPrice }}</p>
                         <div>
-                            <img src="../../assets/img/cxj_detail/cart_65bbdc.png" alt="">
+                            <img src="../../assets/img/cxj_detail/cart_65bbdc.png" alt="" @load="refresh">
                         </div>
                     </div>
                 </li>
                 <!-- </router-link> -->
             </ul>
         </div>
-        <div><img src="../../assets/img/cxj_detail/102x_460c12.png" alt=""></div>
+        <div><img src="../../assets/img/cxj_detail/102x_460c12.png" alt="" @load="refresh"></div>
         <div>产品特点</div>
         <ul>
-            <li v-for="(val,i) in detailImgList" :key="i"><img :src="val" alt=""></li>
+            <li v-for="(val,i) in detailImgList" :key="i"><img :src="val" alt="" @load="refresh"></li>
         </ul>
     </div>
 </template>
@@ -58,13 +52,16 @@ export default {
         this.goodsData = data.data
         this.companyInfo = JSON.parse(this.detailData.companyInfo)
         this.detailImgList = JSON.parse(this.detailData.detailImgList)
+        // console.log(this.goodsData)
     },
-    methods: {
-        goDetail(goods_id) {
-            this.$router.push({ name: 'detail', params: { id: goods_id }})
+    methods:{
+        refresh(){
+            this.$emit('refresh')
+        },
+        changeDetail(id){
+            this.$router.push('/detail/'+id)
             this.$router.go(0)
         }
-        
     }
 }
 </script>

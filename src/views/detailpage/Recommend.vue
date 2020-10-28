@@ -3,14 +3,14 @@
         <div>大家都在逛</div>
         <ul>
             <li v-for="(goods,i) in goodsData" :key="i" @click="goDetail(goods.goods_id)">
-                <div><img :src="goods.img_middle" alt=""></div>
+                <div><img :src="goods.img_middle" alt="" @load="refresh"></div>
                     <div>
                         <p class="text_ellipsis">{{ goods.slogan }}</p>
                         <p class="text_tellipsis">{{ goods.goods_name }}</p>
                         <p>{{ goods.praise_desc }}</p>
                         <div>
                             <p><i>¥</i>{{ goods.finalPrice }}</p>
-                            <img src="../../assets/img/cxj_detail/cart_65bbdc.png" alt="">
+                            <img src="~assets/img/cxj_detail/cart_65bbdc.png" alt="" @load="refresh" @click='addToCart'>
                         </div>
                 </div>
             </li>
@@ -20,7 +20,7 @@
 
 <script>
 import { getGoods } from 'network/homeRequest/homeRequest'
-
+import addItemToCart from 'utils/addToCart'
 export default {
     data() {
         return {
@@ -35,8 +35,13 @@ export default {
         goDetail(goods_id) {
             this.$router.push({ name: 'detail', params: { id: goods_id }})
             this.$router.go(0)
+        },
+        refresh(){
+            this.$emit('refresh')
+        },
+        addToCart(){
+            addItemToCart.call(this,this.$route.params.id,this.islogin,this.cellphonenumber)
         }
-        
     }
 }
 </script>

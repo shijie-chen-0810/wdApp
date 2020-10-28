@@ -2,13 +2,13 @@
   <div class="profile">
     <div class="user">
 
-      <router-link class="user-top" tag="div" to="/login">
+      <div class="user-top" @click="enterlogin">
         <div>
           <img src="~assets/images/profile/my_wandoulogotop.png" alt="">
         </div>
         <p v-if="islogin">点击登录 / 注册</p>
         <p v-else>{{querynum}}</p>
-      </router-link>
+      </div>
       
       <ul class="user-content">
         <li v-for="data in datalist" :key="data.id">
@@ -29,6 +29,7 @@ import Profileserve from "./profilefeature/Profileserve"
 import Profiledownload from "./profilefeature/Profiledownload"
 
 export default {
+  name:'profile',
   data(){
     return {
       islogin:true,
@@ -52,24 +53,39 @@ export default {
       ]
     }
   },
-  components:{
-    Profileorder,
-    Profileserve,
-    Profiledownload
-  },
-  mounted(){
-    if(this.$store.state.profile.islogin){
-      this.querynum = this.$store.state.profile.cellphonenumber;
+  activated(){
+    if(this.$store.state.islogin){
+      this.querynum = this.$store.state.cellphonenumber;
       this.islogin = false;
     }else{
       this.querynum = '';
       this.islogin = true;
     }
   },
+  mounted(){
+    if(this.$store.state.islogin){
+      this.querynum = this.$store.state.cellphonenumber;
+      this.islogin = false;
+    }else{
+      this.querynum = '';
+      this.islogin = true;
+    }
+  },
+  components:{
+
+    Profileorder,
+    Profileserve,
+    Profiledownload
+  },
   methods:{
     logout(){
       this.querynum = ''
       this.islogin = true;
+    },
+    enterlogin(){
+      if(this.islogin === true){
+        this.$router.push('/login')
+      }
     }
   }
 }

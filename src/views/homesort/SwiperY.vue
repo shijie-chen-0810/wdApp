@@ -46,7 +46,6 @@ export default {
     const data = await getGoods(offset,this.listNum)
     this.data = data.data
     this.$nextTick(()=>{
-      console.log(this.$refs,this.listNum)
       this.bs = new BScroll(this.$refs.majorSuit,{
         scrollX:true
       })

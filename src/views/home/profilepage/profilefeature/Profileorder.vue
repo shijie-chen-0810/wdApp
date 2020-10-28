@@ -10,7 +10,7 @@
       </li>
     </ul>
     <div class="profile-invite">
-      <img src="../../../../assets/images/profile/my_sandanyouli.png" alt="">
+      <img src="~assets/images/profile/my_sandanyouli.png" alt="">
     </div>
   </div>
 </template>
@@ -50,14 +50,18 @@ export default {
   },
   methods:{
     handleclick(v){
-      this.$router.push('/order/' + v)
+      if(this.$store.state.islogin){
+        this.$router.push('/order/' + v)
+      }else{
+        this.$router.push('/login')
+      }
     }
   }
 }
 </script>
 
 <style lang="stylus" scoped>
-@import '../../../../assets/stylus/border.styl'
+@import '~assets/stylus/border.styl'
 
 .profile-order
   padding-bottom .2rem

@@ -2,13 +2,13 @@
   <div class="sort">
       <div class="line">
         <router-link :to="{name:'homesort',params:{sortType:sortitem.title}}" tag="p" class="sort-item" v-for="sortitem in sort1" :key='sortitem.tick'>
-          <img :src="JSON.parse(sortitem.list)[0].img" alt="">
+          <van-image :src="JSON.parse(sortitem.list)[0].img" alt=""></van-image>
           <span>{{sortitem.title}}</span>
         </router-link>
       </div>
       <div class="line">
         <router-link :to="{name:'homesort',params:{sortType:sortitem.title}}" tag="p" class="sort-item" v-for="sortitem in sort2" :key='sortitem.tick'>
-          <img :src="JSON.parse(sortitem.list)[0].img" alt="">
+          <van-image :src="JSON.parse(sortitem.list)[0].img" alt=""></van-image>
           <span>{{sortitem.title}}</span>
         </router-link>
       </div>

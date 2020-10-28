@@ -1,7 +1,7 @@
 <template>
   <div class="coupon">
-    <p>优惠卷</p>
-    <p>再买{{term[0]}}元减<span>{{term[1]}}元</span><i class="iconfont">&#xe60c;</i></p>
+    <p>满额减</p>
+    <p>再买{{price[3]}}元减<span>{{price[4]}}元</span><i class="iconfont">&#xe60c;</i></p>
   </div>
   
 </template>
@@ -10,10 +10,9 @@
 export default {
   props:["goods"],
   computed:{
-    term(){
-      const parent = this.$parent.$parent.$parent.goodsAll(this.goods)
-      // console.log(parent)
-      return [parent[3],parent[4]]
+    price(){
+      const house = this.goods[0].house_id
+      return this.$store.getters['cart/price'](house)
     }
   }
 }

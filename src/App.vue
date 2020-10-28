@@ -1,6 +1,6 @@
 <template>
   <div>
-    <keep-alive exclude="detail">
+    <keep-alive exclude="detail,profile,homesortpage">
       <router-view></router-view>
     </keep-alive>
   </div>
@@ -9,7 +9,12 @@
 <script>
 import Vue from 'vue';
 import { Toast } from 'vant';
+import { Image as VanImage } from 'vant';
+import { Lazyload } from 'vant';
+
 Vue.use(Toast);
+Vue.use(VanImage);
+Vue.use(Lazyload);
 export default {
 }
 </script>

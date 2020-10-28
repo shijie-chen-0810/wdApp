@@ -1,74 +1,85 @@
 <template>
+    <div class="right-box-con" ref="rightboxcon">
+
     <div class="right-box">
-        <div class="right-top">
+        <div
+            class="mbbox"
+            v-for="(item,index) in Category[0].sub"
+            :key="index" 
+        >
+            <div class="right-top">
             <a href="">
-                <span class="right-first">护肤美妆</span>
+                <span class="right-first">{{item.cat_name}}</span>
                 <div class="right-two">
                     <span>更多</span> 
                     <img src="https://s3.wandougongzhu.cn/s/6e/left_d13931.png">
                 </div>
-            </a>
-        </div>
-        <div class="right-body">
-            <a href="" class="lj">
-                <div class="right-body-left">
-                    <div class="right-body-left-box">
-                        <div class="right-body-left-img">
-                            <img src="https://s1.wandougongzhu.cn/s/a9/icon----3x_c9985b.png">
+            </a> 
+            </div>
+            <div 
+                class="right-body" 
+                v-for="(v,k,i) in item.sub" 
+                :key="i" 
+                :style="`background-image:url(&quot;${v.bg_img}&quot;);background-size: cover; background-position: 50%;`"
+            >
+                <a href="" class="lj">
+                    <div class="right-body-left">
+                        <div class="right-body-left-box">
+                            <div class="right-body-left-img"> 
+                                <img src="https://s1.wandougongzhu.cn/s/a9/icon----3x_c9985b.png">
+                            </div>
+                            <div class="right-body-left-title">{{v.title}}</div>
                         </div>
-                        <div class="right-body-left-title">面膜豌豆甄选</div>
                     </div>
-                </div>
-                <div class="right-body-right">
-                    
-                </div>
-            </a>
-            
-        </div>
-        <div class="right-body">
-            <a href="" class="lj">
-                <div class="right-body-left">
-                    <div class="right-body-left-box">
-                        <div class="right-body-left-img">
-                            <img src="https://s1.wandougongzhu.cn/s/a9/icon----3x_c9985b.png">
+                    <div class="right-body-right">
+                        <div class="image-con">
+                            <div class="right-body-right-one right-gg" :style="`background-image:url(&quot;${v.goods_img_list[0]}&quot;)`">
+                                <img src="https://s2.wandougongzhu.cn/s/e6/paihangbang_12x_28a679.png">
+                            </div>
+                            <div class="right-body-right-two right-gg" :style="`background-image:url(&quot;${v.goods_img_list[1]}&quot;)`">
+                            </div>
+                            <div class="right-body-right-three right-gg" :style="`background-image:url(&quot;${v.goods_img_list[2]}&quot;)`">
+                            </div>
                         </div>
-                        <div class="right-body-left-title">面膜豌豆甄选</div>
                     </div>
-                </div>
-                <div class="right-body-right"></div>
-            </a>
-            
-        </div>
-        <div class="right-body">
-            <a href="" class="lj">
-                <div class="right-body-left">
-                    <div class="right-body-left-box">
-                        <div class="right-body-left-img">
-                            <img src="https://s1.wandougongzhu.cn/s/a9/icon----3x_c9985b.png">
-                        </div>
-                        <div class="right-body-left-title">面膜豌豆甄选</div>
-                    </div>
-                </div>
-                <div class="right-body-right"></div>
-            </a>
-            
+                </a>
+            </div>
         </div>
     </div>
-    
+    </div>
 
 </template>
 
 <script>
+import BetterScroll from '@better-scroll/core'
+import MouseWheel from '@better-scroll/mouse-wheel'
+BetterScroll.use(MouseWheel)
+import Category from 'assets/static/Category.js'
 export default {
     data() {
-        return {}
-    }       
+        return {
+            Category,
+            Categoryzx:Category[0].sub,
+            bs:null
+        } 
+    },
+    mounted () {
+        this.$nextTick(()=>{
+            this.bs = new BetterScroll(this.$refs.rightboxcon, {
+                probeType: 3,
+                click:true,
+                mouseWheel:true
+            })
+        })
+        
+    }
 }
 </script>
 
 <style lang="stylus" scoped>
-    .right-box
+    .right-box-con
         height 100%
+    .right-box
         display flex
         flex-direction column
     .right-top
@@ -103,7 +114,7 @@ export default {
         background-position 50%
         border-radius .1rem
         position relative
-        background-image url("https://oss2.wandougongzhu.cn/193741da29d99a5ae64f5b30fc628305.png")
+        
         .lj
             display flex
             height 100%
@@ -118,6 +129,8 @@ export default {
         .right-body-right
             width 50%
             flex 1
+            display flex
+            align-items center
             height 100%
         .right-body-left-box
             margin-left .1rem
@@ -130,9 +143,34 @@ export default {
         .right-body-left-title
             color #fff
             font-size .14rem
-            margin-top .05rem
+            margin-top .02rem
             max-width 2.64rem
-            font-weight 700
-            
+            font-weight 600
+        .right-gg
+            display inline-block
+            vertical-align middle
+            position relative
+            border-radius 5%
+            overflow hidden
+            font-size 0
+            background-size cover
+            background-position 50%
+            background-color #fff
+        .right-body-right-one
+            width .54rem
+            height .54rem
+            z-index 3
+            img 
+                width .17rem
+                height .17rem
+        .right-body-right-two
+            width .48rem
+            height .48rem
+            z-index 2
+            margin-left -15%
+        .right-body-right-three
+            width .42rem
+            height .42rem
+            margin-left -15%
             
 </style>

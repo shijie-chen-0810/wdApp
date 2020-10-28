@@ -1,10 +1,10 @@
 <template>
   <div class="head">
     <div class="shop">
-      <van-checkbox :value="checked" @click="click" checked-color="#000" icon-size=".2rem">{{shop}}</van-checkbox>
+      <van-checkbox :value="!checked" @click="click" checked-color="#000" icon-size=".2rem">{{shop}}</van-checkbox>
       <p>以免运费<span class="iconfont">&#xe60c;</span></p>
     </div>
-    <carcoupon v-if="$parent.$parent.goodsAll(goods)[1] <= 650" :goods="goods"></carcoupon>
+    <carcoupon v-if="price[5]" :goods="goods"></carcoupon>
   </div>
 </template>
 
@@ -14,29 +14,35 @@ import { Checkbox } from 'vant';
 Vue.use(Checkbox)
 import carcoupon from './carcoupon'
 export default {
-  props:["goods","checked"],
-  data(){
-    return {
-      // checked: true,
-    }
-  },
+  props:["goods"],
   methods:{
     click(){
-      // console.log(this.checked)
-      this.$emit("frag",!this.checked)
-      // console.log(this.checked)
-      // this.checked = !this.checked
-      // this.goods.forEach(item=>item.checked === !this.checked)
-      // this.$parent.checked = !this.$parent.checked
+      const house = this.goods[0].house_id
+      this.$store.commit({
+        type:'cart/checked',
+        checked:this.checked,
+        house:house
+      })
     }
   },
   computed:{
     shop(){
       const house = this.goods[0].house_id
-      if(house === 200){
+      if(house == 200){
         return "郑州保税仓"
       }else{
         return "日本仓"
+      }
+    },
+    price(){
+      const house = this.goods[0].house_id
+      return this.$store.getters['cart/price'](house)
+    },
+    checked(){
+      if(this.goods[0].house_id == 200){
+        return this.$store.getters['cart/zhengzhou']
+      }else{
+        return this.$store.getters['cart/japan']
       }
     }
   },

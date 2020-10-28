@@ -3,10 +3,10 @@
     <h4>日本一物</h4>
     <div class="one-thing">
       <p>
-        <img :src="imgList[0]" alt="">
+        <van-image :src="imgList[0]" alt=""></van-image>
       </p>
       <p>
-        <img :src="imgList[1]" alt="">
+        <van-image :src="imgList[1]" alt=""></van-image>
       </p>
     </div>
   </div>

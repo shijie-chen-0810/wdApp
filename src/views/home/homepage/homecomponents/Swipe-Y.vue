@@ -83,7 +83,7 @@ export default {
   justify-content center
 .main
   border_1px(1px,solid,#f3c76e,10px)
-  width 3.43rem
+  width 91.5vw
 .title-con
   display flex
   flex-wrap nowrap
@@ -130,7 +130,7 @@ export default {
     line-height 0.2rem
     color white
 .content-list
-  width 3.43rem
+  width 91.5vw
   height 1.875rem
   align-items center
   border-1px(1px 0 0 0)
