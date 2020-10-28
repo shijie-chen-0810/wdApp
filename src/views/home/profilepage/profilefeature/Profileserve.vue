@@ -2,10 +2,10 @@
   <div class="profile-serve">
     <h3 class="myserve">我的服务</h3>
     <ul>
-      <li v-for="data in datalist" :key="data.id">
+      <router-link tag="li" :to="data.active" v-for="data in datalist" :key="data.id">
         <div :style="data.photourl"></div>
         <span>{{data.title}}</span>
-      </li>
+      </router-link>
     </ul>
   </div>
 </template>
@@ -18,32 +18,38 @@ export default {
         { 
           id:112,
           photourl:"background:url('https://s5.wandougongzhu.cn/s/e8/2x_1ca83d.png') no-repeat 0 0/100% 100%",
-          title:'收藏夹'
+          title:'收藏夹',
+          active:""
         },
         {
           id:113,
           photourl:"background:url('https://s.wandougongzhu.cn/s/18/2x_de7163.png') no-repeat 0 0/100% 100%",
-          title:'国内模式'
+          title:'国内模式',
+          active:""
         },
         {
           id:114,
           photourl:"background:url('https://s2.wandougongzhu.cn/s/ac/2x_0edd73.png') no-repeat 0 0/100% 100%",
-          title:'我的特权'
+          title:'我的特权',
+          active:"/grade"
         },
         {
           id:115,
           photourl:"background:url('https://s3.wandougongzhu.cn/s/b7/2x_758d9d.png') no-repeat 0 0/100% 100%",
-          title:'我的点评'
+          title:'我的点评',
+          active:""
         },
         {
           id:116,
           photourl:"background:url('https://s5.wandougongzhu.cn/s/e8/2x_1ca83d.png') no-repeat 0 0/100% 100%",
-          title:'联系客服'
+          title:'联系客服',
+          active:""
         },
         {
           id:117,
           photourl:"background:url('https://s1.wandougongzhu.cn/s/a3/_9d2bd8.png') no-repeat 0 0/100% 100%",
-          title:'关于我们'
+          title:'关于我们',
+          active:""
         }
       ]
     }

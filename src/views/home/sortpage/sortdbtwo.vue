@@ -1,7 +1,7 @@
 <template>
     <div class="right-boxtwo">
 
-            <a href="" class="right-topa" v-if="Category.banner.length !== 0">
+            <a :href="`https://m.wandougongzhu.cn/${Category.banner.action}`" class="right-topa" v-if="Category.banner.length !== 0">
                 <img :src="Category.banner.img">
             </a>
             <div 
@@ -13,19 +13,19 @@
                     {{item.cat_name}} 
                 </div>
                 <div class="right-cat-group">
-                    <a href="" class="item" v-for="(v,i) in item.sub" :key="i">
+                    <a :href="`https://m.wandougongzhu.cn/${v.action}`" class="item" v-for="(v,i) in item.sub" :key="i">
                         <div class="img-box">
                             <img :src="v.cat_icon">
                         </div>
                         <div class="cat-name">{{v.cat_name}}</div>
                     </a>
-                </div>
+                </div> 
             </div>
             <div class="right-cat-nametwo">
                 热门品牌
             </div>
             <div class="hot-itembox">
-                <a href="" class="hot-item" v-for="(item,index) in Category.hot_brand_list" :key="index">
+                <a href="/" class="hot-item" v-for="(item,index) in Category.hot_brand_list" :key="index">
                     <div class="hot-img">
                         <img :src="item.icon">
                     </div>
@@ -147,11 +147,11 @@ export default {
     .hot-desc
         color #9e9e9e
         font-size .12rem
-        width 1.38rem
+        width 1.31rem
         ellipsis_num(1)
     .hot-count
         color #9e9e9e
-        margin-right .1rem
+        margin-right .11rem
     .hot-number
         color #EA4141
         font-size .12rem

@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
+
 const Home =  () => import('views/home/homepage/Home')
 const HomeSortPage =  () => import('views/homesort/HomeSortPage')
 const HomeZong =  () => import('views/home/Home')
@@ -8,6 +9,8 @@ const Detail =  () => import('views/detailpage/Detail')
 const Sort =  () => import('views/home/sortpage/Sort')
 const Cart =  () => import('views/home/cartpage/Cart')
 const Profile =  () => import('views/home/profilepage/Profile')
+const Err =  () => import('views/err/err')
+const Grade =  () => import('views/grade/grade')
 //profile
 import Userlogin from '../views/user/Userlogin.vue'
 //Order
@@ -33,8 +36,8 @@ VueRouter.prototype.push = function push(location, onResolve, onReject) {
 const routes = [
   {
     path: '/',
-    redirect: '/home',
     component:HomeZong,
+    redirect: '/err',
     children: [
       {
         path: 'home',
@@ -58,9 +61,19 @@ const routes = [
       {
         path: 'profile',
         name:'profile',
-        component:Profile
+        component:Profile,
+      },
+      {
+        path: 'grade',
+        name:'grade',
+        component:Grade
       },
     ]
+  },
+  {
+    path: '/err',
+    name:'err',
+    component:Err
   },
   {
     path:'/pay',
@@ -113,10 +126,22 @@ const routes = [
   }
 ]
 
+
+
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
+  routes,
 })
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.length ===0) {  
+    from.name ? next({ name:from.name}) : next('/err'); 
+  } else {
+    next();
+  }
+}) 
+
+
 
 export default router
