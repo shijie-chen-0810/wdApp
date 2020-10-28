@@ -51,22 +51,27 @@
 </template>
 
 <script>
-import BScroll from '@better-scroll/core'
+import BetterScroll from '@better-scroll/core'
+import MouseWheel from '@better-scroll/mouse-wheel'
+BetterScroll.use(MouseWheel)
 import Category from 'assets/static/Category.js'
 export default {
     data() {
         return {
             Category,
-            Categoryzx:Category[0].sub
-
+            Categoryzx:Category[0].sub,
+            bs:null
         } 
     },
     mounted () {
-        let bs = new BScroll(this.$refs.rightboxcon, {
-            probeType: 3,
-            click:true,
-            mousewheel:true
+        this.$nextTick(()=>{
+            this.bs = new BetterScroll(this.$refs.rightboxcon, {
+                probeType: 3,
+                click:true,
+                mouseWheel:true
+            })
         })
+        
     }
 }
 </script>

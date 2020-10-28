@@ -30,9 +30,9 @@
       </div>
       <div>
         <img v-if="true" src="https://s4.wandougongzhu.cn/s/07/cart_a65b3c.png" alt="">
-        <span>购物袋</span>
+        <span @click="toCart">购物袋</span>
       </div>
-      <div>加入购物车</div>
+      <div @click='addToCart'>加入购物车</div>
       <div>立即购买</div>
     </footer>
   </div>
@@ -44,7 +44,10 @@ import Comment from './Comment'
 import GoodsDetail from './GoodsDetail'
 import Recommend from './Recommend'
 import BScroll from '@better-scroll/core'
-
+import MouseWheel from '@better-scroll/mouse-wheel'
+import addItemToCart from 'utils/addToCart'
+import { mapState } from 'vuex'
+BScroll.use(MouseWheel)
 export default {
   name: 'detail',
   data() {
@@ -56,7 +59,8 @@ export default {
       commentTop: '',
       detailTop: '',
       recommendTop: '',
-      bs:null
+      bs:null,
+      timer:0
     }
   },  
   components: {
@@ -66,6 +70,7 @@ export default {
     Recommend,
   },
   mounted() {
+
     this.$nextTick(()=>{
       this.bs = new BScroll(this.$refs.scroll,{
         probeType:3,
@@ -73,10 +78,14 @@ export default {
         bounce:{
           top:false
         },
-        mouseWheel:true
+        mouseWheel: true
       })
       this.bs.on('scroll',this.scrollPos)
+      this.bs.on('mousewheelMove',this.scrollPos)
     })
+  },
+  computed:{
+    ...mapState(['islogin','cellphonenumber'])
   },
   methods: {
     scrollPos(position){
@@ -107,13 +116,19 @@ export default {
     },
     goback(){
       this.$router.push('/home')
-      // this.$nextTick(()=>{
-        
-      //   location.reload()
-      // })
     },
     refresh(){
-      this.bs.refresh()
+      clearTimeout(this.timer)
+      this.timer = setTimeout(()=>{
+        this.bs.refresh()
+      },500)
+
+    },
+    toCart(){
+      this.$router.push('/cart')
+    },
+    addToCart(){
+      addItemToCart.call(this,this.$route.params.id,this.islogin,this.cellphonenumber)
     }
   }
 }
