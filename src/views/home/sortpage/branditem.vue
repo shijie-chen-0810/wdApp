@@ -136,7 +136,7 @@ export default {
         color #191919!important
         height .2rem
         line-height .2rem
-        margin .1rem 0
+        
     .brand
         display flex
         -webkit-box-align center

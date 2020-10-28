@@ -26,6 +26,7 @@
 </template>
 
 <script>
+import { Dialog } from 'vant';
 import axios from 'axios'
 import { mapState } from 'vuex'
 import { mapMutations } from 'vuex'
@@ -51,15 +52,17 @@ export default {
     async loginsuccess(){
       if(this.verifynum.length === 6 && this.verifynum === this.$store.state.profile.verifycode){
         //根据状态码判断后端是否正确处理phonenum,
-        // let res = await axios({
-        //   method: 'post',
-        //   url:'http://10.9.64.245:5000/profile/users/login',
-        //   data:{
-        //     "cellphonenumber":`${this.$store.state.profile.cellphonenumber}`
-        //   }
-        // })
-        // console.log(res)
-        // if(res.data.statuCode === '000000'){
+        let res = await axios({
+          method: 'post',
+          headers:{
+            'content-type':'application/json'
+          },
+          url:'http://10.9.64.245:5000/profile/users/login',
+          data:{
+            "cellphonenumber":`${this.$store.state.profile.cellphonenumber}`
+          }
+        })
+        console.log(res)
         if(true){ 
           //修改vuex中登录状态位true
           this.changeislogin({
@@ -68,16 +71,20 @@ export default {
           })
         }
         this.$emit("mychange")
-        // this.$router.push({ path: '/profile', query: { num: this.phonenumber }});
-         this.$router.replace('/profile')
+        this.$router.replace('/profile')
       }else{
-        alert('请输入正确的的验证码');
+        Dialog.alert({
+          message: '请输入正确的验证码',
+          theme: 'round-button',
+        }).then(() => {
+          // on close
+        });
       }
     }
     
   },
   mounted(){
-    this.phonenum = this.$store.state.profile.cellphonenumber
+    this.phonenum = this.$store.state.cellphonenumber
     this.randomcode = this.$store.state.profile.verifycode
     console.log(this.randomcode)
     //60s倒计时

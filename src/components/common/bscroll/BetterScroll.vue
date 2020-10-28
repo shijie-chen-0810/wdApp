@@ -43,7 +43,6 @@ export default {
   methods:{
     pullingLoad(){
       this.bscroll.on('pullingUp',()=>{
-        console.log('loadingh')
         this.$toast.loading({
           message:'加载中',
           forbidClick: true,

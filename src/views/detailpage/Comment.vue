@@ -16,14 +16,14 @@
         <div>
             <img :src="userImg" alt="">
             <p>{{ userName }}</p>
-            <div><img src="../../assets/img/cxj_detail/vip_ccef4e.png" alt=""></div>
-            <div><img src="../../assets/img/cxj_detail/__805ead.png" alt=""></div>
+            <div><img src="../../assets/img/cxj_detail/vip_ccef4e.png" alt="" @load='refresh'></div>
+            <div><img src="../../assets/img/cxj_detail/__805ead.png" alt="" @load='refresh'></div>
         </div>
         <div>
             <p>{{ commentText }}</p>
         </div>
         <ul>
-            <li v-if="commentImg"><img :src="commentImg" alt=""></li>
+            <li v-if="commentImg"><img :src="commentImg" alt="" @load='refresh'></li>
         </ul>
         <div>
             <div>查看全部评价</div>
@@ -57,6 +57,11 @@ export default {
             console.log('数据不是json格式')
         }
         
+    },
+    methods:{
+        refresh(){
+            this.$emit('refresh')
+        }
     }
     
 }

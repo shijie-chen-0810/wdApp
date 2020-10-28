@@ -2,13 +2,13 @@
   <div class="profile">
     <div class="user">
 
-      <router-link class="user-top" tag="div" to="/login">
+      <div class="user-top" @click="enterlogin">
         <div>
           <img src="~assets/images/profile/my_wandoulogotop.png" alt="">
         </div>
         <p v-if="islogin">点击登录 / 注册</p>
         <p v-else>{{querynum}}</p>
-      </router-link>
+      </div>
       
       <ul class="user-content">
         <li v-for="data in datalist" :key="data.id">
@@ -55,7 +55,16 @@ export default {
   },
   activated(){
     if(this.$store.state.islogin){
-      this.querynum = this.$store.state.profile.cellphonenumber;
+      this.querynum = this.$store.state.cellphonenumber;
+      this.islogin = false;
+    }else{
+      this.querynum = '';
+      this.islogin = true;
+    }
+  },
+  mounted(){
+    if(this.$store.state.islogin){
+      this.querynum = this.$store.state.cellphonenumber;
       this.islogin = false;
     }else{
       this.querynum = '';
@@ -72,6 +81,11 @@ export default {
     logout(){
       this.querynum = ''
       this.islogin = true;
+    },
+    enterlogin(){
+      if(this.islogin === true){
+        this.$router.push('/login')
+      }
     }
   }
 }

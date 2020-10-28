@@ -19,6 +19,11 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
+
+import addToCart from 'utils/addToCart'
+
 export default {
   props:{
     item:Object
@@ -28,9 +33,12 @@ export default {
       url:'/detail/'+this.item.goods_id
     }
   },
+  computed:{
+    ...mapState(['islogin','cellphonenumber'])
+  },
   methods:{
     addToCart(id){
-      console.log(id)
+      addToCart.call(this,id,this.islogin,this.cellphonenumber)
     }
   }
 }
