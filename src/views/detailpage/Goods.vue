@@ -218,7 +218,7 @@ export default {
         color #191919
         padding-left 0.15rem
         li
-            padding-right 0.2rem
+            padding-right 0.13rem
 
             
                 
