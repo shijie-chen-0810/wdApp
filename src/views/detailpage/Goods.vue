@@ -19,7 +19,9 @@
         </div>
         <div>
             <div>
-                <div>豌豆会员&nbsp;预计节省<i>&nbsp;{{ detailData.finalPrice - detailData.origin_vip_final_price }}&nbsp;</i>元</div>
+                <div v-if="detailData.finalPrice - detailData.origin_vip_final_price">豌豆会员&nbsp;预计节省<i>&nbsp;{{ detailData.finalPrice - detailData.origin_vip_final_price }}&nbsp;</i>元</div>
+                <div v-else>开通豌豆会员享受更多优惠</div>
+                
                 <div>开卡></div>
             </div>
         </div>
@@ -76,7 +78,6 @@ export default {
         this.detailData = await getDetail(this.$route.params.id)
         this.imgList = JSON.parse(this.detailData.imgList)
         this.tipList = JSON.parse(this.detailData.tipList)
-        // console.log(this.detailData)
     },
     methods:{
         refresh(){

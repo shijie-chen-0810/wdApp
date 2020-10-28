@@ -5,10 +5,10 @@
         <svg t="1603350461898" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2787" width="16" height="16"><path d="M896 544H193.3312a32 32 0 1 1 0-64H896a32 32 0 0 1 0 64z" fill="#191919" p-id="2788"></path><path d="M426.5984 798.72a31.8976 31.8976 0 0 1-22.6304-9.3696L126.8736 512 403.968 234.9056a32 32 0 0 1 45.2608 45.2608L217.3952 512l231.8336 231.8336A32 32 0 0 1 426.5984 798.72z" fill="#191919" p-id="2789"></path></svg>
       </div>
       <ul>
-        <li :class="{ active: isSelected === 'goods' }">商品</li>
-        <li :class="{ active: isSelected === 'comment' }">评价</li>
-        <li :class="{ active: isSelected === 'goodsdetail' }">详情</li>
-        <li :class="{ active: isSelected === 'recommend' }">推荐</li>
+        <li @click='scrollToPosition(0)' :class="{ active: isSelected === 'goods' }">商品</li>
+        <li @click='scrollToPosition(1)' :class="{ active: isSelected === 'comment' }">评价</li>
+        <li @click='scrollToPosition(2)' :class="{ active: isSelected === 'goodsdetail' }">详情</li>
+        <li @click='scrollToPosition(3)' :class="{ active: isSelected === 'recommend' }">推荐</li>
       </ul>
     </header>
     <header v-else>
@@ -70,7 +70,6 @@ export default {
     Recommend,
   },
   mounted() {
-
     this.$nextTick(()=>{
       this.bs = new BScroll(this.$refs.scroll,{
         probeType:3,
@@ -112,6 +111,23 @@ export default {
       }
       if(Math.abs(topy) >= this.recommendTop - 45){
         this.isSelected = 'recommend'
+      }
+    },
+    scrollToPosition(type){
+      let pos = 0
+      switch(type){
+        case 0:
+          this.bs.scrollTo(0,pos,500)
+          break;
+        case 1:
+          this.bs.scrollTo(0,-this.commentTop+45,500)
+          break;
+        case 2:
+          this.bs.scrollTo(0,-this.detailTop+45,500)
+          break;
+        case 3:
+          this.bs.scrollTo(0,-this.recommendTop+45,500)
+          break;
       }
     },
     goback(){
