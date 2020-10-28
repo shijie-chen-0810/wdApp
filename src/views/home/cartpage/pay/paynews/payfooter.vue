@@ -6,7 +6,7 @@
         合计<span>￥{{price}}</span>
       </div>
       <div class="right">
-        <button>确认支付</button>
+        <button @click="click">确认支付</button>
       </div>
     </div>
   </div>
@@ -14,7 +14,12 @@
 
 <script>
 export default {
-  props:['price']
+  props:['price'],
+  methods: {
+    click(){
+      
+    }
+  },
 }
 </script>
 

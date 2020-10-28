@@ -21,7 +21,7 @@ export default {
       this.$store.commit({
         type:'cart/checked',
         checked:this.checked,
-        house:house
+        house
       })
     }
   },

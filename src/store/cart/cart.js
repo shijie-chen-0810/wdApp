@@ -3,7 +3,9 @@ export default {
   namespaced:true,
   state: {
     zhengzhou:[],
-    japan:[]
+    japan:[],
+    payzhengzhou:[],
+    payjapan:[]
   },
   mutations: {
     goods(state,a){
@@ -54,7 +56,14 @@ export default {
         state.zhengzhou.splice(index,1)
       }else{
         const index = state.japan.findIndex(item=>item == goods)
-        state.zhengzhou.splice(index,1)
+        state.japan.splice(index,1)
+      }
+    },
+    paygoods(state,{house}){
+      if(house == 200){
+        state.payzhengzhou =  state.zhengzhou.filter(item=>item.checked == true)
+      }else{
+        state.payjapan =  state.japan.filter(item=>item.checked == true)
       }
     }
   },
@@ -124,6 +133,17 @@ export default {
         price = price - type
         priceY = priceY + type
         return [num,price,priceY,c,jian,frg]
+      }
+    },
+    paynum(state){
+      return (house)=>{
+        let num = 0
+        if(house == 200){
+          state.payzhengzhou.forEach(item=>num+=item.num)
+        }else{
+          state.payjapan.forEach(item=>num+=item.num)
+        }
+        return num
       }
     }
   }

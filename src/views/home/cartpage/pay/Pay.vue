@@ -9,8 +9,6 @@
     <footer>
       <payfooter :price="price"></payfooter>
     </footer>
-    <!-- {{$route.query.price}} -->
-    {{goods}}
   </div>
 </template>
 
@@ -35,18 +33,7 @@ export default {
       // this.$refs.show.show = false
     }
   },
-  computed:{
-    async goods(){
-      const a = await this.$store.dispatch('cart/goods')
-      console.log(a.data)
-      // console.log(this.$store.getters)
-      // this.$store.getters.zhengzhou(200)
-      // console.log(this.$store.getters['cart/zhengzhou'](200))
-      return a.data
-    }
-  },
   mounted(){
-    console.log(this.$route.query)
     this.price = (this.$route.query.price - 0).toFixed(2)
   }
 }
