@@ -38,7 +38,7 @@ export default {
   computed:{
     async goods(){
       const a = await this.$store.dispatch('cart/goods')
-      // console.log(a.data)
+      console.log(a.data)
       // console.log(this.$store.getters)
       // this.$store.getters.zhengzhou(200)
       // console.log(this.$store.getters['cart/zhengzhou'](200))
