@@ -10,7 +10,7 @@
                         <p>{{ goods.praise_desc }}</p>
                         <div>
                             <p><i>¥</i>{{ goods.finalPrice }}</p>
-                            <img src="../../assets/img/cxj_detail/cart_65bbdc.png" alt="" @load="refresh">
+                            <img src="~assets/img/cxj_detail/cart_65bbdc.png" alt="" @load="refresh" @click='addToCart'>
                         </div>
                 </div>
             </li>
@@ -20,7 +20,7 @@
 
 <script>
 import { getGoods } from 'network/homeRequest/homeRequest'
-
+import addItemToCart from 'utils/addToCart'
 export default {
     data() {
         return {
@@ -35,6 +35,9 @@ export default {
     methods:{
         refresh(){
             this.$emit('refresh')
+        },
+        addToCart(){
+            addItemToCart.call(this,this.$route.params.id,this.islogin,this.cellphonenumber)
         }
     }
 }

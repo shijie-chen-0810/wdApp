@@ -18,7 +18,9 @@
 </template> 
 
 <script>
-import BScroll from '@better-scroll/core'
+import BetterScroll from '@better-scroll/core'
+import MouseWheel from '@better-scroll/mouse-wheel'
+BetterScroll.use(MouseWheel)
 import Category from 'assets/static/Category.js'
 import bus from 'assets/static/bus.js'
 export default {
@@ -37,10 +39,10 @@ export default {
         }
     },
     mounted () {
-        let bs = new BScroll(this.$refs.sort, {
+        let bs = new BetterScroll(this.$refs.sort, {
             probeType: 3,
             click:true,
-            mousewheel:true
+            mouseWheel:true
         })
     }
 }
