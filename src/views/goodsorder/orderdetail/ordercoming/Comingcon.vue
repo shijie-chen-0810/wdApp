@@ -73,7 +73,7 @@ export default {
   },
   async mounted(){
     let res = await axios({
-      url:`http://10.9.64.245:5000/cart/getcart?id=15684512384`
+      url:`http://10.9.64.245:5000/cart/getcart?id=${this.$store.state.cellphonenumber}`
       // url:"http://localhost:8080/orderlist.json"
     })
     
@@ -119,7 +119,7 @@ export default {
     }else if(comarr.length==0&&otherarr.length!=0){
       otherarr = this.timearr(otherarr)
       newArr = otherarr
-    }else{
+    }else if(comarr.length!=0&&otherarr.length!=0){
       comarr = this.timearr(comarr)
       otherarr = this.timearr(otherarr)
       newArr = otherarr.concat(comarr)
