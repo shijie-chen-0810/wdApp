@@ -1,5 +1,5 @@
 <template>
-  <div class="pay" @click='click'>
+  <div class="pay">
     <header>
       <payheader></payheader>
     </header>
@@ -28,15 +28,8 @@ export default {
     paycenter,
     payfooter
   },
-  methods:{
-    click(){
-      // this.$refs.show.show = false
-    }
-  },
   activated(){
-    console.log(this.$route.query.price)
     this.price = (this.$route.query.price - 0).toFixed(2)
-    console.log(this.$refs.info.info)
   },
   computed:{
     info(){
@@ -44,7 +37,6 @@ export default {
     }
   },
   mounted() {
-    console.log(this.$refs.info.info)
   },
 }
 </script>

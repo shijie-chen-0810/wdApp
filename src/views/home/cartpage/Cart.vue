@@ -20,7 +20,6 @@ import cartime from './carhead/cartime'
 import carcenter from './carcenter/carcenter'
 import carfooter from './carfooter/carfooter'
 
-// import car from 'network/cartRequest/cartRequest'
 
 import {getGoods} from 'network/homeRequest/homeRequest'
 export default {
@@ -43,61 +42,22 @@ export default {
     },
     click(){
       this.operation = this.operation === "编辑" ? "完成" : "编辑"
-    },
-    delete(goods){
-      const index = this.car.findIndex(item=>item === goods)
-      this.car.splice(index,1)
-      const good1 = this.car.filter(item=>item.house_id === 200)
-      const good2 = this.car.filter(item=>item.house_id !== 200)
-      const info1 = good1.some(item=>item.checked === false)
-      const info2 = good2.some(item=>item.checked === false)
-      if(info1) {
-        this.$refs.zhengzhou.checked = false
-      }else{
-        this.$refs.zhengzhou.checked = true
-      }
-      if(info2){
-        this.$refs.japan.checked = false
-      }else{
-        this.$refs.japan.checked = true
-      }
-    },
-    frg(goods,frg){
-      if(goods[0].house_id === 200){
-        this.car.forEach(item=>{
-          if(item.house_id === 200){
-            item.checked = frg
-          }
-        })
-      }else{
-        this.car.forEach(item=>{
-          if(item.house_id !== 200){
-            item.checked = frg
-          }
-        })
-      }
     }
       
   },
   computed:{
-    zhengzhou1(){
-      let goodsZhengzhou = this.car.filter(item=>{ return item.house_id == 200 })
-      return goodsZhengzhou
-    },
-    japan(){
-      let goodsJapan = this.car.filter(item=>{ return item.house_id != 200 })
-      return goodsJapan
-    },
     zhengzhou(){
       return (val)=>{
         return this.$store.getters['cart/zhengzhou'](val)
       }
     }
   },
-  async activated(){
-    const b = await this.$store.dispatch('cart/goods')
+  async mounted() {
     const a = await getGoods(100,24)
     this.goodsList = a.data
+  },
+  async activated(){
+    const b = await this.$store.dispatch('cart/goods')
     this.frag = true
   }
 }

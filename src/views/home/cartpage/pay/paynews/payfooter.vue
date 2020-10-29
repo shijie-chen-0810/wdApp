@@ -16,6 +16,7 @@
 </template>
 
 <script>
+import {updateCart} from 'network/cartRequest/cartRequest'
 export default {
   props:['price'],
   data(){
@@ -24,9 +25,18 @@ export default {
       news:'请填写用户名'
     }
   },
+  computed:{
+    goods(){
+      const {house_id} = this.$route.query
+      if(house_id == 200){
+        return this.$store.state.cart.payzhengzhou
+      }else{
+        return this.$store.state.cart.payjapan
+      }
+    }
+  },
   methods: {
     click(){
-      console.log(this.$parent.info)
       const a = this.$parent.info
       const reg = /^1[3456789]\d{9}$/
       if(!a.name){
@@ -53,7 +63,21 @@ export default {
       }else{
         const name = this.$store.state.cellphonenumber
         localStorage.setItem(name,JSON.stringify(a))
-        this.$router.push({path:'/cart/pay',query:{price:this.price}})
+
+
+        const time = new Date().getTime()
+        const user_id = this.$store.state.cellphonenumber
+        let arr = []
+        this.goods.forEach(item=>{
+          arr.push({
+            user_id,
+            goods_id:item.goods_id,
+            ctime:time,
+            order_status:'待支付'
+          })
+        })
+        updateCart(arr)
+        this.$router.replace({path:'/cart/pay',query:{price:this.price,time}})
       }
       setTimeout(()=>{
           this.frg = false
