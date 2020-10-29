@@ -1,15 +1,15 @@
 <template>
   <ul>
-    <li v-for="n in 18" :key="n">
-      <dl>
+    <li v-for="(key,i) in goods" :key="i">
+      <router-link tag="dl" :to="{name:'detail',params:{id:key.goods_id}}">
         <dt>
-          <img src="~assets/images/see/bg2-1.png" alt="">
+          <img :src="key.img_middle" alt="">
         </dt>
         <dd>
-          <p>奥斯帝国v哈随便就能打开骄傲都拉斯角度看拉世界大力士和大数据可躲避哈桑两节课</p>
-          <div class="price">￥217<span>7.9折</span> </div>
+          <p>{{key.slogan}}{{key.goods_name}}</p>
+          <div class="price">￥{{key.final_price}}<span v-if="key.discount != 0">{{key.discount}}折</span> </div>
         </dd>
-      </dl>
+      </router-link>
       <div class="bottom">
         <p>加入购物袋</p>
         <img src="~assets/images/see/bg-add.png" alt="">
@@ -20,7 +20,7 @@
 
 <script>
 export default {
-
+  props:['goods']
 }
 </script>
 

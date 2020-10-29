@@ -7,8 +7,9 @@
     </div>
     <div class="info">
       <cartime></cartime>
-      <carcenter v-if="zhengzhou.length != 0" :goods="zhengzhou" ref="zhengzhou"></carcenter>
-      <carcenter v-if="japan.length != 0" :goods="japan" ref="japan"></carcenter>
+      <carcenter v-if="$store.state.cart.zhengzhou.length != 0" :goods="$store.state.cart.zhengzhou" ref="zhengzhou"></carcenter>
+      <carcenter v-if="$store.state.cart.japan.length != 0" :goods="$store.state.cart.japan" ref="japan"></carcenter>
+      <div class="tishi" v-if="$store.state.cart.zhengzhou.length == 0 && $store.state.cart.japan.length == 0 && frag">您的购物车还没有物品，快去找找你喜欢的物品加入购物车吧O(∩_∩)O</div>
     </div>
     <carfooter :list="goodsList"></carfooter>
   </div>
@@ -23,11 +24,12 @@ import carfooter from './carfooter/carfooter'
 
 import {getGoods} from 'network/homeRequest/homeRequest'
 export default {
+  name:'cart',
   data(){
     return {
-      car:[],
       operation:'编辑',
-      goodsList:[]
+      goodsList:[],
+      frag:false
     }
   },
   components:{
@@ -74,83 +76,29 @@ export default {
           }
         })
       }
-    },
-    goodsAll(goods){
-      let num1 = 0
-      let num2 = 0
-      let price1 = 0
-      let price2 = 0
-      let priceY1 = 0
-      let priceY2 = 0
-      let case1 = 50
-      let case2 = 50
-      let jian1 = 8
-      let jian2 = 8
-      let type1 = 0
-      let type2 = 0
-      this.car.forEach(item=>{
-        if(item.house_id === 200 && item.checked === true){
-          num1 += item.num
-          price1 += item.final_price * item.num
-          priceY1 += (item.market_price - item.final_price) * item.num
-          if(price1 >= 50 && price1 <= 250){
-            case1 = 200
-            jian1 = 16 
-            type1 = jian1 - 16 + 8
-            console.log(price1 + '---')
-          }else if(price1 >= 250 && price1 <= 650){
-            case1 = 400
-            jian1 = 50
-            type1 = jian1 - 50 + 24
-          }else if(price1 >= 650){
-            type1 = jian1 + 24
-          }
-        }else if((item.house_id !== 200 && item.checked === true)){
-          num2 += item.num
-          price2 += item.final_price * item.num
-          priceY2 += (item.market_price - item.final_price) * item.num 
-          if(price2 >= 50 && price2 <= 250){
-            case2 = 200
-            jian2 = 16
-            type2 = jian2 - 16 + 8
-          }else if(price2 >= 250 && price2 <= 650){
-            case2 = 400
-            jian2 = 50
-            type2 = jian2 - 50 + 24
-          }else if(price2 >= 650){
-            type2 = jian2 + 24
-          }
-        }
-      })
-      price1 = price1 - type1
-      priceY1 = priceY1 + type1
-      price2 = price2 - type2
-      priceY2 = priceY2 + type2
-      if(goods[0].house_id === 200) return [num1,price1,priceY1,case1,jian1]
-      return [num2,price2,priceY2,case2,jian2]
     }
+      
   },
   computed:{
-    zhengzhou(){
+    zhengzhou1(){
       let goodsZhengzhou = this.car.filter(item=>{ return item.house_id == 200 })
       return goodsZhengzhou
     },
     japan(){
       let goodsJapan = this.car.filter(item=>{ return item.house_id != 200 })
       return goodsJapan
+    },
+    zhengzhou(){
+      return (val)=>{
+        return this.$store.getters['cart/zhengzhou'](val)
+      }
     }
   },
-  async mounted(){
+  async activated(){
+    const b = await this.$store.dispatch('cart/goods')
     const a = await getGoods(100,24)
     this.goodsList = a.data
-    // console.log(this.$store.state('profile/cellphonenumber'))
-    a.data.forEach(item=>{
-      this.car.push({
-        ...item,
-        checked:true,
-        num:1
-      })
-    })
+    this.frag = true
   }
 }
 </script>
@@ -159,7 +107,7 @@ export default {
 .all
   height 100vh
   overflow-y scroll
-  padding .44rem 0 0.49rem
+  padding .44rem 0 0.48rem
   .header
     width 100%
     height 0.44rem
@@ -181,4 +129,12 @@ export default {
       color #9e9e9e
   .info
     margin-top .15rem
+    .tishi
+      heigth 3rem
+      padding .2rem .1rem
+      font-size .16rem
+      color #000
+      line-height .20rem
+      font-weight bold
+      text-indent 2
 </style>

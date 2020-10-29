@@ -11,7 +11,7 @@
                 </div>
             </div>
             <div class="hot-row">
-                <a href="" class="hot-item" v-for="(v,i) in item.list" :key="i">
+                <a :href="`https://m.wandougongzhu.cn/${v.action}`" class="hot-item" v-for="(v,i) in item.list" :key="i">
                     <div class="hot-img">
                         <img data-src="https://oss4.wandougongzhu.cn/7947f3e3b17ab46f9d36ac7990dc7ec4.jpg?x-oss-process=image/resize,w_300,h_300/format,webp" :src="v.icon" data-lzled="true" class="lz-img-loaded">
                     </div>
@@ -27,7 +27,7 @@
                 <div class="groupitem" v-for="(item,index) in BrandSortlist" :key="index">
                     <van-index-anchor :index="item.info.name" :id="item.info.name" class="group-title" >{{item.info.name}}</van-index-anchor>
                     
-                    <a href="" class="brand" v-for="(item,index) in item.list" :key="index">
+                    <a :href="`https://m.wandougongzhu.cn/${item.action}`" class="brand" v-for="(item,index) in item.list" :key="index">
                     <!-- <a href="" class="brand" v-for="(item,index) in BrandSortlist" :key="index"> -->
                         <div class="brand-icon">
                             <img data-src="https://oss2.wandougongzhu.cn/db6c4e4a714902cb9ab84e93ff726e01.jpg?x-oss-process=image/resize,w_300,h_300/format,webp" :src="item.icon" data-lzled="true" class="lz-img-loaded">
@@ -35,21 +35,6 @@
                         <div class="brand-name">{{item.name}}</div>
                     </a>
                 </div>
-                
-                
-                <!-- <van-index-anchor index="A" id="A" class="group-title">A</van-index-anchor>
-                    <a href="" class="brand">
-                        <div class="brand-icon">
-                            <img data-src="https://oss2.wandougongzhu.cn/db6c4e4a714902cb9ab84e93ff726e01.jpg?x-oss-process=image/resize,w_300,h_300/format,webp" src="https://oss2.wandougongzhu.cn/db6c4e4a714902cb9ab84e93ff726e01.jpg?x-oss-process=image/resize,w_300,h_300/format,webp" data-lzled="true" class="lz-img-loaded">
-                        </div>
-                        <div class="brand-name">上间果子店 </div>
-                    </a>
-                    <a href="" class="brand">
-                        <div class="brand-icon">
-                            <img data-src="https://oss4.wandougongzhu.cn/d1860e6be8412913851ae79544a0fe22.jpg?x-oss-process=image/resize,w_300,h_300/format,webp" src="https://oss4.wandougongzhu.cn/d1860e6be8412913851ae79544a0fe22.jpg?x-oss-process=image/resize,w_300,h_300/format,webp" data-lzled="true" class="lz-img-loaded">
-                        </div>
-                        <div class="brand-name">ACCHE </div>
-                    </a> -->
             </div>
         </van-index-bar>
     </div>
@@ -136,7 +121,7 @@ export default {
         color #191919!important
         height .2rem
         line-height .2rem
-        margin .1rem 0
+        
     .brand
         display flex
         -webkit-box-align center

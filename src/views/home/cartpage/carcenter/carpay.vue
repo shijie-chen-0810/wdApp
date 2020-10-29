@@ -1,17 +1,34 @@
 <template>
   <div class="pay">
     <div class="left">
-      <p>合计: <span>{{$parent.$parent.goodsAll(goods)[1]}}</span> <i>已优惠￥{{$parent.$parent.goodsAll(goods)[2]}}</i></p>
+      <p>合计: <span>{{price[1]}}</span> <i>已优惠￥{{price[2]}}</i></p>
       <b>不含运费和综合税</b>
     </div>
-    <router-link :to="{path:'/pay',query:{price:$parent.$parent.goodsAll(goods)[1]}}" tag="button">结算郑州保税仓({{$parent.$parent.goodsAll(goods)[0]}})</router-link>
+    <router-link :to="{path:'/pay',query:{price:price[1],house_id:goods[0].house_id}}" tag="button">结算{{type}}({{price[0]}})</router-link>
   </div>
 </template>
 
 <script>
 export default {
-  props:["goods"]
-
+  props:["goods"],
+  data(){
+    return {
+      type:'郑州保税仓'
+    }
+  },
+  computed: {
+    price(){
+      const house = this.goods[0].house_id
+      return this.$store.getters['cart/price'](house)
+    }
+  },
+  mounted(){
+    if(this.goods[0].house_id == 200){
+      this.type = "郑州保税仓"
+    }else{
+      this.type = "日本仓"
+    }
+  }
 }
 </script>
 

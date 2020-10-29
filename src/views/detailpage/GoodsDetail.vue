@@ -2,7 +2,7 @@
     <div class="goods_detail">
         <div>
             <div>
-                <div><img :src="companyInfo.logo" alt=""></div>
+                <div><img :src="companyInfo.logo" alt="" @load="refresh"></div>
                 <div>
                     <p>{{ companyInfo.name }}</p>
                     <p>在售商品&nbsp;{{ detailData.residue_count }}&nbsp;件，总售&nbsp;702&nbsp;件</p>
@@ -10,25 +10,25 @@
             </div>
         </div>
         <div>相关推荐</div>
-        <div>
+        <div ref='relativeGoods'>
             <ul>
-                <li v-for="(goods,i) in goodsData" :key="i">
-                    <div><img :src="goods.img_middle" alt=""></div>
+                <li v-for="(goods,i) in goodsData" :key="i" @click="changeDetail(goods.goods_id)">
+                    <div><img :src="goods.img_middle" alt="" @load="refresh"></div>
                     <div>
                         <p class="text_tellipsis">{{ goods.goods_name }}</p>
                         <p>{{ goods.praise_desc }}</p>
                         <p><i>¥</i>{{ goods.finalPrice }}</p>
                         <div>
-                            <img src="../../assets/img/cxj_detail/cart_65bbdc.png" alt="">
+                            <img src="~assets/img/cxj_detail/cart_65bbdc.png" alt="" @load="refresh" @click.stop='addToCart(goods.goods_id)'>
                         </div>
                     </div>
                 </li>
             </ul>
         </div>
-        <div><img src="../../assets/img/cxj_detail/102x_460c12.png" alt=""></div>
+        <div><img src="../../assets/img/cxj_detail/102x_460c12.png" alt="" @load="refresh"></div>
         <div>产品特点</div>
         <ul>
-            <li v-for="(val,i) in detailImgList" :key="i"><img :src="val" alt=""></li>
+            <li v-for="(val,i) in detailImgList" :key="i"><img :src="val" alt="" @load="refresh"></li>
         </ul>
     </div>
 </template>
@@ -36,13 +36,17 @@
 <script>
 import {getDetail} from 'network/detailRequest/detailRequest'
 import { getGoods } from 'network/homeRequest/homeRequest'
+import addItemToCart from 'utils/addToCart'
+import { mapState } from 'vuex'
+import BScroll from '@better-scroll/core'
 export default {
     data() {
         return {
             detailData: Object,
             companyInfo: Object,
             detailImgList: [],
-            goodsData:[]
+            goodsData:[],
+            bs:null
         }
     },    
     async mounted() {
@@ -51,7 +55,26 @@ export default {
         this.goodsData = data.data
         this.companyInfo = JSON.parse(this.detailData.companyInfo)
         this.detailImgList = JSON.parse(this.detailData.detailImgList)
-        // console.log(this.goodsData)
+        this.$nextTick(()=>{
+            this.bs = new BScroll(this.$refs.relativeGoods,{
+                scrollX:true,
+                click:false
+            })
+        })
+    },
+    methods:{
+        refresh(){
+            this.$emit('refresh')
+        },
+        changeDetail(id){
+            this.$router.push('/detail/'+id)
+        },
+        addToCart(id){
+            addItemToCart.call(this,id,this.islogin,this.cellphonenumber)
+        }
+    },
+    computed:{
+        ...mapState(["islogin","cellphonenumber"])
     }
 }
 </script>
@@ -100,7 +123,8 @@ export default {
         line-height 0.2rem
     >div:nth-child(3)
         width 3.63rem
-        overflow-x auto
+        overflow-x scroll
+        display flex
         >ul
             height 2.2rem
             margin-left 0.12rem

@@ -1,9 +1,9 @@
 <template>
   <div>
     <div class="center">
-      <carshop :goods="goods" :checked="checked" @frag="frag"></carshop>
+      <carshop :goods="goods"></carshop>
       <carchange></carchange>
-      <cargoods :goods="goods" :checked="checked"></cargoods>
+      <cargoods :goods="goods"></cargoods>
       <carpay :goods="goods"></carpay>
     </div>
     <div class="xian"></div>
@@ -27,27 +27,7 @@ export default {
     carchange,
     cargoods,
     carpay
-  },
-  methods:{
-    frag(frg){
-      // console.log(frg)
-      this.checked = frg
-      this.$parent.frg(this.goods,frg)
-      // console.log(this.checked)
-      // this.goods.forEach(item=>{
-      //   item.checked === frg
-      //   console.log(item.checked)
-      // })
-    }
   }
-  // watch:{
-  //   checked(value){
-  //     console.log(value)
-  //     console.log(this.goods)
-  //     this.goods.forEach(item=>item.checked === value)
-  //     console.log(this.goods)
-  //   }
-  // }
 }
 </script>
 

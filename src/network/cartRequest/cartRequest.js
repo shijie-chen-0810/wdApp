@@ -1,85 +1,16 @@
 import axios from 'network/request'
 
-const car = [
-  {
-    goods_id:1,
-    checked:true,
-    slogan:"ask的马拉松的阿斯顿那是啊啊看到",//商品介绍
-    goods_name:"骚哦的傻逼什么看看来到海边",//商品名字
-    num:1,//商品数量
-    market_price:56,//市场价格
-    final_price:47,//最终价格
-    residue_count:30,//库存
-    dispaly_act_tag:'限时折扣',
-    house_id:200,
-    img_middle:"https://oss2.wandougongzhu.cn/beea1589033fdbc85d8ff0558d579344.png?x-oss-process=image/resize,w_500,h_4000/format,webp"
-  },
-  {
-    goods_id:2,
-    checked:true,
-    slogan:"偶尔玩i金刚不坏v能尽快目测司机说",//商品介绍
-    goods_name:"阿拉山口大家哈桑就",//商品名字
-    num:1,//商品数量
-    market_price:156,//市场价格
-    final_price:147,//最终价格
-    residue_count:15,//库存
-    dispaly_act_tag:'159元任选两件',
-    house_id:200,
-    img_middle:"https://oss4.wandougongzhu.cn/7365a45169bde6af6dd57edf2f82c0d4.jpg?x-oss-process=image/resize,w_500,h_4000/format,webp"
-  },
-  {
-    goods_id:3,
-    checked:true,
-    slogan:"偶尔玩i金刚不坏v能尽快目测司机说",//商品介绍
-    goods_name:"阿拉山口大家哈桑就",//商品名字
-    num:1,//商品数量
-    market_price:256,//市场价格
-    final_price:247,//最终价格
-    residue_count:26,//库存
-    dispaly_act_tag:'新人专享',
-    house_id:1,
-    img_middle:"https://oss4.wandougongzhu.cn/bed89e9a8bed04cf2fdd25f0eb693d74.jpg?x-oss-process=image/resize,w_500,h_4000/format,webp"
-  },
-  {
-    goods_id:4,
-    checked:true,
-    slogan:"偶尔玩i金刚不坏v能尽快目测司机说",//商品介绍
-    goods_name:"阿拉山口大家哈桑就",//商品名字
-    num:1,//商品数量
-    market_price:356,//市场价格
-    final_price:347,//最终价格
-    residue_count:20,//库存
-    dispaly_act_tag:'99元任选两件',
-    house_id:4,
-    img_middle:"https://oss4.wandougongzhu.cn/cd9824a8cbd6cf28de423563ef51156d.jpg?x-oss-process=image/resize,w_500,h_4000/format,webp"
-  },
-  {
-    goods_id:5,
-    checked:true,
-    slogan:"偶尔玩i金刚不坏v能尽快目测司机说",//商品介绍
-    goods_name:"阿拉山口大家哈桑就",//商品名字
-    num:1,//商品数量
-    market_price:456,//市场价格
-    final_price:447,//最终价格
-    residue_count:9,//库存
-    dispaly_act_tag:'99元任选两件',
-    house_id:74,
-    img_middle:"https://oss1.wandougongzhu.cn/a86e44d1cc5e52dea95002feda07c65b.png?x-oss-process=image/resize,w_500,h_4000/format,webp"
-  },
-  {
-    goods_id:6,
-    checked:true,
-    slogan:"偶尔玩i金刚不坏v能尽快目测司机说",//商品介绍
-    goods_name:"阿拉山口大家哈桑就",//商品名字
-    num:1,//商品数量
-    market_price:200,//市场价格
-    final_price:177,//最终价格
-    residue_count:26,//库存
-    dispaly_act_tag:'',
-    house_id:1,
-    img_middle:"https://oss1.wandougongzhu.cn/08d95d1f274c8fb01cb01cb8cad7e959.png?x-oss-process=image/resize,w_500,h_4000/format,webp"
-  }
-]
+const instance = axios.create()
 
 
-export default car
+instance.interceptors.response.use(res => {
+  return res.data
+})
+
+export function getCartData(id) {
+  return instance({
+    url:'/cart/getcart',
+    params:{id}
+  })
+}
+

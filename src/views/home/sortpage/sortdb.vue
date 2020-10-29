@@ -1,4 +1,6 @@
 <template>
+    <div class="right-box-con" ref="rightboxcon">
+
     <div class="right-box">
         <div
             class="mbbox"
@@ -20,7 +22,7 @@
                 :key="i" 
                 :style="`background-image:url(&quot;${v.bg_img}&quot;);background-size: cover; background-position: 50%;`"
             >
-                <a href="" class="lj">
+                <a :href="`https://m.wandougongzhu.cn/${v.action}`" class="lj">
                     <div class="right-body-left">
                         <div class="right-body-left-box">
                             <div class="right-body-left-img"> 
@@ -32,6 +34,7 @@
                     <div class="right-body-right">
                         <div class="image-con">
                             <div class="right-body-right-one right-gg" :style="`background-image:url(&quot;${v.goods_img_list[0]}&quot;)`">
+                                <img src="https://s2.wandougongzhu.cn/s/e6/paihangbang_12x_28a679.png">
                             </div>
                             <div class="right-body-right-two right-gg" :style="`background-image:url(&quot;${v.goods_img_list[1]}&quot;)`">
                             </div>
@@ -43,29 +46,40 @@
             </div>
         </div>
     </div>
-    
+    </div>
 
 </template>
 
 <script>
+import BetterScroll from '@better-scroll/core'
+import MouseWheel from '@better-scroll/mouse-wheel'
+BetterScroll.use(MouseWheel)
 import Category from 'assets/static/Category.js'
 export default {
     data() {
         return {
             Category,
-            Categoryzx:Category[0].sub
-
+            Categoryzx:Category[0].sub,
+            bs:null
         } 
     },
     mounted () {
-        console.log(this.Category[0].sub)
+        this.$nextTick(()=>{
+            this.bs = new BetterScroll(this.$refs.rightboxcon, {
+                probeType: 3,
+                click:true,
+                mouseWheel:true
+            })
+        })
+        
     }
 }
 </script>
 
 <style lang="stylus" scoped>
-    .right-box
+    .right-box-con
         height 100%
+    .right-box
         display flex
         flex-direction column
     .right-top
@@ -129,7 +143,7 @@ export default {
         .right-body-left-title
             color #fff
             font-size .14rem
-            margin-top .05rem
+            margin-top .02rem
             max-width 2.64rem
             font-weight 600
         .right-gg
@@ -146,6 +160,9 @@ export default {
             width .54rem
             height .54rem
             z-index 3
+            img 
+                width .17rem
+                height .17rem
         .right-body-right-two
             width .48rem
             height .48rem

@@ -10,7 +10,7 @@
       </li>
     </ul>
     <div class="profile-invite">
-      <img src="../../../../assets/images/profile/my_sandanyouli.png" alt="">
+      <img src="~assets/images/profile/my_sandanyouli.png" alt="">
     </div>
   </div>
 </template>
@@ -61,7 +61,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '../../../../assets/stylus/border.styl'
+@import '~assets/stylus/border.styl'
 
 .profile-order
   padding-bottom .2rem

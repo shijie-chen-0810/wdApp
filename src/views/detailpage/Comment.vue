@@ -16,17 +16,19 @@
         <div>
             <img :src="userImg" alt="">
             <p>{{ userName }}</p>
-            <div><img src="../../assets/img/cxj_detail/vip_ccef4e.png" alt=""></div>
-            <div><img src="../../assets/img/cxj_detail/__805ead.png" alt=""></div>
+            <div><img src="../../assets/img/cxj_detail/vip_ccef4e.png" alt="" @load='refresh'></div>
+            <div><img src="../../assets/img/cxj_detail/__805ead.png" alt="" @load='refresh'></div>
         </div>
         <div>
             <p>{{ commentText }}</p>
         </div>
         <ul>
-            <li v-if="commentImg"><img :src="commentImg" alt=""></li>
+            <li v-if="commentImg"><img :src="commentImg" alt="" @load='refresh'></li>
         </ul>
         <div>
-            <div>查看全部评价</div>
+            <!-- <div>查看全部评价</div> -->
+            <!-- <router-link :to="{name: 'comments', params: {id: detailData.goods_id}}" tag="div">查看全部评价</router-link> -->
+            <div @click='toMoreComments(detailData.goods_id)'>查看全部评价</div>
         </div>
     </div>
 </template>
@@ -54,9 +56,17 @@ export default {
             this.commentText = this.commontList[0].commentText
             this.commentImg = this.commontList[0].commentImg
         } catch (e) {
-            console.log('数据不是json格式')
+            console.log('评论数据不是json格式，无法解析~~~~~~~~')
         }
         
+    },
+    methods:{
+        refresh(){
+            this.$emit('refresh')
+        },
+        toMoreComments(id){
+            this.$router.push({name:'comments',params:{id}})
+        }
     }
     
 }
