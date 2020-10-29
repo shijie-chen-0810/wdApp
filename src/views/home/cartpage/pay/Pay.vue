@@ -4,7 +4,7 @@
       <payheader></payheader>
     </header>
     <main>
-      <paycenter></paycenter>
+      <paycenter ref="info"></paycenter>
     </main>
     <footer>
       <payfooter :price="price"></payfooter>
@@ -33,9 +33,19 @@ export default {
       // this.$refs.show.show = false
     }
   },
-  mounted(){
+  activated(){
+    console.log(this.$route.query.price)
     this.price = (this.$route.query.price - 0).toFixed(2)
-  }
+    console.log(this.$refs.info.info)
+  },
+  computed:{
+    info(){
+      return this.$refs.info.info
+    }
+  },
+  mounted() {
+    console.log(this.$refs.info.info)
+  },
 }
 </script>
 
@@ -49,4 +59,6 @@ export default {
   footer 
     position fixed
     bottom 0
+    background #fff
+    z-index 1002
 </style>

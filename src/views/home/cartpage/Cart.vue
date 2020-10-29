@@ -93,7 +93,7 @@ export default {
       }
     }
   },
-  async mounted(){
+  async activated(){
     const b = await this.$store.dispatch('cart/goods')
     const a = await getGoods(100,24)
     this.goodsList = a.data

@@ -9,6 +9,7 @@ export default {
   },
   mutations: {
     goods(state,a){
+      a = a.filter(item=>item.ctime == 0)
       a.forEach(item=>{
         item.checked = Number(item.checked)
         item.num = Number(item.num)
@@ -69,8 +70,8 @@ export default {
   },
   actions: {
      async goods(context){
-         const a = await getCartData(context.rootState.cellphonenumber)
-         context.commit('goods',a)
+        const a = await getCartData(context.rootState.cellphonenumber)
+        context.commit('goods',a)
     }
   },
   getters:{
