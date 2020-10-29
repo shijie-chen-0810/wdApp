@@ -27,7 +27,8 @@
         </ul>
         <div>
             <!-- <div>查看全部评价</div> -->
-            <router-link :to="{name: 'comments', params: {id: detailData.goods_id}}" tag="div">查看全部评价</router-link>
+            <!-- <router-link :to="{name: 'comments', params: {id: detailData.goods_id}}" tag="div">查看全部评价</router-link> -->
+            <div @click='toMoreComments(detailData.goods_id)'>查看全部评价</div>
         </div>
     </div>
 </template>
@@ -62,6 +63,9 @@ export default {
     methods:{
         refresh(){
             this.$emit('refresh')
+        },
+        toMoreComments(id){
+            this.$router.push({name:'comments',params:{id}})
         }
     }
     

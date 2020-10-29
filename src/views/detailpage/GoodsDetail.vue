@@ -10,7 +10,7 @@
             </div>
         </div>
         <div>相关推荐</div>
-        <div>
+        <div ref='relativeGoods'>
             <ul>
                 <li v-for="(goods,i) in goodsData" :key="i" @click="changeDetail(goods.goods_id)">
                     <div><img :src="goods.img_middle" alt="" @load="refresh"></div>
@@ -19,11 +19,10 @@
                         <p>{{ goods.praise_desc }}</p>
                         <p><i>¥</i>{{ goods.finalPrice }}</p>
                         <div>
-                            <img src="../../assets/img/cxj_detail/cart_65bbdc.png" alt="" @load="refresh">
+                            <img src="~assets/img/cxj_detail/cart_65bbdc.png" alt="" @load="refresh" @click.stop='addToCart(goods.goods_id)'>
                         </div>
                     </div>
                 </li>
-                <!-- </router-link> -->
             </ul>
         </div>
         <div><img src="../../assets/img/cxj_detail/102x_460c12.png" alt="" @load="refresh"></div>
@@ -37,13 +36,17 @@
 <script>
 import {getDetail} from 'network/detailRequest/detailRequest'
 import { getGoods } from 'network/homeRequest/homeRequest'
+import addItemToCart from 'utils/addToCart'
+import { mapState } from 'vuex'
+import BScroll from '@better-scroll/core'
 export default {
     data() {
         return {
             detailData: Object,
             companyInfo: Object,
             detailImgList: [],
-            goodsData:[]
+            goodsData:[],
+            bs:null
         }
     },    
     async mounted() {
@@ -52,7 +55,12 @@ export default {
         this.goodsData = data.data
         this.companyInfo = JSON.parse(this.detailData.companyInfo)
         this.detailImgList = JSON.parse(this.detailData.detailImgList)
-        // console.log(this.goodsData)
+        this.$nextTick(()=>{
+            this.bs = new BScroll(this.$refs.relativeGoods,{
+                scrollX:true,
+                click:false
+            })
+        })
     },
     methods:{
         refresh(){
@@ -60,8 +68,13 @@ export default {
         },
         changeDetail(id){
             this.$router.push('/detail/'+id)
-            this.$router.go(0)
+        },
+        addToCart(id){
+            addItemToCart.call(this,id,this.islogin,this.cellphonenumber)
         }
+    },
+    computed:{
+        ...mapState(["islogin","cellphonenumber"])
     }
 }
 </script>
@@ -110,7 +123,8 @@ export default {
         line-height 0.2rem
     >div:nth-child(3)
         width 3.63rem
-        overflow-x auto
+        overflow-x scroll
+        display flex
         >ul
             height 2.2rem
             margin-left 0.12rem

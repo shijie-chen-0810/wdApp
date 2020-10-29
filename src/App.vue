@@ -1,7 +1,7 @@
 <template>
   <div>
     <keep-alive exclude="detail,profile,homesortpage,setpwd">
-      <router-view></router-view>
+      <router-view :key="$route.fullPath"></router-view>
     </keep-alive>
   </div>
 </template>
