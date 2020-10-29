@@ -54,9 +54,13 @@ export default {
         //根据状态码判断后端是否正确处理phonenum,
         // let res = await axios({
         //   method: 'post',
+        //   headers:{
+        //     'content-type':'application/json'
+        //   },
         //   url:'http://10.9.64.245:5000/profile/users/login',
         //   data:{
-        //     "cellphonenumber":`${this.$store.state.profile.cellphonenumber}`
+        //     "username":`${this.$store.state.cellphonenumber}`,
+           
         //   }
         // })
         // console.log(res)
@@ -66,6 +70,8 @@ export default {
             type:'changeislogin',
             islogin: true
           })
+        }else{
+          return
         }
         this.$emit("mychange")
         this.$router.replace('/profile')

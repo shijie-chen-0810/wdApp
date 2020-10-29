@@ -5,14 +5,14 @@
       <p>急速发货</p>
       <p>7天售后无忧</p>
     </div>
-    <div class="position">
+    <div class="position" v-if="frgplace">
       <div>
         <span>收货人</span>
-        <input type="text" placeholder="请使用真实姓名">
+        <input type="text" placeholder="请使用真实姓名" v-model="name">
       </div>
       <div>
         <span>联系电话</span>
-        <input type="text" placeholder="收件人电话号码">
+        <input type="text" placeholder="收件人电话号码" :value="phone">
       </div>
       <div>
         <span>所在地区</span>
@@ -20,15 +20,27 @@
       </div>
       <div>
         <span>详细地址</span>
-        <input type="text" placeholder="输入地址">
+        <input type="text" placeholder="输入地址" :value="xiangplace">
+      </div>
+    </div>
+    <div class="allplace" v-else>
+      <div class="left">
+        <img src="~assets/images/see/pay6.png" alt="">
+        <div>
+          <p>按时鉴定会 1841615613</p>
+          <p>中国 刷蛋 啊十大科技 阿松大 阿松大asdasdasdasdasdasdasd</p>
+        </div>
+      </div>
+      <div class="right">
+        <img src="~assets/images/see/pay4.png" alt="">
       </div>
     </div>
     <div class="xian">
       <img src="~assets/images/see/bg5.png" alt="">
     </div>
     <div class="xian2"></div>
-    <div class="info">根据海关要求，购买跨境商品需要提供订购人身份证信息（请与支付账号实名信息相同）本信息仅用于海关清关，豌豆公主保证信息安全。</div>
-    <div class="position">
+    <div class="info" v-if="frgplace">根据海关要求，购买跨境商品需要提供订购人身份证信息（请与支付账号实名信息相同）本信息仅用于海关清关，豌豆公主保证信息安全。</div>
+    <div class="position" v-if="frgplace">
       <div>
         <span>订购人</span>
         <input type="text" placeholder="请使用真实姓名">
@@ -39,12 +51,12 @@
       </div>
     </div>
     <div class="xian2"></div>
-    <div class="goods">
-      <transition>
+    <div class="goods" :class="{active:frg}">
+      <transition name="fade">
         <paygoods></paygoods>
       </transition>
     </div>
-    <div class="num" @click="yundong">郑州保税仓共5件物品
+    <div class="num" @click="yundong">郑州保税仓共{{num}}件物品
       <span class="iconfont" v-if="dong">&#xe665;</span> 
       <span class="iconfont" v-else>&#xe65a;</span> 
     </div>
@@ -79,22 +91,35 @@ import paygoods from './paygoods'
 
 import areaList from '../address/citymsg'
 // import { Toast } from 'vant';
+import { mapMutations } from 'vuex'
 export default {
   data() {
     return {
       areaList,
       show:false,
+      frgplace:true,
       place:'',
       nowplace:'',
-      dong:true
+      name:'',
+      phone:'',
+      xiangplace:'',
+      dong:true,
+      frg:false
     };
   },
   components:{
     paygoods
   },
+  computed:{
+    num(){
+      const {house_id} = this.$route.query
+      return this.$store.getters['cart/paynum'](house_id)
+    }
+  },
   methods: {
     yundong(){
       this.dong = !this.dong
+      this.frg = !this.frg
     },
     quxiao(){
       this.show = false
@@ -102,10 +127,12 @@ export default {
     ok(val){
       this.nowplace = ''
       this.show = false
-      this.place = val[2].code
-      val.forEach(item=>{
-        this.nowplace += item.name + ' '
-      })
+      if(val[2]){
+        this.place = val[2].code
+        val.forEach(item=>{
+          this.nowplace += item.name + ' '
+        })
+      }
     },
     off(){
       this.show = false
@@ -113,12 +140,22 @@ export default {
     click(){
       this.show = true
     }
-  }
+  },
+  mounted() {
+    if(this.$store.state.islogin){
+      const username = this.$store.state.cellphonenumber
+      if(localStorage.getItem(username)){
+        this.frgplace = false
+      }
+    }
+    console.log(this.name)
+  },
 }
 </script>
 
 <style lang="stylus" scoped>
 @import '~assets/stylus/border.styl'
+@import '~assets/stylus/ellipsis.styl'
 .top
   display flex
   justify-content space-between
@@ -166,6 +203,38 @@ export default {
   >div:last-child
     border_1px(0) 
     margin-bottom .1rem
+.allplace
+  width 100%
+  height .85rem
+  padding .15rem
+  display flex
+  justify-content space-between
+  align-items center
+  .left
+    width 2.8rem
+    display flex
+    align-items center
+    img 
+      display block
+      width .19rem
+      height .19rem
+      margin-right .02rem
+    >div
+      width 2.5rem
+      display flex
+      flex-direction column
+      >p
+        font-size .14rem
+        color #191919
+        line-height .20rem
+        ellipsis_num(1)
+  .right
+    width .08rem
+    height .13rem
+    img 
+      display block
+      width 100%
+      height 100%
 .xian
   height .03rem
   width 100%
@@ -185,6 +254,10 @@ export default {
   background #f5f5f5
 .goods
   padding-left .15rem
+  max-height 2.13rem
+  overflow hidden
+.active
+  max-height  10000rem!important
 .num
   width 100%
   height .37rem
@@ -234,4 +307,6 @@ export default {
   bottom 0
   right 0
   z-index 998
+
+
 </style>

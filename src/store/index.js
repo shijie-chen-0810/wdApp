@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import persistedState from 'vuex-persistedstate'
 
 import profile from './profile/profile'
 import cart from './cart/cart'
@@ -32,14 +31,5 @@ export default new Vuex.Store({
   modules: {
     profile,
     cart
-  },
-  plugins: [persistedState({
-    reducer(val){
-        return {
-          islogin: val.islogin,
-          cellphonenumber: val.cellphonenumber
-        }
-      }
-    })
-  ]
+  }
 })

@@ -9,6 +9,7 @@
       <cartime></cartime>
       <carcenter v-if="$store.state.cart.zhengzhou.length != 0" :goods="$store.state.cart.zhengzhou" ref="zhengzhou"></carcenter>
       <carcenter v-if="$store.state.cart.japan.length != 0" :goods="$store.state.cart.japan" ref="japan"></carcenter>
+      <div class="tishi" v-if="$store.state.cart.zhengzhou.length == 0 && $store.state.cart.japan.length == 0 && frag">您的购物车还没有物品，快去找找你喜欢的物品加入购物车吧O(∩_∩)O</div>
     </div>
     <carfooter :list="goodsList"></carfooter>
   </div>
@@ -23,10 +24,12 @@ import carfooter from './carfooter/carfooter'
 
 import {getGoods} from 'network/homeRequest/homeRequest'
 export default {
+  name:'cart',
   data(){
     return {
       operation:'编辑',
-      goodsList:[]
+      goodsList:[],
+      frag:false
     }
   },
   components:{
@@ -91,10 +94,12 @@ export default {
       }
     }
   },
-  async mounted(){
+  async activated(){
+    console.log('asdasda')
     const b = await this.$store.dispatch('cart/goods')
     const a = await getGoods(100,24)
     this.goodsList = a.data
+    this.frag = true
   }
 }
 </script>
@@ -125,4 +130,12 @@ export default {
       color #9e9e9e
   .info
     margin-top .15rem
+    .tishi
+      heigth 3rem
+      padding .2rem .1rem
+      font-size .16rem
+      color #000
+      line-height .20rem
+      font-weight bold
+      text-indent 2
 </style>

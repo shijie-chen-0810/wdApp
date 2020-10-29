@@ -2,12 +2,13 @@
   <div class="profile">
     <div class="user">
 
-      <div class="user-top" @click="enterlogin">
+      <div class="user-top">
         <div>
           <img src="~assets/images/profile/my_wandoulogotop.png" alt="">
         </div>
-        <p v-if="islogin">点击登录 / 注册</p>
+        <p v-if="islogin" @click="enterlogin">点击登录 / 注册</p>
         <p v-else>{{querynum}}</p>
+        <i v-if="!islogin" @click="setpwd">设置密码</i>
       </div>
       
       <ul class="user-content">
@@ -17,6 +18,7 @@
         </li>
       </ul>
     </div>
+    <Profilevip></Profilevip>
     <profileorder></profileorder>
     <profileserve></profileserve>
     <profiledownload @logoutnow="logout"></profiledownload>
@@ -24,6 +26,7 @@
 </template>
 
 <script>
+import Profilevip from "./profilefeature/Profilevip"
 import Profileorder from "./profilefeature/Profileorder"
 import Profileserve from "./profilefeature/Profileserve"
 import Profiledownload from "./profilefeature/Profiledownload"
@@ -72,7 +75,7 @@ export default {
     }
   },
   components:{
-
+    Profilevip,
     Profileorder,
     Profileserve,
     Profiledownload
@@ -86,6 +89,9 @@ export default {
       if(this.islogin === true){
         this.$router.push('/login')
       }
+    },
+    setpwd(){
+      this.$router.push('/setpwd')
     }
   }
 }
@@ -120,6 +126,12 @@ export default {
       >p
         font-size .18rem
         margin-left .2rem
+        flex 1
+      >i 
+        font-size .12rem
+        color #fff
+        opacity 0.5
+        width .6rem
     .user-content
       display flex
       margin-bottom .1rem
