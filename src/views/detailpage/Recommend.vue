@@ -10,7 +10,7 @@
                         <p>{{ goods.praise_desc }}</p>
                         <div>
                             <p><i>¥</i>{{ goods.finalPrice }}</p>
-                            <img src="~assets/img/cxj_detail/cart_65bbdc.png" alt="" @load="refresh" @click='addToCart'>
+                            <img src="~assets/img/cxj_detail/cart_65bbdc.png" alt="" @load="refresh" @click.stop='addToCart'>
                         </div>
                 </div>
             </li>
@@ -21,6 +21,7 @@
 <script>
 import { getGoods } from 'network/homeRequest/homeRequest'
 import addItemToCart from 'utils/addToCart'
+import { mapState } from 'vuex'
 export default {
     data() {
         return {
@@ -30,6 +31,9 @@ export default {
     async mounted() {
         const data = await getGoods(Math.floor(Math.random() * (300 - 10 + 1) + 10), 10)
         this.goodsData = data.data
+    },
+    computed:{
+        ...mapState(["islogin","cellphonenumber"])
     },
     methods: {
         goDetail(goods_id) {

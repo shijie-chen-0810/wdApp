@@ -23,6 +23,7 @@ export default {
       })
       this.isfalse = false;
       this.$emit('logoutnow')
+      localStorage.removeItem('x-access-token')
       // this.$router.push('/profile');
     }
   },

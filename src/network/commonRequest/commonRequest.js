@@ -18,3 +18,12 @@ export function addItemToCart(id, cellPhone) {
     }
   })
 }
+export function islogin() {
+  const token = localStorage.getItem('x-access-token')
+  return instance({
+    url: '/profile/auth',
+    headers: {
+      'x-access-token':token
+    }
+  })
+}

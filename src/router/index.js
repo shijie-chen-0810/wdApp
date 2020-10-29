@@ -25,6 +25,8 @@ import Comingcommit from '../views/goodsorder/orderdetail/Comingcommit.vue'
 
 import $store from 'store'
 
+import { islogin } from 'network/commonRequest/commonRequest'
+
 Vue.use(VueRouter)
 
 
@@ -38,8 +40,8 @@ VueRouter.prototype.push = function push(location, onResolve, onReject) {
 const routes = [
   {
     path: '/',
-    component:HomeZong,
-    redirect: '/err',
+    component: HomeZong,
+    redirect: '/home',
     children: [
       {
         path: 'home',
@@ -146,13 +148,24 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.matched.length ===0) {  
-    from.name ? next({ name:from.name}) : next('/err'); 
+  if (to.matched.length === 0) {  
+    from.name ? next({ name:from.name}) : next({path:'/err'}); 
   } else {
     next();
   }
+  
 }) 
-
+router.beforeEach(async (to, from, next) => {
+  if($store.state.islogin)return next()
+  const result = await islogin()
+  if (result.code === 200) {
+    $store.commit('changeislogin', { islogin: true })
+    const cellphonenumber = JSON.parse(result.msg).username
+    $store.commit('changephonenumroot',{cellphonenumber})
+  }
+  // 
+  next()
+}) 
 
 
 export default router

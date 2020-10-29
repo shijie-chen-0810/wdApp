@@ -95,7 +95,6 @@ export default {
     }
   },
   async activated(){
-    console.log('asdasda')
     const b = await this.$store.dispatch('cart/goods')
     const a = await getGoods(100,24)
     this.goodsList = a.data
