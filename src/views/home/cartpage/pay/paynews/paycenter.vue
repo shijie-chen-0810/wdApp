@@ -8,27 +8,27 @@
     <div class="position" v-if="frgplace">
       <div>
         <span>收货人</span>
-        <input type="text" placeholder="请使用真实姓名" v-model="name">
+        <input type="text" placeholder="请使用真实姓名" v-model.lazy="info.name">
       </div>
       <div>
         <span>联系电话</span>
-        <input type="text" placeholder="收件人电话号码" :value="phone">
+        <input type="text" placeholder="收件人电话号码"  v-model.lazy="info.phone">
       </div>
       <div>
         <span>所在地区</span>
-        <input type="text" placeholder="请选择所在区域" @click="click"  :value="nowplace">
+        <input type="text" placeholder="请选择所在区域" @click="click"  v-model.lazy="info.nowplace">
       </div>
       <div>
         <span>详细地址</span>
-        <input type="text" placeholder="输入地址" :value="xiangplace">
+        <input type="text" placeholder="输入地址" v-model.lazy="info.xiangplace">
       </div>
     </div>
     <div class="allplace" v-else>
       <div class="left">
         <img src="~assets/images/see/pay6.png" alt="">
         <div>
-          <p>按时鉴定会 1841615613</p>
-          <p>中国 刷蛋 啊十大科技 阿松大 阿松大asdasdasdasdasdasdasd</p>
+          <p>{{info.name}} {{info.phone}}</p>
+          <p>{{info.nowplace}} {{info.xiangplace}}</p>
         </div>
       </div>
       <div class="right">
@@ -43,11 +43,11 @@
     <div class="position" v-if="frgplace">
       <div>
         <span>订购人</span>
-        <input type="text" placeholder="请使用真实姓名">
+        <input type="text" placeholder="请使用真实姓名" v-model.lazy="info.shouname">
       </div>
       <div>
         <span>身份证号</span>
-        <input type="text" placeholder="将加密处理">
+        <input type="text" placeholder="将加密处理" v-model.lazy="info.id">
       </div>
     </div>
     <div class="xian2"></div>
@@ -56,13 +56,12 @@
         <paygoods></paygoods>
       </transition>
     </div>
-    <div class="num" @click="yundong">郑州保税仓共{{num}}件物品
+    <div class="num" @click="yundong">{{type}}共{{num}}件物品
       <span class="iconfont" v-if="dong">&#xe665;</span> 
       <span class="iconfont" v-else>&#xe65a;</span> 
     </div>
     <div class="xian2"></div>
     <div class="bottom">
-      <div></div>
       <div>
         <p>积分抵现</p>
         <p>暂无可用积分</p>
@@ -97,12 +96,15 @@ export default {
     return {
       areaList,
       show:false,
-      frgplace:true,
       place:'',
-      nowplace:'',
-      name:'',
-      phone:'',
-      xiangplace:'',
+      info:{
+        phone:"",
+        nowplace:'',
+        name:'',
+        xiangplace:'',
+        shouname:'',
+        id:''
+      },
       dong:true,
       frg:false
     };
@@ -114,6 +116,22 @@ export default {
     num(){
       const {house_id} = this.$route.query
       return this.$store.getters['cart/paynum'](house_id)
+    },
+    frgplace(){
+      const reg = /^1[3456789]\d{9}$/
+      const a = this.info
+      if(a.name && a.phone && a.nowplace && a.xiangplace && a.shouname && a.id && reg.test(a.phone)){
+        return false
+      }
+      return true
+    },
+    type(){
+      const {house_id} = this.$route.query
+      if(house_id == 200){
+        return '郑州保税仓'
+      }else{
+        return "日本仓"
+      }
     }
   },
   methods: {
@@ -125,12 +143,12 @@ export default {
       this.show = false
     },
     ok(val){
-      this.nowplace = ''
+      this.info.nowplace = ''
       this.show = false
       if(val[2]){
         this.place = val[2].code
         val.forEach(item=>{
-          this.nowplace += item.name + ' '
+          this.info.nowplace += item.name + ' '
         })
       }
     },
@@ -141,14 +159,14 @@ export default {
       this.show = true
     }
   },
-  mounted() {
+  activated() {
     if(this.$store.state.islogin){
       const username = this.$store.state.cellphonenumber
-      if(localStorage.getItem(username)){
-        this.frgplace = false
+      const place = localStorage.getItem(username)
+      if(place){
+        this.info = JSON.parse(place)
       }
     }
-    console.log(this.name)
   },
 }
 </script>

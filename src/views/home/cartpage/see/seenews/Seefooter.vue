@@ -12,15 +12,24 @@
       </router-link>
       <div class="bottom">
         <p>加入购物袋</p>
-        <img src="~assets/images/see/bg-add.png" alt="">
+        <img src="~assets/images/see/bg-add.png" alt="" @click="addgoods(key)">
       </div>
     </li>
   </ul>
 </template>
 
 <script>
+import add from 'utils/addToCart.js'
 export default {
-  props:['goods']
+  props:['goods'],
+  methods: {
+    addgoods(key){
+      const id = key.goods_id
+      const isLogin = this.$store.state.islogin
+      const cellPhone = this.$store.state.cellphonenumber
+      add(id,isLogin,cellPhone)
+    }
+  },
 }
 </script>
 
