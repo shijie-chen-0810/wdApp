@@ -24,6 +24,7 @@ import carfooter from './carfooter/carfooter'
 
 import {getGoods} from 'network/homeRequest/homeRequest'
 export default {
+  name:'cart',
   data(){
     return {
       operation:'编辑',

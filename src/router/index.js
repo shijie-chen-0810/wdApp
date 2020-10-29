@@ -1,15 +1,20 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
+
 const Home =  () => import('views/home/homepage/Home')
 const HomeSortPage =  () => import('views/homesort/HomeSortPage')
 const HomeZong =  () => import('views/home/Home')
 const Detail =  () => import('views/detailpage/Detail')
+const Comments = () => import('views/detailpage/comments/Comments')
 const Sort =  () => import('views/home/sortpage/Sort')
 const Cart =  () => import('views/home/cartpage/Cart')
 const Profile =  () => import('views/home/profilepage/Profile')
+const Err =  () => import('views/err/err')
+const Grade =  () => import('views/grade/grade')
 //profile
 import Userlogin from '../views/user/Userlogin.vue'
+import Setpwd from '../views/user/Setpwd.vue'
 //Order
 import Order from '../views/goodsorder/Order.vue'
 import Orderall from '../views/goodsorder/orderdetail/Orderall.vue'
@@ -19,6 +24,8 @@ import Comingpay from '../views/goodsorder/orderdetail/Comingpay.vue'
 import Comingcommit from '../views/goodsorder/orderdetail/Comingcommit.vue'
 
 import $store from 'store'
+
+import { islogin } from 'network/commonRequest/commonRequest'
 
 Vue.use(VueRouter)
 
@@ -33,8 +40,8 @@ VueRouter.prototype.push = function push(location, onResolve, onReject) {
 const routes = [
   {
     path: '/',
+    component: HomeZong,
     redirect: '/home',
-    component:HomeZong,
     children: [
       {
         path: 'home',
@@ -58,9 +65,19 @@ const routes = [
       {
         path: 'profile',
         name:'profile',
-        component:Profile
+        component:Profile,
+      },
+      {
+        path: 'grade',
+        name:'grade',
+        component:Grade
       },
     ]
+  },
+  {
+    path: '/err',
+    name:'err',
+    component:Err
   },
   {
     path:'/pay',
@@ -89,6 +106,10 @@ const routes = [
     component: Userlogin
   },
   {
+    path: '/setpwd',
+    component: Setpwd
+  },
+  {
     path: '/order',
     component: Order,
     redirect:'/order/:id',
@@ -114,13 +135,41 @@ const routes = [
         component:Comingcommit
       },
     ]
+  },
+  {
+    path: '/comments/:id',
+    name: 'comments',
+    component: Comments
   }
 ]
+
+
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
+  routes,
 })
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.length === 0) {  
+    from.name ? next({ name:from.name}) : next({path:'/err'}); 
+  } else {
+    next();
+  }
+  
+}) 
+router.beforeEach(async (to, from, next) => {
+  if($store.state.islogin)return next()
+  const result = await islogin()
+  if (result.code === 200) {
+    $store.commit('changeislogin', { islogin: true })
+    const cellphonenumber = JSON.parse(result.msg).username
+    $store.commit('changephonenumroot',{cellphonenumber})
+  }
+  // 
+  next()
+}) 
+
 
 export default router

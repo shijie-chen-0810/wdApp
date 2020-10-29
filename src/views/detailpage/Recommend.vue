@@ -2,7 +2,7 @@
     <div class="recommend">
         <div>大家都在逛</div>
         <ul>
-            <li v-for="(goods,i) in goodsData" :key="i">
+            <li v-for="(goods,i) in goodsData" :key="i" @click="goDetail(goods.goods_id)">
                 <div><img :src="goods.img_middle" alt="" @load="refresh"></div>
                     <div>
                         <p class="text_ellipsis">{{ goods.slogan }}</p>
@@ -10,7 +10,7 @@
                         <p>{{ goods.praise_desc }}</p>
                         <div>
                             <p><i>¥</i>{{ goods.finalPrice }}</p>
-                            <img src="~assets/img/cxj_detail/cart_65bbdc.png" alt="" @load="refresh" @click='addToCart'>
+                            <img src="~assets/img/cxj_detail/cart_65bbdc.png" alt="" @load="refresh" @click.stop='addToCart'>
                         </div>
                 </div>
             </li>
@@ -21,18 +21,25 @@
 <script>
 import { getGoods } from 'network/homeRequest/homeRequest'
 import addItemToCart from 'utils/addToCart'
+import { mapState } from 'vuex'
 export default {
     data() {
         return {
-            goodsData: Array
+            goodsData: []
         }
     },    
     async mounted() {
         const data = await getGoods(Math.floor(Math.random() * (300 - 10 + 1) + 10), 10)
         this.goodsData = data.data
-        // console.log(this.goodsData)
     },
-    methods:{
+    computed:{
+        ...mapState(["islogin","cellphonenumber"])
+    },
+    methods: {
+        goDetail(goods_id) {
+            this.$router.push({ name: 'detail', params: { id: goods_id }})
+            this.$router.go(0)
+        },
         refresh(){
             this.$emit('refresh')
         },

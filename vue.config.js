@@ -23,7 +23,7 @@ module.exports = {
         changeOrigin: true
       },
       '/resource': {
-        target: 'https://m.wandougongzhu.cn/',
+        target: 'https://m.wandougongzhu.cn',
         changeOrigin: true
       }
     }

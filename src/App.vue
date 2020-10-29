@@ -1,6 +1,6 @@
 <template>
   <div>
-    <keep-alive exclude="detail,profile,homesortpage">
+    <keep-alive exclude="detail,profile,homesortpage,setpwd">
       <router-view></router-view>
     </keep-alive>
   </div>

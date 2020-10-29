@@ -26,7 +26,7 @@
       <div>
         <img v-if="isCollect" src="../../assets/img/cxj_detail/ic_collect_76e0b9.png" alt="">
         <img v-else src="../../assets/img/cxj_detail/ic_collected_25640b.png" alt="">
-        <span>收藏</span>
+        <span @click="collect">收藏</span>
       </div>
       <div>
         <img v-if="true" src="https://s4.wandougongzhu.cn/s/07/cart_a65b3c.png" alt="">
@@ -103,10 +103,10 @@ export default {
       if(Math.abs(topy) < this.commentTop - 45){
         this.isSelected = 'goods'
       }
-      if(Math.abs(topy) >= this.commentTop - 45){
+      if(Math.abs(topy) >= this.commentTop - 48){
         this.isSelected = 'comment'
       }
-      if(Math.abs(topy) >= this.detailTop - 45){
+      if(Math.abs(topy) >= this.detailTop - 50){
         this.isSelected = 'goodsdetail'
       }
       if(Math.abs(topy) >= this.recommendTop - 45){
@@ -145,6 +145,9 @@ export default {
     },
     addToCart(){
       addItemToCart.call(this,this.$route.params.id,this.islogin,this.cellphonenumber)
+    },
+    collect(){
+      this.isCollect = !this.isCollect
     }
   }
 }
@@ -194,8 +197,7 @@ export default {
             bottom 0
   main
     flex 1
-    overflow-x hidden
-    overflow-y scroll
+    overflow hidden
   footer 
     height 0.48rem
     display flex

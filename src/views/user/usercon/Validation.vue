@@ -30,6 +30,9 @@ import { Dialog } from 'vant';
 import axios from 'axios'
 import { mapState } from 'vuex'
 import { mapMutations } from 'vuex'
+
+import { phoneLogin } from 'network/profileRequest/profileRequest'
+
 export default {
   data(){
     return {
@@ -52,23 +55,15 @@ export default {
     async loginsuccess(){
       if(this.verifynum.length === 6 && this.verifynum === this.$store.state.profile.verifycode){
         //根据状态码判断后端是否正确处理phonenum,
-        // let res = await axios({
-        //   method: 'post',
-        //   headers:{
-        //     'content-type':'application/json'
-        //   },
-        //   url:'http://10.9.64.245:5000/profile/users/login',
-        //   data:{
-        //     "cellphonenumber":`${this.$store.state.profile.cellphonenumber}`
-        //   }
-        // })
-        // console.log(res)
-        if(true){ 
+        let res = await phoneLogin(this.$store.state.cellphonenumber)
+        if(res.data.status === 200){ 
           //修改vuex中登录状态位true
           this.changeislogin({
             type:'changeislogin',
             islogin: true
           })
+        }else{
+          return
         }
         this.$emit("mychange")
         this.$router.replace('/profile')

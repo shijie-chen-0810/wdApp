@@ -1,15 +1,15 @@
 <template>
   <div>
-    <div v-for="data in datalist" :key="data.id">
+    <div v-for="(data,i) in datalist" :key="i">
       <div class="order-list">
         <div class="time-pay">
-          <span>{{data.ctime}}</span>
-          <i>待支付</i>
+          <span>{{data[0].ctime}}</span>
+          <i>{{data[0].order_status}}</i>
         </div>
         <div class="goods-img">
           <ul>
-            <li>
-              <img :src="data.imgurl" alt="">
+            <li v-for="(item,ind) in data" :key="ind">
+              <img :src="item.img_middle" alt="">
             </li>
           </ul>
         </div>
@@ -26,8 +26,8 @@
           </div>
         </div>
         <div class="totalprice">
-          <span>共1种</span>
-          <span>应付:<i>￥25625</i></span>
+          <span>共{{data.length}}种</span>
+          <span>应付:<i>￥{{}}</i></span>
         </div>
         <div class="ispay">
           <span class="gopay">去付款</span>
@@ -39,6 +39,11 @@
 </template>
 
 <script>
+// import BScroll from '@better-scroll/core'
+// let scroll = new BScroll('.goods-img',{
+//   scrollX: true,
+//   click: true
+// })
 export default {
   data(){
     return {
@@ -47,6 +52,7 @@ export default {
   },
   mounted(){
     this.datalist = this.$parent.datalist
+    
   }
 }
 </script>
@@ -73,10 +79,12 @@ export default {
   .goods-img
     height .8rem
     border_1px(0 0 1px 0, solid, hsla(0,0%,84.7%,.9))
+    display flex
     ul 
       display flex
       align-items center
       height 100%
+      overflow-x scroll
       li 
         height 100%
         padding .05rem

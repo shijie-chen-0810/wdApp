@@ -69,9 +69,9 @@ export default {
     }
   },
   actions: {
-     async goods(context){
-        const a = await getCartData(context.rootState.cellphonenumber)
-        context.commit('goods',a)
+    async goods(context) {
+      const a = await getCartData(context.rootState.cellphonenumber)
+      context.commit('goods',a)
     }
   },
   getters:{
