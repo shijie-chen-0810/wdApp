@@ -71,7 +71,8 @@ export default {
       }
     }
   },
-  async mounted(){
+  async activated(){
+    console.log(11111111111111111111111111111111111111)
     let res = await axios({
       url:`http://106.13.129.90:5000/cart/getcart?id=${this.$store.state.cellphonenumber}`
       // url:"http://localhost:8080/orderlist.json"
@@ -85,7 +86,6 @@ export default {
         }
       })
     }
-    console.log(dataorder)
     let timeimd = new Date().getTime()  //获取当前时间戳，判断未完成
     //判断待支付是否过期
     if(dataorder.length!=0){
@@ -125,7 +125,6 @@ export default {
       newArr = otherarr.concat(comarr)
     }
     this.datalist = newArr
-    console.log(this.datalist)
     //判断订单各模块是否存在数据
     switch(this.$route.path){
       case '/order/all':
