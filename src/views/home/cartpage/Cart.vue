@@ -99,7 +99,14 @@ export default {
     const a = await getGoods(100,24)
     this.goodsList = a.data
     this.frag = true
-  }
+  },
+  beforeRouteEnter(to,from,next){
+            console.log('beforRouteEnter')
+            console.log(this) // 结果为undefined，因为在执行beforRouteEnter时候，组件还没有被创建出来；先执行beforRouteEnter，再执行beforeCreate
+            next((vm)=>{ //参数vm就是当前组件的实例。
+                vm.test = '我被改变了'
+            })
+        },
 }
 </script>
 
