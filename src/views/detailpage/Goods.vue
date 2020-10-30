@@ -9,17 +9,17 @@
             <div>
                 <p>尝鲜OMG</p>
                 <div>
-                    <span><i>¥</i>{{ goodsDetail.finalPrice }}</span>
+                    <span><i>¥</i>{{ detailData.finalPrice }}</span>
                     <div>会员</div>
-                    <div>¥{{ goodsDetail.origin_vip_final_price }}</div>
+                    <div>¥{{ detailData.origin_vip_final_price }}</div>
                 </div>
             </div>
-            <p>{{ goodsDetail.slogan }}</p>
-            <p class="text_ellipsis">{{ goodsDetail.goods_name }}</p>
+            <p>{{ detailData.slogan }}</p>
+            <p class="text_ellipsis">{{ detailData.goods_name }}</p>
         </div>
         <div>
             <div>
-                <div v-if="goodsDetail.finalPrice - goodsDetail.origin_vip_final_price">豌豆会员&nbsp;预计节省<i>&nbsp;{{ goodsDetail.finalPrice - goodsDetail.origin_vip_final_price }}&nbsp;</i>元</div>
+                <div v-if="detailData.finalPrice - detailData.origin_vip_final_price">豌豆会员&nbsp;预计节省<i>&nbsp;{{ detailData.finalPrice - detailData.origin_vip_final_price }}&nbsp;</i>元</div>
                 <div v-else>开通豌豆会员享受更多优惠</div>
                 
                 <div>开卡></div>
@@ -61,31 +61,23 @@
 <script>
 import Vue from 'vue';
 import { Swipe, SwipeItem } from 'vant';
-import { mapState } from 'vuex'
+
+import {getDetail} from 'network/detailRequest/detailRequest'
 
 Vue.use(Swipe);
 Vue.use(SwipeItem);
 export default {
-    data(){
+    data() {
         return {
+            detailData: Object,
             imgList: [],
             tipList: []
         }
     },
-    computed:{
-        ...mapState('goodsDetail', ['goodsDetail']),
-        // imgList() {
-        //     return JSON.parse(this.goodsDetail.imgList)
-        // },
-        // tipList() {
-        //     return JSON.parse(this.goodsDetail.tipList)
-        // }
-    },
-    watch: {
-        goodsDetail(value){
-            this.imgList = JSON.parse(this.goodsDetail.imgList)
-           this.tipList = JSON.parse(this.goodsDetail.tipList)
-        }
+    async mounted() {
+        this.detailData = await getDetail(this.$route.params.id)
+        this.imgList = JSON.parse(this.detailData.imgList)
+        this.tipList = JSON.parse(this.detailData.tipList)
     },
     methods:{
         refresh(){
@@ -233,4 +225,15 @@ export default {
         padding-left 0.15rem
         li
             padding-right 0.13rem
+
+            
+                
+
+
+
+                
+                
+                    
+
+
 </style>

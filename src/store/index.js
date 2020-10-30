@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 
 import profile from './profile/profile'
 import cart from './cart/cart'
-import goodsDetail from './detail/goodsDetail'
+
 
 Vue.use(Vuex)
 
@@ -30,7 +30,6 @@ export default new Vuex.Store({
   },
   modules: {
     profile,
-    cart,
-    goodsDetail
+    cart
   }
 })
