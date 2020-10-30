@@ -1,11 +1,8 @@
-import axios from 'network/request'
-
-const instance = axios.create()
+import instance from 'network/baseRequest'
 
 
-instance.interceptors.response.use(res => {
-  return res.data
-})
+
+
 
 export function getCartData(id) {
   return instance({

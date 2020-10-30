@@ -16,11 +16,8 @@ module.exports = {
     proxy: {
       '/api': {
         target: 'https://app.cloopen.com:8883',
-        changeOrigin: true,
-        pathRewrite: {
-          '^/api': ''
-        }
-      }
+        changeOrigin: true
+      },
     }
   }
 }

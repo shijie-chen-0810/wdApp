@@ -69,7 +69,9 @@ export default {
       }
     },
     paypricegoods(state,{a,time}){
+      console.log(time)
       state.goods= a.filter(item=>item.ctime == time)
+      console.log(state.goods)
     },
   },
   actions: {

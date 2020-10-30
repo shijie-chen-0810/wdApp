@@ -24,6 +24,7 @@ export default {
       sort2: []
     }
   },
+  
   async mounted(){
     const result = await getSortData()
     this.sort1 = result.slice(0,5)
@@ -41,6 +42,7 @@ export default {
   display flex
   flex-direction column
   justify-content space-between
+  background-color white
   border_1px(0 0 1px 0,solid,#ccc)
   .line
     display flex

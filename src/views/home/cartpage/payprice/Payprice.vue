@@ -33,9 +33,11 @@ export default {
     },
     async zhifu(){
       const goodstime = this.$route.query.time
+      console.log(goodstime)
       const time = new Date().getTime()
       await this.$store.dispatch('cart/paypricegoods',goodstime)
       const goods = this.$store.state.cart.goods
+      console.log(goods)
       const user_id = this.$store.state.cellphonenumber
       let arr = []
       goods.forEach(item=>{

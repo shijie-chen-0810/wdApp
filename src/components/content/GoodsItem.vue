@@ -39,7 +39,7 @@ export default {
   width 45.6vw
   height 3.03rem
   margin-bottom 0.1rem
-  background-color #fafafa
+  background-color #fff
   .goods-img
     width 45.6vw
     height 45.6vw

@@ -51,10 +51,8 @@
       </div>
     </div>
     <div class="xian2"></div>
-    <div class="goods" :class="{active:frg}">
-      <transition name="fade">
-        <paygoods></paygoods>
-      </transition>
+    <div class="goods">
+        <paygoods class="good"  :class="{active:frg}"></paygoods>
     </div>
     <div class="num" @click="yundong">{{type}}共{{num}}件物品
       <span class="iconfont" v-if="dong">&#xe665;</span> 
@@ -272,10 +270,11 @@ export default {
   background #f5f5f5
 .goods
   padding-left .15rem
-  max-height 2.13rem
-  overflow hidden
+  .good
+    max-height 2.13rem
+    overflow hidden
 .active
-  max-height  10000rem!important
+  max-height 10000rem!important
 .num
   width 100%
   height .37rem

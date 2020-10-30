@@ -57,6 +57,10 @@ export default {
     },
     filters: {
         capitalize: function (value) {
+            // let arr = ['一','二','三','四','五','六']
+            // for(var i = 0;i < value;i++){
+            //     return arr[i]
+            // }
             if (!value) return '一'
             if (value == '1') return '二'
             if (value == '2') return '三'
