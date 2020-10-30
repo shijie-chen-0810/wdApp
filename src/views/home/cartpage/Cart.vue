@@ -62,7 +62,7 @@ export default {
   async activated(){
     const b = await this.$store.dispatch('cart/goods')
     this.frag = true
-  }
+  },
 }
 </script>
 

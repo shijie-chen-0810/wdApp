@@ -1,10 +1,10 @@
-import axios from 'network/request'
+import axios from 'axios'
 const instance = axios.create()
-instance.interceptors.response.use(res => {
-  console.log(res['headers']['x-access-token'])
-  localStorage.setItem('x-access-token',res['headers']['x-access-token'])
-  return res
-})
+instance.defaults.baseURL = 'http://106.13.129.90:5000'
+instance.defaults.timeout = 5000
+instance.defaults.port = 5000
+
+
 export function phoneLogin(username) {
   return instance({
     method: 'post',
