@@ -55,6 +55,7 @@ export default {
         this.goodsData = data.data
         this.companyInfo = JSON.parse(this.detailData.companyInfo)
         this.detailImgList = JSON.parse(this.detailData.detailImgList)
+        this.detailImgList = this.detailImgList.splice(1)
         this.$nextTick(()=>{
             this.bs = new BScroll(this.$refs.relativeGoods,{
                 scrollX:true,
