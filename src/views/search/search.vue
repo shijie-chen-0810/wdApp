@@ -125,7 +125,7 @@ export default {
         left 0
         top 0
         background-color #fff
-        border_1px(0 0 1px 0)
+        border_1px(0 0 1px 0,solid,#ccc)
     .top_left
         padding-right 0.1rem
         padding-left 0.1rem

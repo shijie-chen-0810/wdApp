@@ -38,7 +38,6 @@ export default {
   },
   async mounted() {
     const a = await getGoods(0,60)
-    console.log(a.data)
     this.goods = a.data
   },
 }

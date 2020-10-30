@@ -5,10 +5,12 @@ export default {
     zhengzhou:[],
     japan:[],
     payzhengzhou:[],
-    payjapan:[]
+    payjapan:[],
+    goods:[]
   },
   mutations: {
     goods(state,a){
+      a = a.filter(item=>item.ctime == 0)
       a.forEach(item=>{
         item.checked = Number(item.checked)
         item.num = Number(item.num)
@@ -38,7 +40,7 @@ export default {
         if(state.zhengzhou[index].num < state.zhengzhou[index].residue_dount) state.zhengzhou[index].num ++
       }else{
         const index = state.japan.findIndex(item=>item == goods)
-        if(state.zhengzhou[index].num < state.zhengzhou[index].residue_dount) state.zhengzhou[index].num ++
+        if(state.japan[index].num < state.japan[index].residue_dount) state.japan[index].num ++
       }
     },
     jianNum(state,{house,goods}){
@@ -47,7 +49,7 @@ export default {
         if(state.zhengzhou[index].num > 1) state.zhengzhou[index].num --
       }else{
         const index = state.japan.findIndex(item=>item == goods)
-        if(state.zhengzhou[index].num > 1) state.zhengzhou[index].num --
+        if(state.japan[index].num > 1) state.japan[index].num --
       }
     },
     delete(state,{house,goods}){
@@ -65,12 +67,21 @@ export default {
       }else{
         state.payjapan =  state.japan.filter(item=>item.checked == true)
       }
-    }
+    },
+    paypricegoods(state,{a,time}){
+      console.log(time)
+      state.goods= a.filter(item=>item.ctime == time)
+      console.log(state.goods)
+    },
   },
   actions: {
     async goods(context) {
       const a = await getCartData(context.rootState.cellphonenumber)
       context.commit('goods',a)
+    },
+    async paypricegoods(context,time){
+      const a = await getCartData(context.rootState.cellphonenumber)
+      context.commit('paypricegoods',{a,time})
     }
   },
   getters:{
@@ -96,11 +107,11 @@ export default {
               price += item.final_price * item.num
               priceY += (item.market_price - item.final_price) * item.num
               if(price >= 50 && price <= 250){
-                c = 200
+                c = 250
                 jian = 16 
                 type = jian - 16 + 8
               }else if(price >= 250 && price <= 650){
-                c = 400
+                c = 650
                 jian = 50
                 type = jian - 50 + 24
               }else if(price >= 650){
@@ -116,11 +127,11 @@ export default {
               price += item.final_price * item.num
               priceY += (item.market_price - item.final_price) * item.num
               if(price >= 50 && price <= 250){
-                c = 200
+                c = 250
                 jian = 16 
                 type = jian - 16 + 8
               }else if(price >= 250 && price <= 650){
-                c = 400
+                c = 650
                 jian = 50
                 type = jian - 50 + 24
               }else if(price >= 650){

@@ -20,17 +20,13 @@ export default {
   computed:{
     goods(){
       const {house_id} = this.$route.query
-      this.$store.commit({
-        type:'cart/paygoods',
-        house:house_id
-      })
       if(house_id == 200){
         return this.$store.state.cart.payzhengzhou
       }else{
         return this.$store.state.cart.payjapan
       }
     }
-  },
+  }
 }
 </script>
 

@@ -4,7 +4,7 @@
       <router-link tag="input" to="/search" placeholder="输入商品或品牌名称" />
       <span class="iconfont">&#xe65c;</span>
     </div>
-    <better-scroll :isLoadingMore='true' @getmoregoods='getmoregoods' ref='bscroll' class="betterscroll">
+    <better-scroll :isLoadingMore='false' @getmoregoods='getmoregoods' ref='bscroll' class="betterscroll">
       <swipe-x></swipe-x>
       <div class="health">
         <van-image src="https://oss1.wandougongzhu.cn/8e415cd8201d8d1933ba8bbedc7a8d33.png?x-oss-process=image/resize,w_1242/format,webp" alt=""></van-image>
@@ -51,6 +51,10 @@
         <van-image src="https://oss5.wandougongzhu.cn/f16f89df44cf7f8d9590b5c926ded7b3.png?x-oss-process=image/resize,w_1242/format,webp" alt="" @load='refresh'></van-image>
       </div>
       <goods-list :list='goodsList'></goods-list>
+      <div class="loading-icon" v-if='total!==goodsList.length'>
+        <van-loading type="spinner" size="18px">加载中</van-loading>
+      </div>
+      <bot-cpn ref="bot"></bot-cpn>
     </better-scroll>
   </div>
 </template>
@@ -59,7 +63,9 @@
 import authoritylistdata from 'assets/data/AuthorityList'
 import { getGoods } from 'network/homeRequest/homeRequest'
 
-
+import Vue from 'vue'
+import { Loading } from 'vant';
+Vue.use(Loading);
 
 import BetterScroll from 'components/common/bscroll/BetterScroll'
 import Sort from 'components/content/HomeSort'
@@ -68,6 +74,7 @@ import SwipeY from './homecomponents/Swipe-Y'
 import JapanOneThing from 'components/content/JapanOneThing'
 import AuthorityList from './homecomponents/AuthorityList'
 import GoodsList from 'components/content/GoodsList'
+import BotCpn from 'components/content/BotCpn'
 
 export default {
   data(){
@@ -77,7 +84,8 @@ export default {
       authoritylistdata,
       goodsList:[],
       offset:0,
-      total:0
+      total:-1,
+      interSectionObserver:null
     }
   },
   components:{
@@ -87,24 +95,29 @@ export default {
     BetterScroll,
     JapanOneThing,
     AuthorityList,
-    GoodsList
+    GoodsList,
+    BotCpn
   },
   mounted(){
-    // this.$refs.bscroll.bscroll.on('scroll',this.scroll)
+    this.interSectionObserver = new IntersectionObserver((entries)=> {
+    // 如果不可见，就返回
+    if (entries[0].intersectionRatio <= 0) return;
+    // loadItems(10);
+    this.getmoregoods()
+    console.log('Loaded new items');
+  })
+    this.interSectionObserver.observe(this.$refs.bot.$el)
   },
   methods:{
     async loadData(offset){
       try{
         const tmpResult = await getGoods(offset,10)
-        this.$toast.clear()
-        this.$refs.bscroll.bscroll.finishPullUp()
         this.goodsList.push(...tmpResult.data)
         this.total = tmpResult.total
         this.offset += 10
         console.log(this.offset,this.total)
       }catch(e){
-        this.$refs.bscroll.bscroll.finishPullUp()
-        this.$toast.clear()
+        this.$toast('请求超时')
       }
     },
     async getmoregoods(){
@@ -144,7 +157,7 @@ export default {
   height 0.44rem
   padding 0.07rem 0.12rem
   z-index 999
-  background #fff
+  background rgba(249, 249, 249,.92)
   input 
     width 100%
     height 100%
@@ -191,4 +204,9 @@ h4
   img 
     width 100%
     height 100%
+.loading-icon
+  height 0.41rem
+  line-height 0.41rem
+  background-color white
+  text-align center
 </style>

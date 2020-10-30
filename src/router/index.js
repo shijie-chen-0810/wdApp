@@ -17,6 +17,7 @@ const Search =  () => import('views/search/search')
 //profile
 import Userlogin from '../views/user/Userlogin.vue'
 import Setpwd from '../views/user/Setpwd.vue'
+import Loginpwd from '../views/user/usercon/Loginpwd.vue'
 //Order
 import Order from '../views/goodsorder/Order.vue'
 import Orderall from '../views/goodsorder/orderdetail/Orderall.vue'
@@ -25,7 +26,10 @@ import Comingsend from '../views/goodsorder/orderdetail/Comingsend.vue'
 import Comingpay from '../views/goodsorder/orderdetail/Comingpay.vue'
 import Comingcommit from '../views/goodsorder/orderdetail/Comingcommit.vue'
 
+
 import $store from 'store'
+
+import { islogin } from 'network/commonRequest/commonRequest'
 
 Vue.use(VueRouter)
 
@@ -40,8 +44,8 @@ VueRouter.prototype.push = function push(location, onResolve, onReject) {
 const routes = [
   {
     path: '/',
-    component:HomeZong,
-    redirect: '/err',
+    component: HomeZong,
+    redirect: '/home',
     children: [
       {
         path: 'home',
@@ -93,6 +97,10 @@ const routes = [
     component:()=>import('views/home/cartpage/see/See')
   },
   {
+    path:'/cart/pay',
+    component:()=>import('views/home/cartpage/payprice/Payprice')
+  },
+  {
     path: '/detail/:id',
     name:'detail',
     component:Detail
@@ -104,7 +112,11 @@ const routes = [
   },
   {
     path: '/login',
-    component: Userlogin
+    component: Userlogin,
+  },
+  {
+    path: '/loginpwd',
+    component: Loginpwd,
   },
   {
     path: '/setpwd',
@@ -144,8 +156,6 @@ const routes = [
   }
 ]
 
-
-
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
@@ -153,13 +163,23 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.matched.length ===0) {  
-    from.name ? next({ name:from.name}) : next('/err'); 
+  if (to.matched.length === 0) {  
+    from.name ? next({ name:from.name}) : next({path:'/err'}); 
   } else {
     next();
   }
 }) 
 
+router.beforeEach(async (to, from, next) => {
+  if($store.state.islogin)return next()
+  const result = await islogin()
+  if (result.code === 200) {
+    $store.commit('changeislogin', { islogin: true })
+    const cellphonenumber = JSON.parse(result.msg).cellphonenumber
+    $store.commit('changephonenumroot',{cellphonenumber})
+  }
+  next()
+}) 
 
 
 export default router

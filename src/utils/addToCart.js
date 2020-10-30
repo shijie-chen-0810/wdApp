@@ -9,6 +9,7 @@ export default async function (id,isLogin,cellPhone) {
     try {
       console.log(id,cellPhone)
       responce = await addItemToCart(id, cellPhone)
+      console.log(responce)
       if (responce.state === 200) {
         Toast({
           message: '添加成功',

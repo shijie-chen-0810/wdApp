@@ -1,9 +1,9 @@
 <template>
   <div>
-    <div v-for="(data,i) in datalist" :key="i">
+    <div v-for="(data,i) in datalist" :key="i" class="list-sort">
       <div class="order-list">
         <div class="time-pay">
-          <span>{{data[0].ctime}}</span>
+          <span>{{data[0].ctime2}}</span>
           <i>{{data[0].order_status}}</i>
         </div>
         <div class="goods-img">
@@ -19,19 +19,23 @@
           </div>
           <div>
             <span>未付款不能申请退税</span>
-            <i>消费税￥3338</i>
+            <i>消费税￥{{(totalpri(data)*0.08).toFixed(2)}}</i>
           </div>
           <div>
-            <span>截止日期 2020-10-26</span>
+            <span>截止日期 {{formattime(data[0].ctime2)}}</span>
           </div>
         </div>
         <div class="totalprice">
           <span>共{{data.length}}种</span>
-          <span>应付:<i>￥{{}}</i></span>
+          <span v-show="data[0].order_status==='待支付'" class="total-span">应付:<i>￥{{totalpri(data)}}</i></span>
+          <span v-show="data[0].order_status==='已完成'" class="total-span">总计:<i>￥{{totalpri(data)}}</i></span>
+          <span v-show="data[0].order_status==='未完成'" class="total-span">总计:<i>￥{{totalpri(data)}}</i></span>
         </div>
         <div class="ispay">
-          <span class="gopay">去付款</span>
-          <span class="cancle">取消订单</span>
+          <span class="gopay" v-show="data[0].order_status==='待支付'" @click="handlegopay(data[0].ctime, totalpri(data))">去付款</span>
+          <span class="cancle" v-show="data[0].order_status==='待支付'">取消订单</span>
+          <span class="cancle" v-show="data[0].order_status==='已完成'">已完成</span>
+          <span class="cancle" v-show="data[0].order_status==='未完成'">继续购买</span>
         </div>
       </div>
     </div>
@@ -47,12 +51,53 @@
 export default {
   data(){
     return {
-      datalist: []
+      datalist: [],
     }
   },
   mounted(){
     this.datalist = this.$parent.datalist
-    
+  },
+  activated(){
+    this.datalist = this.$parent.datalist
+  },
+  methods:{
+    //去付款
+    handlegopay(time, price){
+      this.$router.push(`/cart/pay?price=${price}&time=${time}`)
+    },
+    //计算总价
+    totalpri(data){
+      let total = 0;
+      data.forEach(item => {
+        total += item.num * item.final_price
+      })
+      if(total >= 50){
+        total -= 8;
+      }else if(total >= 250){
+        total -= 24
+      }else if(total >= 650){
+        total -= 74
+      }
+      return total
+    },
+    //格式化时间
+    formattime(data){
+      let str = data.slice(0, data.indexOf(' '))
+      return this.getNewDay(str, 1)
+    },
+    //结束时间
+    getNewDay(dateTemp, days) {
+      var dateTemp = dateTemp.split("-");
+      var nDate = new Date(dateTemp[1] + '-' + dateTemp[2] + '-' + dateTemp[0]); //转换为MM-DD-YYYY格式  
+      var millSeconds = Math.abs(nDate) + (days * 24 * 60 * 60 * 1000);
+      var rDate = new Date(millSeconds);
+      var year = rDate.getFullYear();
+      var month = rDate.getMonth() + 1;
+      if (month < 10) month = "0" + month;
+      var date = rDate.getDate();
+      if (date < 10) date = "0" + date;
+      return (year + "-" + month + "-" + date);
+    }
   }
 }
 </script>
@@ -130,11 +175,11 @@ export default {
       flex 1
       color #000
       font-size .14rem
-      &:nth-of-type(2)
-        text-align right
-        i 
-          color #ee1414
-          font-size .14rem
+    span.total-span
+      text-align right
+      i 
+        color #ee1414
+        font-size .14rem
   .ispay
     height .44rem
     display flex
@@ -146,12 +191,12 @@ export default {
       height .3rem
       text-align center
       line-height .3rem
-      &:nth-of-type(1)
-        background #ee1414
-        color #fff
-      &:nth-of-type(2)
-        border .01rem solid #a4a4a4
-        color #a4a4a4
-        margin-left .05rem
+    span.gopay
+      background #ee1414
+      color #fff
+    span.cancle
+      border .01rem solid #a4a4a4
+      color #a4a4a4
+      margin-left .05rem
 
 </style>

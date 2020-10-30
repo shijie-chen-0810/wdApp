@@ -90,6 +90,7 @@ export default {
   justify-content center
   border_1px(0 0 1px 0,solid,#f3c76e)
   .title-list
+    background-color white
     display flex
     overflow-x scroll
     >ul

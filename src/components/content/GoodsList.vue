@@ -22,7 +22,8 @@ export default {
 
 <style lang="stylus" scoped>
 .goods-list
-  padding 0.1rem 0.12rem 0
+  padding 0.1rem 0.12rem
+  background-color #F5F5F5
   .goods-con
     display flex
     justify-content space-between
