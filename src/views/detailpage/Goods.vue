@@ -85,7 +85,6 @@ export default {
         goodsDetail(value){
             this.imgList = JSON.parse(this.goodsDetail.imgList)
            this.tipList = JSON.parse(this.goodsDetail.tipList)
-               this.refresh()
         }
     },
     methods:{
