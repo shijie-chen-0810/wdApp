@@ -1,17 +1,46 @@
 import axios from 'axios'
+
 const instance = axios.create()
 instance.defaults.baseURL = 'http://106.13.129.90:5000'
 instance.defaults.timeout = 5000
 instance.defaults.port = 5000
 
-
-export function phoneLogin(username) {
+export function phoneLogin(cellphonenumber) {
   return instance({
     method: 'post',
     headers:{
       'content-type':'application/json'
     },
     url:'/profile/users/phonelogin',
-    data:{cellphonenumber:username}
+    data:{cellphonenumber}
   })
 }
+//设置密码
+export function setpwd(user_id, pwd) {
+  return instance({
+    method: 'patch',
+    headers:{
+      'content-type':'application/json'
+    },
+    url:'/profile/users/setpwd',
+    data:{
+      user_id,
+      pwd
+    }
+  })
+}
+//登录
+export function getlogin(user_id, pwd) {
+  return instance({
+    method: 'get',
+    headers:{
+      'content-type':'application/json'
+    },
+    url:'/profile/users/setpwd',
+    data:{
+      user_id,
+      pwd
+    }
+  })
+}
+
