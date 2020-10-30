@@ -32,7 +32,7 @@
           <span v-show="data[0].order_status==='未完成'" class="total-span">总计:<i>￥{{totalpri(data)}}</i></span>
         </div>
         <div class="ispay">
-          <span class="gopay" v-show="data[0].order_status==='待支付'">去付款</span>
+          <span class="gopay" v-show="data[0].order_status==='待支付'" @click="handlegopay(data[0].ctime, totalpri(data))">去付款</span>
           <span class="cancle" v-show="data[0].order_status==='待支付'">取消订单</span>
           <span class="cancle" v-show="data[0].order_status==='已完成'">已完成</span>
           <span class="cancle" v-show="data[0].order_status==='未完成'">继续购买</span>
@@ -59,6 +59,11 @@ export default {
     
   },
   methods:{
+    //去付款
+    handlegopay(time, price){
+      let times = new Date(time).getTime()
+      this.$router.push(`/cart/pay?price=${price}&time=${times}`)
+    },
     //计算总价
     totalpri(data){
       let total = 0;
