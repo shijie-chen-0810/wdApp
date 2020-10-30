@@ -10,7 +10,7 @@ export default {
   },
   mutations: {
     goods(state,a){
-      a = a.filter(item=>item.ctime == 0)
+      // a = a.filter(item=>item.ctime == 0)
       a.forEach(item=>{
         item.checked = Number(item.checked)
         item.num = Number(item.num)
