@@ -13,3 +13,11 @@ export function getCartData(id) {
   })
 }
 
+export function updateCart(arr) {
+  return instance({
+    method:'PATCH',
+    url:'/cart/updatecart',
+    data:{newgoods:arr}
+  })
+}
+

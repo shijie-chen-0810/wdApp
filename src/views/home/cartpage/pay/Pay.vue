@@ -1,10 +1,10 @@
 <template>
-  <div class="pay" @click='click'>
+  <div class="pay">
     <header>
       <payheader></payheader>
     </header>
     <main>
-      <paycenter></paycenter>
+      <paycenter ref="info"></paycenter>
     </main>
     <footer>
       <payfooter :price="price"></payfooter>
@@ -28,14 +28,16 @@ export default {
     paycenter,
     payfooter
   },
-  methods:{
-    click(){
-      // this.$refs.show.show = false
+  activated(){
+    this.price = (this.$route.query.price - 0).toFixed(2)
+  },
+  computed:{
+    info(){
+      return this.$refs.info.info
     }
   },
-  mounted(){
-    this.price = (this.$route.query.price - 0).toFixed(2)
-  }
+  mounted() {
+  },
 }
 </script>
 
@@ -49,4 +51,6 @@ export default {
   footer 
     position fixed
     bottom 0
+    background #fff
+    z-index 1002
 </style>

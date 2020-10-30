@@ -12,6 +12,9 @@
       <div class="tishi" v-if="$store.state.cart.zhengzhou.length == 0 && $store.state.cart.japan.length == 0 && frag">您的购物车还没有物品，快去找找你喜欢的物品加入购物车吧O(∩_∩)O</div>
     </div>
     <carfooter :list="goodsList"></carfooter>
+
+
+    <div class="yidong" :class="{active:a}">显示</div>
   </div>
 </template>
 
@@ -20,7 +23,6 @@ import cartime from './carhead/cartime'
 import carcenter from './carcenter/carcenter'
 import carfooter from './carfooter/carfooter'
 
-// import car from 'network/cartRequest/cartRequest'
 
 import {getGoods} from 'network/homeRequest/homeRequest'
 export default {
@@ -29,7 +31,8 @@ export default {
     return {
       operation:'编辑',
       goodsList:[],
-      frag:false
+      frag:false,
+      a:false
     }
   },
   components:{
@@ -43,61 +46,23 @@ export default {
     },
     click(){
       this.operation = this.operation === "编辑" ? "完成" : "编辑"
-    },
-    delete(goods){
-      const index = this.car.findIndex(item=>item === goods)
-      this.car.splice(index,1)
-      const good1 = this.car.filter(item=>item.house_id === 200)
-      const good2 = this.car.filter(item=>item.house_id !== 200)
-      const info1 = good1.some(item=>item.checked === false)
-      const info2 = good2.some(item=>item.checked === false)
-      if(info1) {
-        this.$refs.zhengzhou.checked = false
-      }else{
-        this.$refs.zhengzhou.checked = true
-      }
-      if(info2){
-        this.$refs.japan.checked = false
-      }else{
-        this.$refs.japan.checked = true
-      }
-    },
-    frg(goods,frg){
-      if(goods[0].house_id === 200){
-        this.car.forEach(item=>{
-          if(item.house_id === 200){
-            item.checked = frg
-          }
-        })
-      }else{
-        this.car.forEach(item=>{
-          if(item.house_id !== 200){
-            item.checked = frg
-          }
-        })
-      }
+      this.a = !this.a
     }
       
   },
   computed:{
-    zhengzhou1(){
-      let goodsZhengzhou = this.car.filter(item=>{ return item.house_id == 200 })
-      return goodsZhengzhou
-    },
-    japan(){
-      let goodsJapan = this.car.filter(item=>{ return item.house_id != 200 })
-      return goodsJapan
-    },
     zhengzhou(){
       return (val)=>{
         return this.$store.getters['cart/zhengzhou'](val)
       }
     }
   },
-  async activated(){
-    const b = await this.$store.dispatch('cart/goods')
+  async mounted() {
     const a = await getGoods(100,24)
     this.goodsList = a.data
+  },
+  async activated(){
+    const b = await this.$store.dispatch('cart/goods')
     this.frag = true
   },
 }
@@ -137,4 +102,18 @@ export default {
       line-height .20rem
       font-weight bold
       text-indent 2
+.yidong
+  position fixed
+  width 100%
+  height 4rem
+  background #fff
+  bottom -4rem
+  border 1px solid #ccc
+  border-radius .3rem .3rem 0 0
+  z-index 100000
+  transition all 1s 0s linear 
+.active
+  bottom 0
+
+
 </style>
