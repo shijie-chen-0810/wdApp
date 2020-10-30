@@ -22,6 +22,7 @@
       >登录</button>
       <!-- #ea4141  -->
     </div>
+    {{verifynum}}
   </div>
 </template>
 
@@ -58,6 +59,7 @@ export default {
         let res = await phoneLogin(this.$store.state.cellphonenumber)
         if(res.data.status === 200){ 
           //修改vuex中登录状态位true
+          localStorage.setItem('x-access-token',res['headers']['x-access-token'])
           this.changeislogin({
             type:'changeislogin',
             islogin: true

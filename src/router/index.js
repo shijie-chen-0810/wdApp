@@ -12,6 +12,8 @@ const Cart =  () => import('views/home/cartpage/Cart')
 const Profile =  () => import('views/home/profilepage/Profile')
 const Err =  () => import('views/err/err')
 const Grade =  () => import('views/grade/grade')
+const Search =  () => import('views/search/search')
+
 //profile
 import Userlogin from '../views/user/Userlogin.vue'
 import Setpwd from '../views/user/Setpwd.vue'
@@ -80,12 +82,21 @@ const routes = [
     component:Err
   },
   {
+    path: '/search',
+    name:'search',
+    component:Search
+  },
+  {
     path:'/pay',
     component:()=>import('views/home/cartpage/pay/Pay')
   },
   {
     path:'/cart/see',
     component:()=>import('views/home/cartpage/see/See')
+  },
+  {
+    path:'/cart/pay',
+    component:()=>import('views/home/cartpage/payprice/Payprice')
   },
   {
     path: '/detail/:id',

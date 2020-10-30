@@ -1,7 +1,7 @@
 <template>
   <div class="coupon">
     <p>满额减</p>
-    <p>再买{{price[3]}}元减<span>{{price[4]}}元</span><i class="iconfont">&#xe60c;</i></p>
+    <p>买{{price[3]}}元减<span>{{price[4]}}元</span><i class="iconfont">&#xe60c;</i></p>
   </div>
   
 </template>
