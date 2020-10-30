@@ -14,17 +14,10 @@ module.exports = {
   },
   devServer: {
     proxy: {
-      '/2013-12-26': {
+      '/api': {
         target: 'https://app.cloopen.com:8883',
         changeOrigin: true
       },
-      // '/api/': {
-      //   target: 'https://106.13.129.90:5000',
-      //   changeOrigin: true,
-      //   pathRewrite: {
-      //     '/api':''
-      //   }
-      // }
     }
   }
 }
