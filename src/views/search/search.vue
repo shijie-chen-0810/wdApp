@@ -46,7 +46,16 @@
 </template>
 
 <script>
+import Vue from 'vue';
+import { List } from 'vant';
+
+Vue.use(List);
 export default {
+    data(){
+      return{
+          list:[1,2,3,4,5,6,7,8,9,10]
+      }  
+    },
     methods: {
         outClick(){
             this.$router.push('/home')
@@ -68,7 +77,7 @@ export default {
         left 0
         top 0
         background-color #fff
-        border_1px(0 0 1px 0)
+        border_1px(0 0 1px 0,solid,#ccc)
     .top_left
         padding-right 0.1rem
         padding-left 0.1rem
