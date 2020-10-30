@@ -38,7 +38,7 @@ export default {
         if(state.zhengzhou[index].num < state.zhengzhou[index].residue_dount) state.zhengzhou[index].num ++
       }else{
         const index = state.japan.findIndex(item=>item == goods)
-        if(state.zhengzhou[index].num < state.zhengzhou[index].residue_dount) state.zhengzhou[index].num ++
+        if(state.japan[index].num < state.japan[index].residue_dount) state.japan[index].num ++
       }
     },
     jianNum(state,{house,goods}){
@@ -47,7 +47,7 @@ export default {
         if(state.zhengzhou[index].num > 1) state.zhengzhou[index].num --
       }else{
         const index = state.japan.findIndex(item=>item == goods)
-        if(state.zhengzhou[index].num > 1) state.zhengzhou[index].num --
+        if(state.japan[index].num > 1) state.japan[index].num --
       }
     },
     delete(state,{house,goods}){

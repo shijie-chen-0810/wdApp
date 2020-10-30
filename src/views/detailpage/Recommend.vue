@@ -10,7 +10,7 @@
                         <p>{{ goods.praise_desc }}</p>
                         <div>
                             <p><i>¥</i>{{ goods.finalPrice }}</p>
-                            <img src="~assets/img/cxj_detail/cart_65bbdc.png" alt="" @load="refresh" @click.stop='addToCart'>
+                            <img src="~assets/img/cxj_detail/cart_65bbdc.png" alt="" @load="refresh" @click.stop='addToCart(goods.goods_id)'>
                         </div>
                 </div>
             </li>
@@ -38,13 +38,12 @@ export default {
     methods: {
         goDetail(goods_id) {
             this.$router.push({ name: 'detail', params: { id: goods_id }})
-            this.$router.go(0)
         },
         refresh(){
             this.$emit('refresh')
         },
-        addToCart(){
-            addItemToCart.call(this,this.$route.params.id,this.islogin,this.cellphonenumber)
+        addToCart(id){
+            addItemToCart.call(this,id,this.islogin,this.cellphonenumber)
         }
     }
 }
