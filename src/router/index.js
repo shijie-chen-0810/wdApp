@@ -18,6 +18,7 @@ const Search =  () => import('views/search/search')
 import Userlogin from '../views/user/Userlogin.vue'
 import Setpwd from '../views/user/Setpwd.vue'
 import Loginpwd from '../views/user/usercon/Loginpwd.vue'
+import Modifydata from '../views/user/Modifydata.vue'
 //Order
 import Order from '../views/goodsorder/Order.vue'
 import Orderall from '../views/goodsorder/orderdetail/Orderall.vue'
@@ -121,6 +122,10 @@ const routes = [
   {
     path: '/setpwd',
     component: Setpwd
+  },
+  {
+    path: '/modifydata',
+    component: Modifydata
   },
   {
     path: '/order',
