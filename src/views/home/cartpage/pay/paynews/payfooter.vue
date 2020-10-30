@@ -66,6 +66,7 @@ export default {
 
 
         const time = new Date().getTime()
+        console.log(time)
         const user_id = this.$store.state.cellphonenumber
         let arr = []
         this.goods.forEach(item=>{

@@ -1,16 +1,28 @@
 <template>
-  <div class="change">
-    <div class="left">
-      <p class="p1">加购价</p>
-      <p class="p2">实付满￥59可优惠换购</p>
+  <div>
+    <div class="change">
+      <div class="left">
+        <p class="p1">加购价</p>
+        <p class="p2">实付满￥59可优惠换购</p>
+      </div>
+      <div class="right" @click="click">去换购<span class="iconfont">&#xe60c;</span></div>
     </div>
-    <div class="right">去换购<span class="iconfont">&#xe60c;</span></div>
+    <div class="yidong" :class="{active:a}">显示</div>
   </div>
 </template>
 
 <script>
 export default {
-
+  data(){
+    return {
+      a:false
+    }
+  },
+  methods: {
+    click(){
+      this.a = true
+    }
+  },
 }
 </script>
 
@@ -45,4 +57,17 @@ export default {
     color #d84f49
     font-size .14rem
     line-height .12rem
+
+.yidong
+  position fixed
+  width 100vw
+  height 4rem
+  background #fff
+  bottom -4rem
+  border 1px solid #ccc
+  border-radius .3rem .3rem 0 0
+  z-index 100000
+  transition all .5s 0s linear 
+.active
+  bottom 0
 </style>
