@@ -21,7 +21,7 @@
         :style="getstyle"
       >获取短信验证码</button>
       <!-- #ea4141  -->
-      <b>密码登录</b>
+      <router-link to="/loginpwd" tag="b">密码登录</router-link>
     </div>
   </div>
 </template>

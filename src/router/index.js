@@ -17,6 +17,7 @@ const Search =  () => import('views/search/search')
 //profile
 import Userlogin from '../views/user/Userlogin.vue'
 import Setpwd from '../views/user/Setpwd.vue'
+import Loginpwd from '../views/user/usercon/Loginpwd.vue'
 //Order
 import Order from '../views/goodsorder/Order.vue'
 import Orderall from '../views/goodsorder/orderdetail/Orderall.vue'
@@ -24,6 +25,7 @@ import Comingtake from '../views/goodsorder/orderdetail/Comingtake.vue'
 import Comingsend from '../views/goodsorder/orderdetail/Comingsend.vue'
 import Comingpay from '../views/goodsorder/orderdetail/Comingpay.vue'
 import Comingcommit from '../views/goodsorder/orderdetail/Comingcommit.vue'
+
 
 import $store from 'store'
 
@@ -110,7 +112,11 @@ const routes = [
   },
   {
     path: '/login',
-    component: Userlogin
+    component: Userlogin,
+  },
+  {
+    path: '/loginpwd',
+    component: Loginpwd,
   },
   {
     path: '/setpwd',
@@ -150,8 +156,6 @@ const routes = [
   }
 ]
 
-
-
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
@@ -164,17 +168,16 @@ router.beforeEach((to, from, next) => {
   } else {
     next();
   }
-  
 }) 
+
 router.beforeEach(async (to, from, next) => {
   if($store.state.islogin)return next()
   const result = await islogin()
   if (result.code === 200) {
     $store.commit('changeislogin', { islogin: true })
-    const cellphonenumber = JSON.parse(result.msg).username
+    const cellphonenumber = JSON.parse(result.msg).cellphonenumber
     $store.commit('changephonenumroot',{cellphonenumber})
   }
-  // 
   next()
 }) 
 
