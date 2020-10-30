@@ -12,8 +12,6 @@
       <div class="tishi" v-if="$store.state.cart.zhengzhou.length == 0 && $store.state.cart.japan.length == 0 && frag">您的购物车还没有物品，快去找找你喜欢的物品加入购物车吧O(∩_∩)O</div>
     </div>
     <carfooter :list="goodsList"></carfooter>
-
-
     <div class="yidong" :class="{active:a}">显示</div>
   </div>
 </template>
