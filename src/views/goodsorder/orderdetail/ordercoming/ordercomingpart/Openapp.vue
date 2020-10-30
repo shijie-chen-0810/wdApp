@@ -1,7 +1,7 @@
 <template>
   <div class="openapp">
     <div class="openapp-img">
-      <img src="/resource/img/pc/logo-b.png" alt="">
+      <img src="assets/images/profile/myorder/logo-b.png" alt="">
     </div>
     <div class="openapp-desc" v-if="istrue">
       <span>打开豌豆公主app</span>

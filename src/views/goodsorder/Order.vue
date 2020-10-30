@@ -42,7 +42,6 @@ export default {
 @import '~@/assets/stylus/border.styl'
 div.order-goods
   background #f0eff5
-  height 100vh
   div.orderbar
     display flex
     height .4rem
