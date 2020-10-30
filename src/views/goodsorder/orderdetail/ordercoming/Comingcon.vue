@@ -99,11 +99,9 @@ export default {
         return item
       })
     }
-    
     let newArr = [];  //排好序的数据
     let comarr = [];  //已完成
     let otherarr = [];  //其余
-
     if(dataorder.length!=0){
       dataorder.forEach(item => {
         if(item.order_status === '已完成'){
@@ -113,7 +111,6 @@ export default {
         }
       })
     }
-
     if(comarr.length!=0&&otherarr.length==0){
       comarr = this.timearr(comarr)
       newArr = comarr
@@ -125,7 +122,6 @@ export default {
       otherarr = this.timearr(otherarr)
       newArr = otherarr.concat(comarr)
     }
-
     this.datalist = newArr
     //判断订单各模块是否存在数据
     switch(this.$route.path){

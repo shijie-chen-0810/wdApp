@@ -12,6 +12,13 @@
           v-model="oripwd"
         >
       </div>
+      <div class="login-phone" v-show="isshow">
+        <input 
+          type="password" 
+          placeholder="请输入原密码"
+          v-model.lazy="curpwd"
+        >
+      </div>
       <div class="login-phone">
         <input 
           type="password" 
@@ -41,6 +48,8 @@ import Vue from 'vue';
 import { Dialog } from 'vant';
 import { mapState } from 'vuex'
 import { mapMutations } from 'vuex'
+
+import { setpwd } from 'network/profileRequest/profileRequest'
 export default {
   name:'setpwd',
   data(){
@@ -72,23 +81,27 @@ export default {
       Dialog.confirm({
         message: '你确定吗',
       })
-      .then(() => {
-        // on confirm
-        console.log(111111111)
+      .then(async () => {
+        let res = await setpwd(this.phonenum, this.curpwdaga)
+        if(false){
+          Dialog.alert({
+            message: '密码修改成功',
+          }).then(() => {
+            this.$router.push('/profile')
+          });
+        }else{
+          Dialog.alert({
+            message: '密码修改失败',
+          }).then(() => {
+            this.curpwd = ''
+            this.curpwdaga = ''
+            this.$router.push('/setpwd')
+          });
+        }
       })
-      .catch(() => {
-        // on cancel
-      });
-      
     }
-    
   },
   mounted(){
-    console.log(111111)
-    this.phonenum = this.$store.state.cellphonenumber
-  },
-  activted(){
-    console.log(122222)
     this.phonenum = this.$store.state.cellphonenumber
   },
   watch:{
