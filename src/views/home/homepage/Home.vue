@@ -89,9 +89,6 @@ export default {
     AuthorityList,
     GoodsList
   },
-  mounted(){
-    // this.$refs.bscroll.bscroll.on('scroll',this.scroll)
-  },
   methods:{
     async loadData(offset){
       try{

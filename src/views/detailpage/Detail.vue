@@ -131,7 +131,7 @@ export default {
       }
     },
     goback(){
-      this.$router.push('/home')
+      this.$router.go(-1)
     },
     refresh(){
       clearTimeout(this.timer)
