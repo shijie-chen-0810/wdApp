@@ -12,6 +12,9 @@
       <div class="tishi" v-if="$store.state.cart.zhengzhou.length == 0 && $store.state.cart.japan.length == 0 && frag">您的购物车还没有物品，快去找找你喜欢的物品加入购物车吧O(∩_∩)O</div>
     </div>
     <carfooter :list="goodsList"></carfooter>
+
+
+    <div class="yidong" :class="{active:a}">显示</div>
   </div>
 </template>
 
@@ -28,7 +31,8 @@ export default {
     return {
       operation:'编辑',
       goodsList:[],
-      frag:false
+      frag:false,
+      a:false
     }
   },
   components:{
@@ -42,6 +46,7 @@ export default {
     },
     click(){
       this.operation = this.operation === "编辑" ? "完成" : "编辑"
+      this.a = !this.a
     }
       
   },
@@ -97,4 +102,18 @@ export default {
       line-height .20rem
       font-weight bold
       text-indent 2
+.yidong
+  position fixed
+  width 100%
+  height 4rem
+  background #fff
+  bottom -4rem
+  border 1px solid #ccc
+  border-radius .3rem .3rem 0 0
+  z-index 100000
+  transition all 1s 0s linear 
+.active
+  bottom 0
+
+
 </style>

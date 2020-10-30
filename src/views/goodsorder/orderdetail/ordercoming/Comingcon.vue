@@ -73,7 +73,7 @@ export default {
   },
   async mounted(){
     let res = await axios({
-      url:`http://10.9.64.245:5000/cart/getcart?id=${this.$store.state.cellphonenumber}`
+      url:`http://106.13.129.90:5000/cart/getcart?id=${this.$store.state.cellphonenumber}`
       // url:"http://localhost:8080/orderlist.json"
     })
     
