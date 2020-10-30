@@ -38,7 +38,6 @@ export default {
     methods: {
         goDetail(goods_id) {
             this.$router.push({ name: 'detail', params: { id: goods_id }})
-            this.$router.go(0)
         },
         refresh(){
             this.$emit('refresh')
