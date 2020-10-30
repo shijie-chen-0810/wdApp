@@ -28,7 +28,7 @@ export default {
   methods:{
     //数组中时间从现在到之前（排序）
     sorttime(b,a){
-      return Date.parse(a.ctime) - Date.parse(b.ctime);
+      return Date.parse(a.ctime2) - Date.parse(b.ctime2);
     },
     //时间格式化(格式， new Date())
     dateFormat(fmt, date) {
@@ -71,14 +71,13 @@ export default {
       }
     }
   },
-  async activated(){
-    console.log(11111111111111111111111111111111111111)
+  async mounted(){
     let res = await axios({
       url:`http://106.13.129.90:5000/cart/getcart?id=${this.$store.state.cellphonenumber}`
       // url:"http://localhost:8080/orderlist.json"
     })
-    
     let dataorder = [];     //只存在于order中的数据
+    console.log(res.data)
     if(res.data.length!=0){
       res.data.forEach(item => {
         if(item.ctime != 0){
@@ -96,7 +95,8 @@ export default {
           }
         }
         //时间格式化
-        item.ctime = this.dateFormat("YYYY-mm-dd HH:MM:SS", new Date(item.ctime - 0))
+        // item.ctime = this.dateFormat("YYYY-mm-dd HH:MM:SS", new Date(item.ctime - 0))
+        item.ctime2 = this.dateFormat("YYYY-mm-dd HH:MM:SS", new Date(item.ctime - 0))
         return item
       })
     }
@@ -125,6 +125,7 @@ export default {
       newArr = otherarr.concat(comarr)
     }
     this.datalist = newArr
+    
     //判断订单各模块是否存在数据
     switch(this.$route.path){
       case '/order/all':
