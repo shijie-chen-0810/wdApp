@@ -12,6 +12,6 @@ export function phoneLogin(username) {
       'content-type':'application/json'
     },
     url:'/profile/users/phonelogin',
-    data:{username}
+    data:{cellphonenumber:username}
   })
 }

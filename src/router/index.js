@@ -171,10 +171,9 @@ router.beforeEach(async (to, from, next) => {
   const result = await islogin()
   if (result.code === 200) {
     $store.commit('changeislogin', { islogin: true })
-    const cellphonenumber = JSON.parse(result.msg).username
+    const cellphonenumber = JSON.parse(result.msg).cellphonenumber
     $store.commit('changephonenumroot',{cellphonenumber})
   }
-  // 
   next()
 }) 
 
