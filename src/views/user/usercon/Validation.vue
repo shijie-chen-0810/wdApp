@@ -56,8 +56,9 @@ export default {
       if(this.verifynum.length === 6 && this.verifynum === this.$store.state.profile.verifycode){
         //根据状态码判断后端是否正确处理phonenum,
         let res = await phoneLogin(this.$store.state.cellphonenumber)
-        if(res.status === 200){ 
+        if(res.data.status === 200){ 
           //修改vuex中登录状态位true
+          localStorage.setItem('x-access-token',res['headers']['x-access-token'])
           this.changeislogin({
             type:'changeislogin',
             islogin: true
