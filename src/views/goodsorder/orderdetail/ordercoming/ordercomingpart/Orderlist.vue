@@ -3,7 +3,7 @@
     <div v-for="(data,i) in datalist" :key="i" class="list-sort">
       <div class="order-list">
         <div class="time-pay">
-          <span>{{data[0].ctime}}</span>
+          <span>{{data[0].ctime2}}</span>
           <i>{{data[0].order_status}}</i>
         </div>
         <div class="goods-img">
@@ -22,7 +22,7 @@
             <i>消费税￥{{(totalpri(data)*0.08).toFixed(2)}}</i>
           </div>
           <div>
-            <span>截止日期 {{formattime(data[0].ctime)}}</span>
+            <span>截止日期 {{formattime(data[0].ctime2)}}</span>
           </div>
         </div>
         <div class="totalprice">
@@ -61,8 +61,7 @@ export default {
   methods:{
     //去付款
     handlegopay(time, price){
-      let times = new Date(time).getTime()
-      this.$router.push(`/cart/pay?price=${price}&time=${times}`)
+      this.$router.push(`/cart/pay?price=${price}&time=${time}`)
     },
     //计算总价
     totalpri(data){
