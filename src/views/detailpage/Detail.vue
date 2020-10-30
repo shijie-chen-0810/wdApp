@@ -83,7 +83,7 @@ export default {
       sku: {
         tree: [
             {
-            k: '颜色', // skuKeyName：规格类目名称
+            k: '规格', // skuKeyName：规格类目名称
             k_s: 's1', // skuKeyStr：sku 组合列表（下方 list）中当前类目对应的 key 值，value 值会是从属于当前类目的一个规格值 id
             v: [
                 {
@@ -210,15 +210,15 @@ export default {
     },
     goBuy(){
       this.show = true
-      // this.goodsId = ''
-      this.goods.picture = 'https://oss1.wandougongzhu.cn/07c86d37beb2f44f3c08ef0ec812dd45.png?x-oss-process=image/resize,w_360,h_4000/format,png'
-      this.sku.tree[0].v[0].imgUrl = 'https://oss1.wandougongzhu.cn/07c86d37beb2f44f3c08ef0ec812dd45.png?x-oss-process=image/resize,w_360,h_4000/format,png'
-      // this.sku.tree[0].v[0].id = ''
-      // this.sku.tree[0].v[0].name = ''
-      // this.sku.list[0].stock_num = ''
-      // this.sku.list[0].price = ''
-      // this.sku.price = ''
-      // this.sku.stock_num = ''
+      this.goodsId = this.goodsDetail.goods_id
+      this.goods.picture = this.goodsDetail.img_middle
+      this.sku.tree[0].v[0].imgUrl = this.goodsDetail.img_middle
+      // this.sku.tree[0].v[0].id = this.goodsDetail.goods_id
+      this.sku.tree[0].v[0].name = this.goodsDetail.short_title
+      this.sku.list[0].stock_num = Number(this.goodsDetail.residue_count)
+      this.sku.list[0].price = this.goodsDetail.finalPrice * 100
+      this.sku.price = this.goodsDetail.finalPrice
+      this.sku.stock_num = Number(this.goodsDetail.residue_count)
     },
     onBuyClicked(){
       console.log('~~~~~~~~~')

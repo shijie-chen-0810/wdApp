@@ -233,15 +233,4 @@ export default {
         padding-left 0.15rem
         li
             padding-right 0.13rem
-
-            
-                
-
-
-
-                
-                
-                    
-
-
 </style>
