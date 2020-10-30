@@ -14,7 +14,6 @@
     <carfooter :list="goodsList"></carfooter>
 
 
-    <div class="yidong" :class="{active:a}">显示</div>
   </div>
 </template>
 
@@ -31,8 +30,7 @@ export default {
     return {
       operation:'编辑',
       goodsList:[],
-      frag:false,
-      a:false
+      frag:false
     }
   },
   components:{
@@ -102,18 +100,6 @@ export default {
       line-height .20rem
       font-weight bold
       text-indent 2
-.yidong
-  position fixed
-  width 100%
-  height 4rem
-  background #fff
-  bottom -4rem
-  border 1px solid #ccc
-  border-radius .3rem .3rem 0 0
-  z-index 100000
-  transition all 1s 0s linear 
-.active
-  bottom 0
 
 
 </style>
