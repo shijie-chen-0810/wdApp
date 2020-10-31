@@ -99,6 +99,10 @@ const routes = [
     component:()=>import('views/home/cartpage/payprice/Payprice')
   },
   {
+    path:'/cart/cartplace',
+    component:()=>import('views/home/cartpage/carplace/Carplace')
+  },
+  {
     path: '/detail/:id',
     name:'detail',
     component:Detail

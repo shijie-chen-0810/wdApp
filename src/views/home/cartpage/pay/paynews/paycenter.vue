@@ -23,7 +23,7 @@
         <input type="text" placeholder="输入地址" v-model.lazy="info.xiangplace">
       </div>
     </div>
-    <div class="allplace" v-else>
+    <div class="allplace" v-else @click="placechange">
       <div class="left">
         <img src="~assets/images/see/pay6.png" alt="">
         <div>
@@ -115,7 +115,6 @@ export default {
       const {house_id} = this.$route.query
       if(house_id == 200){
         const a = this.$store.state.cart.goodsList.filter(item=>item.checked==true)
-        console.log(a)
         if(a.length == 0) return 0
         return 1
       }else{
@@ -146,6 +145,9 @@ export default {
     }
   },
   methods: {
+    placechange(){
+      this.$router.push({path:'/cart/cartplace'})
+    },
     yundong(){
       this.dong = !this.dong
       this.frg = !this.frg
@@ -175,7 +177,7 @@ export default {
       const username = this.$store.state.cellphonenumber
       const place = localStorage.getItem(username)
       if(place){
-        this.info = JSON.parse(place)
+        this.info = JSON.parse(place)[0]
       }
     }
   },

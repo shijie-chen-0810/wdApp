@@ -2,7 +2,7 @@
   <div class="youhui">
       <p>{{fuli}}</p>
       <b>{{goods.display_act_tag}}</b>
-      <i>更换</i>
+      <!-- <i>更换</i> -->
   </div>
 </template>
 
@@ -12,7 +12,7 @@ export default {
   computed:{
     fuli(){
       const reg = /^\d{2}/
-      if(reg.test(this.goods.display_act_tag)) return "N元自选"
+      if(reg.test(this.goods.display_act_tag)) return "优惠"
       if(this.goods.display_act_tag=="新人专享") return "新人"
       if(this.goods.display_act_tag=="限时折扣") return "折扣"
     }
@@ -24,7 +24,6 @@ export default {
 .youhui
   margin-top .1rem
   display flex
-  justify-content space-between
   p
     padding .05rem .02rem .05rem .03rem
     background #d84f49
@@ -42,9 +41,5 @@ export default {
     overflow: hidden;
     text-overflow:ellipsis;
     white-space: nowrap;
-  i  
-    color #d84f49
-    font-size .12rem
-    line-height .12rem
-    margin .05rem 0 0 .01rem
+    margin-left .1rem
 </style>
