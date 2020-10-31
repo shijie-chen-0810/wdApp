@@ -1,4 +1,5 @@
 import {getCartData} from 'network/cartRequest/cartRequest'
+import {getGoods} from 'network/homeRequest/homeRequest'
 export default {
   namespaced:true,
   state: {
@@ -6,9 +7,33 @@ export default {
     japan:[],
     payzhengzhou:[],
     payjapan:[],
-    goods:[]
+    goods:[],
+    goodsList:[],
+    goodsjapan:[],
   },
   mutations: {
+    clear(state){
+      state.goodsList.forEach(item=>item.checked = false)
+      state.goodsjapan.forEach(item=>item.checked = false)
+    },
+    huangougoods(state,goods){
+      state.goodsList.forEach(item=>{
+        if(item == goods){
+          item.checked = !item.checked
+        }else{
+          item.checked = false
+        }
+      })
+    },
+    huangougoodsjapan(state,goods){
+      state.goodsjapan.forEach(item=>{
+        if(item == goods){
+          item.checked = !item.checked
+        }else{
+          item.checked = false
+        }
+      })
+    },
     goods(state,a){
       a = a.filter(item=>item.ctime == 0)
       a.forEach(item=>{
@@ -69,10 +94,26 @@ export default {
       }
     },
     paypricegoods(state,{a,time}){
-      console.log(time)
       state.goods= a.filter(item=>item.ctime == time)
-      console.log(state.goods)
     },
+    huangou(state,a){
+      a.data.forEach(item=>{
+        state.goodsList.push({
+          ...item,
+          num:1,
+          checked:false
+        })
+      })
+    },
+    huangoujapan(state,a){
+      a.data.forEach(item=>{
+        state.goodsjapan.push({
+          ...item,
+          num:1,
+          checked:false
+        })
+      })
+    }
   },
   actions: {
     async goods(context) {
@@ -82,6 +123,14 @@ export default {
     async paypricegoods(context,time){
       const a = await getCartData(context.rootState.cellphonenumber)
       context.commit('paypricegoods',{a,time})
+    },
+    async huangou(context) {
+      const a = await getGoods(200,24)
+      context.commit('huangou',a)
+    },
+    async huangoujapan(context) {
+      const a = await getGoods(300,24)
+      context.commit('huangoujapan',a)
     }
   },
   getters:{

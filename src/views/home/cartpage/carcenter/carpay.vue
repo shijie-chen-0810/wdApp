@@ -1,14 +1,14 @@
 <template>
   <div class="pay">
     <div class="left">
-      <p>合计: <span>{{price[1]}}</span> <i>已优惠￥{{price[2]}}</i></p>
+      <p>合计: <span>{{price[1] + xuangou[0]}}</span> <i>已优惠￥{{price[2]}}</i></p>
       <b>不含运费和综合税</b>
     </div>
     <router-link
     :class="{btn:good.length ==0}" 
     :disabled="good.length == 0" 
-    :to="{path:'/pay',query:{price:price[1],house_id:goods[0].house_id}}" tag="button"
-    >结算{{type}}({{price[0]}})</router-link>
+    :to="{path:'/pay',query:{price:price[1] + xuangou[0],house_id:goods[0].house_id}}" tag="button"
+    >结算{{type}}({{price[0]+xuangou[1]}})</router-link>
   </div>
 </template>
 
@@ -35,6 +35,23 @@ export default {
         return this.$store.state.cart.payzhengzhou
       }else{
         return this.$store.state.cart.payjapan
+      }
+    },
+    xuangou(){
+      if(this.goods[0].house_id == 200){
+        const goodsone = this.$store.state.cart.goodsList.filter(item=>item.checked == true)
+        if(goodsone.length == 0){
+          return [0,0]
+        }else{
+          return [goodsone[0].final_price,goodsone[0].num]
+        }
+      }else{
+        const goodsone = this.$store.state.cart.goodsjapan.filter(item=>item.checked == true)
+        if(goodsone.length == 0){
+          return [0,0]
+        }else{
+          return [goodsone[0].final_price,goodsone[0].num]
+        }
       }
     }
   },

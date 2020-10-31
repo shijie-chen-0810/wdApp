@@ -1,8 +1,6 @@
 import instance from 'network/baseRequest'
 
-instance.defaults.baseURL = 'http://106.13.129.90:5000'
-instance.defaults.timeout = 5000
-instance.defaults.port = 5000
+
 
 
 
@@ -21,3 +19,14 @@ export function updateCart(arr) {
   })
 }
 
+
+export function deleteCart(user_id,goods_id) {
+  return instance({
+    method:'DELETE',
+    url:'/cart/deletecart',
+    data:{
+      user_id,
+      goods_id
+    }
+  })
+}

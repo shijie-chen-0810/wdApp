@@ -62,6 +62,15 @@ export default {
   async activated(){
     const b = await this.$store.dispatch('cart/goods')
     this.frag = true
+    this.$store.commit('cart/clear')
+    if(this.$refs.zhengzhou){
+      this.$refs.zhengzhou.$refs.a.goodsone = []
+      this.$refs.zhengzhou.$refs.a.huangou = '去换购'
+    }
+    if(this.$refs.japan){
+      this.$refs.japan.$refs.a.goodsone = []
+      this.$refs.japan.$refs.a.huangou = '去换购'
+    }
   },
 }
 </script>

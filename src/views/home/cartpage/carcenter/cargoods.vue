@@ -35,6 +35,8 @@ Vue.use(Checkbox).use(Stepper)
 
 
 import cargoodschange from './cargoodschange'
+
+import {deleteCart} from 'network/cartRequest/cartRequest'
 export default {
   props:["goods"],
   computed:{
@@ -57,6 +59,8 @@ export default {
           goods
         })
       }
+      const user_id = this.$store.state.cellphonenumber
+      deleteCart(user_id,goods.goods_id)
     },
     plus(goods){
       const house = this.goods[0].house_id

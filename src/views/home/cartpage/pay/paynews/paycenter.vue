@@ -54,7 +54,7 @@
     <div class="goods">
         <paygoods class="good"  :class="{active:frg}"></paygoods>
     </div>
-    <div class="num" @click="yundong">{{type}}共{{num}}件物品
+    <div class="num" @click="yundong">{{type}}共{{num+huangou}}件物品
       <span class="iconfont" v-if="dong">&#xe665;</span> 
       <span class="iconfont" v-else>&#xe65a;</span> 
     </div>
@@ -111,6 +111,19 @@ export default {
     paygoods
   },
   computed:{
+    huangou(){
+      const {house_id} = this.$route.query
+      if(house_id == 200){
+        const a = this.$store.state.cart.goodsList.filter(item=>item.checked==true)
+        console.log(a)
+        if(a.length == 0) return 0
+        return 1
+      }else{
+        const a = this.$store.state.cart.goodsjapan.filter(item=>item.checked==true)
+        if(a.length == 0) return 0
+        return 1
+      }
+    },
     num(){
       const {house_id} = this.$route.query
       return this.$store.getters['cart/paynum'](house_id)
