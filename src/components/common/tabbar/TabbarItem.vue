@@ -20,7 +20,7 @@ export default {
   methods:{
     clickHandler(){
       if(this.isActive)return
-      this.$router.replace(this.path)
+      this.$router.push(this.path)
     }
   }
 }

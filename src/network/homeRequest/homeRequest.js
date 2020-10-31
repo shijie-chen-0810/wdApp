@@ -1,12 +1,6 @@
-import axios from 'network/request'
-
-const instance = axios.create()
+import instance from 'network/baseRequest'
 
 
-instance.interceptors.response.use(res => {
-  console.log(res)
-  return res.data
-})
 
 export function getSortData() {
   return instance({
@@ -14,6 +8,16 @@ export function getSortData() {
   })
 }
 
-
+export function getGoods(offset,limit) {
+  return instance({
+    url: '/home/getGoods',
+    methods: 'GET',
+    params: {
+      offset,
+      limit
+    },
+    responceType: 'JSON'
+  })
+}
 
 

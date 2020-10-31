@@ -1,10 +1,10 @@
 <template>
   <div>
     <div class="center">
-      <carshop></carshop>
-      <carchange></carchange>
-      <cargoods></cargoods>
-      <carpay></carpay>
+      <carshop :goods="goods"></carshop>
+      <carchange ref="a" :goods="goods"></carchange>
+      <cargoods :goods="goods"></cargoods>
+      <carpay :goods="goods"></carpay>
     </div>
     <div class="xian"></div>
   </div>
@@ -16,6 +16,12 @@ import carchange from './carchange'
 import cargoods from './cargoods'
 import carpay from './carpay'
 export default {
+  props:['goods'],
+  data(){
+    return {
+      checked:true
+    }
+  },
   components:{
     carshop,
     carchange,

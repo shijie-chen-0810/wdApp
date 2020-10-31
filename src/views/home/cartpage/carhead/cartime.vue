@@ -6,6 +6,7 @@
         <div class="top">
           <span class="iconfont">&#xe613;</span>
           <p>下单领好礼<span>剩余时间</span></p>
+          <van-count-down :time="time" format="DD 天 HH 时 mm 分 ss 秒" class="time"/>
         </div>
         <div class="bottom">
           <carbottom class="son"></carbottom>
@@ -21,10 +22,18 @@
 <script>
 import carbottom from './carbottom'
 import carbtn from './carbtn'
+
+import Vue from 'vue';
+import { CountDown } from 'vant';
+
+Vue.use(CountDown);
 export default {
   components:{
     carbottom,
     carbtn
+  },
+  created(){
+    this.time = new Date('2020-11-30 00:00:00') - new Date()
   }
 }
 </script>
@@ -65,6 +74,10 @@ export default {
             font-size 0.11rem 
             font-weight normal
             margin 0 0.06rem
+        .time
+          color #da5225
+          font-size 0.12rem
+          line-height 0.12rem
       .bottom
         width 100%
         height 0.24rem

@@ -1,5 +1,5 @@
 <template>
-  <div class="btn">查看好礼</div>
+  <router-link to="/cart/see" tag="div" class="btn">查看好礼</router-link>
 </template>
 
 <script>

@@ -1,16 +1,67 @@
 <template>
   <div class="pay">
     <div class="left">
-      <p>合计: <span>￥158.00</span> <i>已优惠￥0.00</i></p>
+      <p>合计: <span>{{price[1] + xuangou[0]}}</span> <i>已优惠￥{{price[2]}}</i></p>
       <b>不含运费和综合税</b>
     </div>
-    <button>结算郑州保税仓(1)</button>
+    <router-link
+    :class="{btn:good.length ==0}" 
+    :disabled="good.length == 0" 
+    :to="{path:'/pay',query:{price:price[1] + xuangou[0],house_id:goods[0].house_id}}" tag="button"
+    >结算{{type}}({{price[0]+xuangou[1]}})</router-link>
   </div>
 </template>
 
 <script>
 export default {
-
+  props:["goods"],
+  data(){
+    return {
+      type:'郑州保税仓'
+    }
+  },
+  computed: {
+    price(){
+      const house = this.goods[0].house_id
+      return this.$store.getters['cart/price'](house)
+    },
+    good(){
+      const house = this.goods[0].house_id
+      this.$store.commit({
+        type:'cart/paygoods',
+        house
+      })
+      if(house == 200){
+        return this.$store.state.cart.payzhengzhou
+      }else{
+        return this.$store.state.cart.payjapan
+      }
+    },
+    xuangou(){
+      if(this.goods[0].house_id == 200){
+        const goodsone = this.$store.state.cart.goodsList.filter(item=>item.checked == true)
+        if(goodsone.length == 0){
+          return [0,0]
+        }else{
+          return [goodsone[0].final_price,goodsone[0].num]
+        }
+      }else{
+        const goodsone = this.$store.state.cart.goodsjapan.filter(item=>item.checked == true)
+        if(goodsone.length == 0){
+          return [0,0]
+        }else{
+          return [goodsone[0].final_price,goodsone[0].num]
+        }
+      }
+    }
+  },
+  mounted(){
+    if(this.goods[0].house_id == 200){
+      this.type = "郑州保税仓"
+    }else{
+      this.type = "日本仓"
+    }
+  }
 }
 </script>
 
@@ -48,4 +99,6 @@ export default {
     background #d84f49
     border none 
     outline none
+.btn
+  background #ccc!important
 </style>

@@ -1,14 +1,22 @@
 <template>
   <div class="youhui">
-      <p>N元自选</p>
-      <b>155元任选两件155元任选两件</b>
-      <i>更换</i>
+      <p>{{fuli}}</p>
+      <b>{{goods.display_act_tag}}</b>
+      <!-- <i>更换</i> -->
   </div>
 </template>
 
 <script>
 export default {
-
+  props:['goods'],
+  computed:{
+    fuli(){
+      const reg = /^\d{2}/
+      if(reg.test(this.goods.display_act_tag)) return "优惠"
+      if(this.goods.display_act_tag=="新人专享") return "新人"
+      if(this.goods.display_act_tag=="限时折扣") return "折扣"
+    }
+  }
 }
 </script>
 
@@ -17,7 +25,7 @@ export default {
   margin-top .1rem
   display flex
   p
-    padding .05rem .03rem
+    padding .05rem .02rem .05rem .03rem
     background #d84f49
     color #fff
     font-size .12rem
@@ -33,9 +41,5 @@ export default {
     overflow: hidden;
     text-overflow:ellipsis;
     white-space: nowrap;
-  i  
-    color #d84f49
-    font-size .12rem
-    line-height .12rem
-    margin .05rem 0 0 .01rem
+    margin-left .1rem
 </style>

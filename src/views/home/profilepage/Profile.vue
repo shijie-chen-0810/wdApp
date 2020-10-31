@@ -2,44 +2,107 @@
   <div class="profile">
     <div class="user">
 
-      <router-link class="user-top" tag="div" to="/login">
-        <div>
-          <img src="../../../assets/images/profile/my_wandoulogotop.png" alt="">
+      <div class="user-top">
+        <div @click='setProfile'>
+          <img src="~assets/images/profile/my_wandoulogotop.png" alt="">
         </div>
-        <p>点击登录 / 注册</p>
-      </router-link>
+        <p v-if="islogin" @click="enterlogin">点击登录 / 注册</p>
+        <p v-else>{{querynum}}</p>
+        <i v-if="!islogin" @click="setpwd">设置密码</i>
+      </div>
       
       <ul class="user-content">
-        <li>
-          <p>-</p>
-          <span>低现积分</span>
-        </li>
-        <li>
-          <p>-</p>
-          <span>优惠卷</span>
-        </li>
-        <li>
-          <p>-</p>
-          <span>公主说</span>
-        </li>
+        <router-link tag="li" v-for="data in datalist" :key="data.id" :to="data.active">
+          <p>{{islogin? '-':data.number}}</p>
+          <span>{{data.modulename}}</span>
+        </router-link>
       </ul>
     </div>
+    <Profilevip></Profilevip>
     <profileorder></profileorder>
     <profileserve></profileserve>
-    <profiledownload></profiledownload>
+    <profiledownload @logoutnow="logout"></profiledownload>
   </div>
 </template>
 
 <script>
+import Profilevip from "./profilefeature/Profilevip"
 import Profileorder from "./profilefeature/Profileorder"
 import Profileserve from "./profilefeature/Profileserve"
 import Profiledownload from "./profilefeature/Profiledownload"
 
 export default {
+  name:'profile',
+  data(){
+    return {
+      islogin:true,
+      querynum:'',
+      datalist:[
+        {
+          id:'001',
+          number:0,
+          modulename:'低现积分',
+          active:'/integral'
+        },
+        {
+          id:'002',
+          number:0,
+          modulename:'优惠卷',
+          active:''
+        },
+        {
+          id:'003',
+          number:0,
+          modulename:'公主说',
+          active:''
+        }
+      ]
+    }
+  },
+  activated(){
+    if(this.$store.state.islogin){
+      this.querynum = this.$store.state.cellphonenumber;
+      this.islogin = false;
+    }else{
+      this.querynum = '';
+      this.islogin = true;
+    }
+  },
+  mounted(){
+    if(this.$store.state.islogin){
+      this.querynum = this.$store.state.cellphonenumber;
+      this.islogin = false;
+    }else{
+      this.querynum = '';
+      this.islogin = true;
+    }
+  },
   components:{
+    Profilevip,
     Profileorder,
     Profileserve,
     Profiledownload
+  },
+  methods:{
+    logout(){
+      this.querynum = ''
+      this.islogin = true;
+    },
+    enterlogin(){
+      if(this.islogin === true){
+        this.$router.push('/login')
+      }
+    },
+    setpwd(){
+      this.$router.push('/setpwd')
+    },
+    setProfile(){
+      if(this.$store.state.islogin){
+        this.$router.push('/modifydata')
+      }else{
+        this.$toast.fail('您还未登录')
+      }
+    }
   }
 }
 </script>
@@ -53,7 +116,7 @@ export default {
   margin .15rem
   .user
     height 1.8rem
-    background url('../../../assets/images/profile/my_backgroundtop.png') no-repeat
+    background url('~assets/images/profile/my_backgroundtop.png') no-repeat
     background-size 100% 100%
     color #ffffff
     display flex
@@ -73,6 +136,12 @@ export default {
       >p
         font-size .18rem
         margin-left .2rem
+        flex 1
+      >i 
+        font-size .12rem
+        color #fff
+        opacity 0.5
+        width .6rem
     .user-content
       display flex
       margin-bottom .1rem
