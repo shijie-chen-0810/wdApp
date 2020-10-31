@@ -65,9 +65,7 @@ export default {
         },
         async getitem(){
             const res = await instance.get("/home/gethotkey")
-            console.log(res)
             this.name = res
-            // console.log(this.name) 
         },
         clear(){
             this.se_input = ''
@@ -112,7 +110,7 @@ export default {
         display flex
         -webkit-box-align center
         align-items center
-        height .56rem
+        height .44rem
         z-index 1
         position fixed
         width 100%
@@ -129,12 +127,12 @@ export default {
         align-items center
     .top_left_btn
         background url('~assets/images/search/out.png')
-        height .31rem
+        height .30rem
         width .31rem
     .top_search
         -webkit-box-flex 1
         flex 1
-        height .35rem
+        height .30rem
         border-radius .17rem
         background-color #efefef
         display -webkit-box
@@ -142,7 +140,7 @@ export default {
         -webkit-box-pack justify
         justify-content space-between
     .search_logo
-        height .35rem;
+        height .30rem;
         width .42rem;
         background url(https://s2.wandougongzhu.cn/h5/resource/img/icon/ic_search_a6f6c5.png) 50% no-repeat
         background-size .19rem .21rem;
@@ -151,7 +149,7 @@ export default {
         flex 1;
     .se-input
         box-sizing border-box
-        height .35rem
+        height .30rem
         width 100%
         padding .1rem 0 
         border none
@@ -162,10 +160,10 @@ export default {
     .search_btn
         position relative
         width .33rem
-        height .35rem
+        height .30rem
         background url('~assets/images/search/btn.png') no-repeat
         text-align center
-        margin-top .07rem
+        margin-top .04rem
     .sub_btn
         border none
         background-color initial
