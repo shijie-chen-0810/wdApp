@@ -5,14 +5,12 @@
       <div class="center">收货地址</div>
       <div class="right"></div>
     </div>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
 export default {
-  mounted() {
-    console.log(JSON.parse(localStorage.getItem(this.$store.state.cellphonenumber)))
-  },
   methods: {
     click(){
       this.$router.go(-1)
@@ -37,4 +35,5 @@ export default {
     line-height .4rem
     font-size .15rem
     color #000
+
 </style>

@@ -56,7 +56,8 @@ export default {
     }
   },
   async mounted() {
-    const a = await getGoods(100,24)
+    let num = parseInt(Math.random() * 400)
+    const a = await getGoods(num,24)
     this.goodsList = a.data
   },
   async activated(){

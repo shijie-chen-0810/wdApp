@@ -177,7 +177,7 @@ export default {
       const username = this.$store.state.cellphonenumber
       const place = localStorage.getItem(username)
       if(place){
-        this.info = JSON.parse(place)[0]
+        this.info = JSON.parse(place).filter(item=>item.checked == true)[0]
       }
     }
   },
