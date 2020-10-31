@@ -11,7 +11,7 @@
                 </div>
                 <div class="search_btn" @click="clear()"></div>
             </div>
-            <button type="submit" class="sub_btn" @click="sub_btn()">搜索</button>
+            <button class="sub_btn"></button>
         </div>
         <div class="search_bottom"> 
             <div class="hot_bottom" ref="hot_xs">
@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import instance from 'network/baseRequest'
 export default {
     data() {
         return {
@@ -52,8 +52,8 @@ export default {
             se_input:'',
             hot_xs:'',
             hot_sx:'',
-            good_list:[]
-
+            good_list:[],
+            timeout:0
         }
     },
     created () {
@@ -64,48 +64,42 @@ export default {
             this.$router.push('/home')
         },
         async getitem(){
-            const res = await axios.get("/home/gethotkey")
-            // console.log(res)
-            this.name = res.data
+            const res = await instance.get("/home/gethotkey")
+            console.log(res)
+            this.name = res
             // console.log(this.name) 
         },
         clear(){
             this.se_input = ''
             this.$refs.hot_xs.style.display = "block"
             this.$refs.hot_sx.style.display = "none"
-        }, 
-        sub_btn(){
-            this.$router.push('/home')
         },
             
         async search_input(){
-            
+            this.$toast.clear()
             if(this.se_input === ""){
                 this.$refs.hot_xs.style.display = "block"
                 this.$refs.hot_sx.style.display = "none"
                 return
             }
-            let timeout = ''
-            if(!timeout){
-                timeout = setTimeout(async()=>{
-                    timeout = null
-                    const res = await axios.get('/home/search?key=' + this.se_input )
-                },1000)
-            }
-            if(res.data.length == 0){
-                return 
-            }else{
-                this.$refs.hot_xs.style.display = "none"
-                this.$refs.hot_sx.style.display = "block"
-            }
+
+            let res = ''
+            clearTimeout(this.timeout)
+            this.timeout = setTimeout(async ()=>{
+                const res = await instance.get('/home/search?key=' + this.se_input )
+                if(res.length == 0){
+                    this.$toast('没有相关商品')
+                    this.$refs.hot_xs.style.display = "block"
+                    this.$refs.hot_sx.style.display = "none"
+                    return 
+                }else{
+                    this.$refs.hot_xs.style.display = "none"
+                    this.$refs.hot_sx.style.display = "block"
+                }
+                this.good_list = res.slice(0,9)
+                this.goods_id = res
+            },300)
             
-            if(this.se_input === ""){
-                this.$refs.hot_xs.style.display = "block"
-                this.$refs.hot_sx.style.display = "none"
-            }
-            this.good_list = res.data.slice(0,9)
-            this.goods_id = res.data
-            // console.log(this.good_list)
         }
     },
 }
