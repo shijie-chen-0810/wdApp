@@ -130,7 +130,7 @@ export default {
                 div
                     height 0.12rem 
                     font-size 0.12rem
-                    line-height 0.12rem
+                    line-height 0.1323rem
                     padding 0 0.03rem
                     margin-top 0.08rem
                 div:nth-of-type(1)
