@@ -81,7 +81,7 @@ export default {
 
           let res = await axios({
             method: 'post',
-            url: `/2013-12-26/Accounts/${asid}/SMS/TemplateSMS?sig=${sig}`,
+            url: `/api/2013-12-26/Accounts/${asid}/SMS/TemplateSMS?sig=${sig}`,
             headers:{
               'Accept':'application/json',
               'Content-Type':'application/json;charset=utf-8',
