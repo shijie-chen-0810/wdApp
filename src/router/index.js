@@ -105,6 +105,21 @@ const routes = [
     component:()=>import('views/home/cartpage/payprice/Payprice')
   },
   {
+    path:'/cart/cartplace',
+    component:()=>import('views/home/cartpage/carplace/Carplace'),
+    redirect:'/cart/cartplace/show',
+    children:[
+      {
+        path:'show',
+        component:()=>import('views/home/cartpage/carplace/carplacecenter')
+      },
+      {
+        path:'set',
+        component:()=>import('views/home/cartpage/carplace/carplaceset')
+      },
+    ]
+  },
+  {
     path: '/detail/:id',
     name:'detail',
     component:Detail

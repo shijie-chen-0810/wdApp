@@ -11,7 +11,7 @@
             {{key.slogan}}{{key.goods_name}}
           </router-link>
           <div class="change">
-            <div class="case">{{type}}<span class="iconfont">&#xe665;</span></div>
+            <div class="case">{{type}}</div>
           </div>
           <div class="bottom" v-if="$parent.$parent.operation == '编辑'">
             <span>￥{{key.final_price}}</span>
@@ -35,6 +35,8 @@ Vue.use(Checkbox).use(Stepper)
 
 
 import cargoodschange from './cargoodschange'
+
+import {deleteCart} from 'network/cartRequest/cartRequest'
 export default {
   props:["goods"],
   computed:{
@@ -57,6 +59,8 @@ export default {
           goods
         })
       }
+      const user_id = this.$store.state.cellphonenumber
+      deleteCart(user_id,goods.goods_id)
     },
     plus(goods){
       const house = this.goods[0].house_id
@@ -145,8 +149,6 @@ export default {
             font-size .12rem
             color #6e6e6e   
             line-height .22rem
-            span 
-              margin-left .02rem
         .bottom
           display flex
           justify-content space-between

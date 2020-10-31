@@ -2,7 +2,7 @@
   <div>
     <div class="center">
       <carshop :goods="goods"></carshop>
-      <carchange></carchange>
+      <carchange ref="a" :goods="goods"></carchange>
       <cargoods :goods="goods"></cargoods>
       <carpay :goods="goods"></carpay>
     </div>

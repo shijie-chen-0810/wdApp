@@ -56,12 +56,22 @@ export default {
     }
   },
   async mounted() {
-    const a = await getGoods(100,24)
+    let num = parseInt(Math.random() * 400)
+    const a = await getGoods(num,24)
     this.goodsList = a.data
   },
   async activated(){
     const b = await this.$store.dispatch('cart/goods')
     this.frag = true
+    this.$store.commit('cart/clear')
+    if(this.$refs.zhengzhou){
+      this.$refs.zhengzhou.$refs.a.goodsone = []
+      this.$refs.zhengzhou.$refs.a.huangou = '去换购'
+    }
+    if(this.$refs.japan){
+      this.$refs.japan.$refs.a.goodsone = []
+      this.$refs.japan.$refs.a.huangou = '去换购'
+    }
   },
 }
 </script>

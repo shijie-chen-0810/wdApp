@@ -62,11 +62,18 @@ export default {
         this.frg = true
       }else{
         const name = this.$store.state.cellphonenumber
-        localStorage.setItem(name,JSON.stringify(a))
+        let place = []
+        console.log(a)
+        
+        let b =  {
+          ...a,
+          checked:true
+        }
+        place.push(b)
+        localStorage.setItem(name,JSON.stringify(place))
 
 
         const time = new Date().getTime()
-        console.log(time)
         const user_id = this.$store.state.cellphonenumber
         let arr = []
         this.goods.forEach(item=>{
