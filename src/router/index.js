@@ -11,14 +11,17 @@ const Sort =  () => import('views/home/sortpage/Sort')
 const Cart =  () => import('views/home/cartpage/Cart')
 const Profile =  () => import('views/home/profilepage/Profile')
 const Err =  () => import('views/err/err')
-const Grade =  () => import('views/grade/grade')
+const Grade =  () => import('views/myservice/grade')
 const Search =  () => import('views/search/search')
-
+const Customerservice =  () => import('views/myservice/Customerservice')
+const Aboutus =  () => import('views/myservice/Aboutus')
+const Selfcomment =  () => import('views/myservice/Selfcomment')
 //profile
 import Userlogin from '../views/user/Userlogin.vue'
 import Setpwd from '../views/user/Setpwd.vue'
 import Loginpwd from '../views/user/usercon/Loginpwd.vue'
 import Modifydata from '../views/user/Modifydata.vue'
+import Integral from '../views/user/Integral.vue'
 //Order
 import Order from '../views/goodsorder/Order.vue'
 import Orderall from '../views/goodsorder/orderdetail/Orderall.vue'
@@ -112,22 +115,6 @@ const routes = [
     component:HomeSortPage
   },
   {
-    path: '/login',
-    component: Userlogin,
-  },
-  {
-    path: '/loginpwd',
-    component: Loginpwd,
-  },
-  {
-    path: '/setpwd',
-    component: Setpwd 
-  },
-  {
-    path: '/modifydata',
-    component: Modifydata
-  },
-  {
     path: '/order',
     component: Order,
     redirect:'/order/:id',
@@ -153,6 +140,38 @@ const routes = [
         component:Comingcommit
       },
     ]
+  },
+  {
+    path: '/customerservice',
+    component:Customerservice 
+  },
+  {
+    path: '/aboutus',
+    component:Aboutus 
+  },
+  {
+    path: '/selfcomment',
+    component: Selfcomment
+  },
+  {
+    path: '/login',
+    component: Userlogin,
+  },
+  {
+    path: '/loginpwd',
+    component: Loginpwd,
+  },
+  {
+    path: '/setpwd',
+    component: Setpwd 
+  },
+  {
+    path: '/modifydata',
+    component: Modifydata
+  },
+  {
+    path: '/integral',
+    component: Integral
   },
   {
     path: '/comments/:id',

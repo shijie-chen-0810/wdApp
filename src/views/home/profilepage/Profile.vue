@@ -12,10 +12,10 @@
       </div>
       
       <ul class="user-content">
-        <li v-for="data in datalist" :key="data.id">
+        <router-link tag="li" v-for="data in datalist" :key="data.id" :to="data.active">
           <p>{{islogin? '-':data.number}}</p>
           <span>{{data.modulename}}</span>
-        </li>
+        </router-link>
       </ul>
     </div>
     <Profilevip></Profilevip>
@@ -41,17 +41,20 @@ export default {
         {
           id:'001',
           number:0,
-          modulename:'低现积分'
+          modulename:'低现积分',
+          active:'/integral'
         },
         {
           id:'002',
           number:0,
-          modulename:'优惠卷'
+          modulename:'优惠卷',
+          active:''
         },
         {
           id:'003',
           number:0,
-          modulename:'公主说'
+          modulename:'公主说',
+          active:''
         }
       ]
     }
