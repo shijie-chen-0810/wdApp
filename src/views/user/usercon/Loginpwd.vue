@@ -53,18 +53,34 @@ export default {
     },
     async confirm(){
       let res =await getlogin(this.username, this.pwd)
-      // if(res.data.status === 200){ 
-      //   //修改vuex中登录状态位true
-      //   localStorage.setItem('x-access-token',res['headers']['x-access-token'])
-      //   this.changeislogin({
-      //     type:'changeislogin',
-      //     islogin: true
-      //   })
-      //   this.changephonenumroot({
-      //     type:'changephonenumroot',
-      //     cellphonenumber: this.username,
-      //   })
-      // }
+      console.log(res)
+      if(res.data.code === 200){ 
+        //修改vuex中登录状态位true
+        localStorage.setItem('x-access-token',res['headers']['x-access-token'])
+        this.changeislogin({
+          type:'changeislogin',
+          islogin: true
+        })
+        this.changephonenumroot({
+          type:'changephonenumroot',
+          cellphonenumber: this.username,
+        })
+        Dialog.alert({
+          message: '登录成功',
+          theme: 'round-button',
+        }).then(() => {
+          this.$router.push('/profile')
+        });
+      }else{
+        Dialog.alert({
+          message: '登录失败',
+          theme: 'round-button',
+        }).then(() => {
+          
+        });
+      }
+
+      
     }
   },
   watch:{
