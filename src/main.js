@@ -4,6 +4,7 @@ import router from './router'
 import store from './store'
 
 import 'assets/css/reset.css'
+import 'assets/css/resetui.css'
 import 'assets/css/iconfont.css'
 
 import md5 from 'js-md5'

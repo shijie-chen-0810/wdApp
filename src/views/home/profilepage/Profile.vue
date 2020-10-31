@@ -3,9 +3,9 @@
     <div class="user">
 
       <div class="user-top">
-        <router-link to="/modifydata" tag="div">
+        <div @click='setProfile'>
           <img src="~assets/images/profile/my_wandoulogotop.png" alt="">
-        </router-link>
+        </div>
         <p v-if="islogin" @click="enterlogin">点击登录 / 注册</p>
         <p v-else>{{querynum}}</p>
         <i v-if="!islogin" @click="setpwd">设置密码</i>
@@ -92,6 +92,13 @@ export default {
     },
     setpwd(){
       this.$router.push('/setpwd')
+    },
+    setProfile(){
+      if(this.$store.state.islogin){
+        this.$router.push('/modifydata')
+      }else{
+        this.$toast.fail('您还未登录')
+      }
     }
   }
 }

@@ -44,3 +44,15 @@ export function getlogin(user_id, pwd) {
   })
 }
 
+export function setprofile(user_id, formdata) {
+  return instance({
+    method: 'post',
+    headers: {
+      'Content-Type': 'multipart/form-data;charset=UTF-8'
+    },
+    url:'/profile/user/setprofile',
+    data:{
+      formdata
+    }
+  })
+}
