@@ -4,33 +4,19 @@
       <span class="iconfont" @click="goback">&#xe64e;</span>
     </div>
     <div class="login-content">
-      <span>{{phonenum}},你好</span>
-      <div class="login-phone" v-show="isshow">
+      <span>尊敬的用户,请登录</span>
+      <div class="login-phone">
         <input 
-          type="password" 
-          placeholder="请输入原密码"
-          v-model="oripwd"
-        >
-      </div>
-      <div class="login-phone" v-show="isshow">
-        <input 
-          type="password" 
-          placeholder="请输入原密码"
-          v-model.lazy="curpwd"
+          type="text" 
+          placeholder="请输入用户名"
+          v-model="username"
         >
       </div>
       <div class="login-phone">
         <input 
           type="password" 
           placeholder="请输入密码"
-          v-model.lazy="curpwd"
-        >
-      </div>
-      <div class="login-phone">
-        <input 
-          type="password" 
-          placeholder="请确认密码"
-          v-model.lazy="curpwdaga"
+          v-model.lazy="pwd"
         >
       </div>
       <button 
@@ -48,64 +34,64 @@ import Vue from 'vue';
 import { Dialog } from 'vant';
 import { mapState } from 'vuex'
 import { mapMutations } from 'vuex'
+import { getlogin } from 'network/profileRequest/profileRequest'
 
-import { setpwd } from 'network/profileRequest/profileRequest'
 export default {
-  name:'setpwd',
   data(){
     return {
-      phonenum:'',
-      isshow:false,
-      oripwd:'',
-      curpwd:'',
-      curpwdaga:''
+      username:'',
+      pwd:''
     }
   },
   methods:{
     ...mapMutations([
-      'changeislogin'
+      'changeislogin',
+      'changephonenumroot'
     ]),
     goback(){
       this.$router.go(-1)
     },
-    confirm(){
-      if (this.curpwd != this.curpwdaga) {
+    async confirm(){
+      let res =await getlogin(this.username, this.pwd)
+      console.log(res)
+      if(res.data.code === 200){ 
+        //修改vuex中登录状态位true
+        localStorage.setItem('x-access-token',res['headers']['x-access-token'])
+        this.changeislogin({
+          type:'changeislogin',
+          islogin: true
+        })
+        this.changephonenumroot({
+          type:'changephonenumroot',
+          cellphonenumber: this.username,
+        })
         Dialog.alert({
-          message: '密码不一样',
+          message: '登录成功',
           theme: 'round-button',
         }).then(() => {
-          this.curpwdaga = ''
+          this.$router.push('/profile')
         });
-        return;
-      };
-      Dialog.confirm({
-        message: '你确定吗',
-      })
-      .then(async () => {
-        let res = await setpwd(this.phonenum, this.curpwdaga)
-        console.log(res)
-        if(res.status===200){
-          Dialog.alert({
-            message: '密码修改成功',
-          }).then(() => {
-            this.$router.push('/profile')
-          });
-        }else{
-          Dialog.alert({
-            message: '密码修改失败',
-          }).then(() => {
-          });
-        }
-      })
+      }else{
+        Dialog.alert({
+          message: '登录失败',
+          theme: 'round-button',
+        }).then(() => {
+          
+        });
+      }
+
+      
     }
   },
-  mounted(){
-    this.phonenum = this.$store.state.cellphonenumber
-  },
   watch:{
-    curpwd(){
+    username(){
+      if(this.username.length >= 11){
+        this.username = this.username.slice(0,11)
+      }
+    },
+    pwd(){
       let reg = /^[0-9a-zA-Z]\w{5,11}$/
-      if (!reg.test(this.curpwd)) {
+      if (!reg.test(this.pwd)) {
         Dialog.alert({
           message: '只能由数字字母下划线组成, 6 ~ 12 位',
           theme: 'round-button',
@@ -116,7 +102,6 @@ export default {
       };
     },
   }
-  
 }
 </script>
 

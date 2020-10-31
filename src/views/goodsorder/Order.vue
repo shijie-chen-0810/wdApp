@@ -19,11 +19,10 @@
       <router-link to="take" tag="li" active-class="active" >待收货</router-link>
       <router-link to="commit" tag="li" active-class="active" >待评价</router-link>
     </ul>
-    <router-view></router-view>
+    <router-view :key="$route.fullPath"></router-view>
   </div>
   
 </template>
-
 <script>
 import cartime from 'views/home/cartpage/carhead/cartime'
 export default {
@@ -34,6 +33,9 @@ export default {
   },
   components:{
     cartime
+  },
+  created(){
+    console.log(9999999999)
   }
 }
 </script>

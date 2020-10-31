@@ -24,7 +24,7 @@ export default {
       background url('~@/assets/images/profile/myorder/ic_order_empty_.png') no-repeat center 1.05rem/1.1rem 1.1rem
       display flex
       justify-content center
-      min-height 4.2rem
+      min-height 4.31rem
       div
         background #ee1414
         width .6rem

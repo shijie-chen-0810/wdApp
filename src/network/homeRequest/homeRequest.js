@@ -2,8 +2,6 @@ import instance from 'network/baseRequest'
 
 
 
-
-
 export function getSortData() {
   return instance({
     url:'/home/getSort'

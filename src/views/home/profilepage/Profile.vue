@@ -3,9 +3,9 @@
     <div class="user">
 
       <div class="user-top">
-        <div>
+        <router-link to="/modifydata" tag="div">
           <img src="~assets/images/profile/my_wandoulogotop.png" alt="">
-        </div>
+        </router-link>
         <p v-if="islogin" @click="enterlogin">点击登录 / 注册</p>
         <p v-else>{{querynum}}</p>
         <i v-if="!islogin" @click="setpwd">设置密码</i>

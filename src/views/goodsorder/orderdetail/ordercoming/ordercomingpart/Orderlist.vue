@@ -56,7 +56,9 @@ export default {
   },
   mounted(){
     this.datalist = this.$parent.datalist
-    
+  },
+  activated(){
+    this.datalist = this.$parent.datalist
   },
   methods:{
     //去付款

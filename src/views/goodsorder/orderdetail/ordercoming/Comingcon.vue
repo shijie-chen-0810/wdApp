@@ -71,13 +71,12 @@ export default {
       }
     }
   },
-  async mounted(){
+  async activated(){
     let res = await axios({
       url:`http://106.13.129.90:5000/cart/getcart?id=${this.$store.state.cellphonenumber}`
       // url:"http://localhost:8080/orderlist.json"
     })
     let dataorder = [];     //只存在于order中的数据
-    console.log(res.data)
     if(res.data.length!=0){
       res.data.forEach(item => {
         if(item.ctime != 0){
@@ -100,7 +99,6 @@ export default {
         return item
       })
     }
-    
     let newArr = [];  //排好序的数据
     let comarr = [];  //已完成
     let otherarr = [];  //其余
@@ -125,7 +123,6 @@ export default {
       newArr = otherarr.concat(comarr)
     }
     this.datalist = newArr
-    
     //判断订单各模块是否存在数据
     switch(this.$route.path){
       case '/order/all':
