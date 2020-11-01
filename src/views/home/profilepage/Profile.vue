@@ -80,7 +80,7 @@ export default {
   computed:{
     ...mapState(['avator']),
     avatorsrc(){
-      return  this.avator===''?'/img/my_wandoulogotop.1f6b644d.png':this.avator
+      return  this.avator===''?'http://106.13.129.90:5000/avator/wandouavator.png':this.avator
     }
   },
   components:{

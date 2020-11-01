@@ -109,7 +109,7 @@ export default {
       if(Math.abs(topy) >= this.detailTop - 50){
         this.isSelected = 'goodsdetail'
       }
-      if(Math.abs(topy) >= this.recommendTop - 45){
+      if(Math.abs(topy) >= this.recommendTop - 50){
         this.isSelected = 'recommend'
       }
     },

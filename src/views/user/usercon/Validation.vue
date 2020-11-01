@@ -22,7 +22,6 @@
       >登录</button>
       <!-- #ea4141  -->
     </div>
-    {{verifynum}}
   </div>
 </template>
 
