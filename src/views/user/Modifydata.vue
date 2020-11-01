@@ -6,12 +6,11 @@
         left-text="返回"
         left-arrow
         @click-left="onClickLeft"
-        @click-right="onClickRight"
       />
     </div>
     <div class="text-con">
       <van-cell-group class="avator-con">
-        <van-uploader class="avator" v-model="uploader" :after-read="afterRead" :max-count="1"/>
+        <van-uploader class="avator" v-model="uploader" :max-count="1"/>
         <van-cell value="上传头像" size="small" class="avator-title" />
       </van-cell-group>
       <van-cell-group>
@@ -26,13 +25,17 @@
       <van-cell-group class="submit">
         <van-button type="info" round class="submitbtn" @click='submit'>提交</van-button>
       </van-cell-group>
-      
+      <img data-v-d2342bc8="" src="http:10.9.64.245:5000/avator/avator1604199845829.png" alt="">
     </div>
-    
+    <van-overlay :show="show" @click="show = false">
+    </van-overlay>
   </div>
 </template>
 
 <script>
+import { setprofile } from 'network/profileRequest/profileRequest'
+import { getprofile } from 'network/profileRequest/profileRequest'
+
 import Vue from 'vue';
 import { NavBar } from 'vant';
 import { Toast } from 'vant';
@@ -40,43 +43,58 @@ import { Field } from 'vant';
 import { Cell, CellGroup } from 'vant';
 import { Uploader } from 'vant';
 import { Button } from 'vant';
+import { Overlay } from 'vant';
 
+import { mapState } from 'vuex'
+
+
+
+Vue.use(Overlay);
 Vue.use(Button);
-
 Vue.use(Uploader);
 Vue.use(Cell);
 Vue.use(CellGroup);
 Vue.use(Field);
 Vue.use(NavBar);
 export default {
+  name:'modifydata',
   data() {
     return {
       nickname: '',
       qq:'',
       email:'',
-      uploader:[]
+      uploader:[],
+      show:false
     };
+  },
+  computed:{
+    ...mapState(['cellphonenumber'])
   },
   methods: {
     onClickLeft() {
       this.$router.go(-1)
     },
-    onClickRight() {
-      Toast('保存');
-    },
-    afterRead(file) {
-      // 此时可以自行将文件上传至服务器
-      console.log(file);
-    },
-    submit(){
+    async submit(){
       if(this.nickname===''||this.qq===''||this.email==='',this.uploader.length===0){
         this.$toast.fail('表单输入不完整')
       }else{
         const formdata = new FormData();
+        formdata.append('user_id',this.cellphonenumber)
         formdata.append('nickname',this.nickname)
         formdata.append('qq',this.qq)
         formdata.append('email',this.email)
         formdata.append('avator',this.uploader[0].file)
+        const result = await setprofile(this.cellphonenumber,formdata)
+        if(result.data.status === 200){
+          this.show = true
+          this.$toast.success('修改成功')
+          const profile = await getprofile(this.cellphonenumber)
+          this.$store.commit('changeavatorroot',{avator:profile.data.avator})
+          setTimeout(()=>{
+            this.$toast.clear()
+            this.$router.replace('/profile')
+          },1000)
+        }
       }
     }
   },

@@ -4,7 +4,7 @@
 
       <div class="user-top">
         <div @click='setProfile'>
-          <img src="~assets/images/profile/my_wandoulogotop.png" alt="">
+          <img :src="avatorsrc" alt="">
         </div>
         <p v-if="islogin" @click="enterlogin">点击登录 / 注册</p>
         <p v-else>{{querynum}}</p>
@@ -30,7 +30,7 @@ import Profilevip from "./profilefeature/Profilevip"
 import Profileorder from "./profilefeature/Profileorder"
 import Profileserve from "./profilefeature/Profileserve"
 import Profiledownload from "./profilefeature/Profiledownload"
-
+import { mapState } from 'vuex'
 export default {
   name:'profile',
   data(){
@@ -75,6 +75,12 @@ export default {
     }else{
       this.querynum = '';
       this.islogin = true;
+    }
+  },
+  computed:{
+    ...mapState(['avator']),
+    avatorsrc(){
+      return  this.avator===''?'/img/my_wandoulogotop.1f6b644d.png':this.avator
     }
   },
   components:{
@@ -127,6 +133,8 @@ export default {
       align-items center
       padding-top .35rem
       >div
+        border-radius 50%
+        overflow hidden
         margin-left .15rem
         width .5rem
         height .5rem

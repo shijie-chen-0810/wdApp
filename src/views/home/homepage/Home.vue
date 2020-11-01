@@ -104,7 +104,6 @@ export default {
     if (entries[0].intersectionRatio <= 0) return;
     // loadItems(10);
     this.getmoregoods()
-    console.log('Loaded new items');
   })
     this.interSectionObserver.observe(this.$refs.bot.$el)
   },
@@ -115,7 +114,6 @@ export default {
         this.goodsList.push(...tmpResult.data)
         this.total = tmpResult.total
         this.offset += 10
-        console.log(this.offset,this.total)
       }catch(e){
         this.$toast('请求超时')
       }

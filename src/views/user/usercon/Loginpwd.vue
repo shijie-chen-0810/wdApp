@@ -35,8 +35,10 @@ import { Dialog } from 'vant';
 import { mapState } from 'vuex'
 import { mapMutations } from 'vuex'
 import { getlogin } from 'network/profileRequest/profileRequest'
+import { getprofile } from 'network/profileRequest/profileRequest'
 
 export default {
+  name:'loginpwd',
   data(){
     return {
       username:'',
@@ -68,7 +70,10 @@ export default {
         Dialog.alert({
           message: '登录成功',
           theme: 'round-button',
-        }).then(() => {
+        }).then(async () => {
+          const profile = await getprofile(this.username)
+          const avator = profile.data.avator==null?'':profile.data.avator
+          this.$store.commit('changeavatorroot',{avator})
           this.$router.push('/profile')
         });
       }else{
