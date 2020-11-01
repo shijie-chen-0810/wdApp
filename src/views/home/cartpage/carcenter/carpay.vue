@@ -39,14 +39,16 @@ export default {
     },
     xuangou(){
       if(this.goods[0].house_id == 200){
-        const goodsone = this.$store.state.cart.goodsList.filter(item=>item.checked == true)
+        let wu = this.$store.state.cart.goodsList
+        const goodsone = wu.filter(item=>item.checked == true)
         if(goodsone.length == 0){
           return [0,0]
         }else{
           return [goodsone[0].final_price,goodsone[0].num]
         }
       }else{
-        const goodsone = this.$store.state.cart.goodsjapan.filter(item=>item.checked == true)
+        let wu = this.$store.state.cart.goodsjapan
+        const goodsone = wu.filter(item=>item.checked == true)
         if(goodsone.length == 0){
           return [0,0]
         }else{
