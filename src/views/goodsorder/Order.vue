@@ -33,9 +33,6 @@ export default {
   },
   components:{
     cartime
-  },
-  created(){
-    console.log(9999999999)
   }
 }
 </script>
