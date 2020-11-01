@@ -130,8 +130,10 @@ export default {
     frgplace(){
       const reg = /^1[3456789]\d{9}$/
       const a = this.info
+      const name = this.$store.state.cellphonenumber
+      const aa = localStorage.getItem(name)
+      if(aa) return
       if(a.name && a.phone && a.nowplace && a.xiangplace && a.shouname && a.id && reg.test(a.phone)){
-        const name = this.$store.state.cellphonenumber
         let place = []
         // console.log(a)
         

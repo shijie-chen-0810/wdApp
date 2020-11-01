@@ -17,7 +17,8 @@ export default {
   props:["goods"],
   data(){
     return {
-      type:'郑州保税仓'
+      type:'郑州保税仓',
+      wu:[]
     }
   },
   computed: {
@@ -39,16 +40,16 @@ export default {
     },
     xuangou(){
       if(this.goods[0].house_id == 200){
-        let wu = this.$store.state.cart.goodsList
-        const goodsone = wu.filter(item=>item.checked == true)
+         this.wu = this.$store.state.cart.goodsList
+        const goodsone = this.wu.filter(item=>item.checked == true)
         if(goodsone.length == 0){
           return [0,0]
         }else{
           return [goodsone[0].final_price,goodsone[0].num]
         }
       }else{
-        let wu = this.$store.state.cart.goodsjapan
-        const goodsone = wu.filter(item=>item.checked == true)
+         this.wu = this.$store.state.cart.goodsjapan
+        const goodsone = this.wu.filter(item=>item.checked == true)
         if(goodsone.length == 0){
           return [0,0]
         }else{
