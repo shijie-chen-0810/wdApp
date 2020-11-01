@@ -131,6 +131,16 @@ export default {
       const reg = /^1[3456789]\d{9}$/
       const a = this.info
       if(a.name && a.phone && a.nowplace && a.xiangplace && a.shouname && a.id && reg.test(a.phone)){
+        const name = this.$store.state.cellphonenumber
+        let place = []
+        // console.log(a)
+        
+        let b =  {
+          ...a,
+          checked:true
+        }
+        place.push(b)
+        localStorage.setItem(name,JSON.stringify(place))
         return false
       }
       return true
