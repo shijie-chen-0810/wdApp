@@ -88,7 +88,6 @@ export default {
   },
   methods: {
     scrollPos(position){
-      console.log(position)
       if(this.flag){
         this.flag = false
         this.commentTop = this.$refs.commentTop.getBoundingClientRect().top
@@ -138,8 +137,6 @@ export default {
       clearTimeout(this.timer)
       this.timer = setTimeout(()=>{
         this.bs.refresh()
-        console.log('asasas')
-        
       },500)
 
     },

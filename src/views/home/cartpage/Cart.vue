@@ -5,14 +5,15 @@
       <h2>购物袋</h2>
       <p @click="click">{{operation}}</p>
     </div>
-    <div class="info">
-      <cartime></cartime>
-      <carcenter v-if="$store.state.cart.zhengzhou.length != 0" :goods="$store.state.cart.zhengzhou" ref="zhengzhou"></carcenter>
-      <carcenter v-if="$store.state.cart.japan.length != 0" :goods="$store.state.cart.japan" ref="japan"></carcenter>
-      <div class="tishi" v-if="$store.state.cart.zhengzhou.length == 0 && $store.state.cart.japan.length == 0 && frag">您的购物车还没有物品，快去找找你喜欢的物品加入购物车吧O(∩_∩)O</div>
+    <div class="dong">
+      <div class="info">
+        <cartime></cartime>
+        <carcenter v-if="$store.state.cart.zhengzhou.length != 0" :goods="$store.state.cart.zhengzhou" ref="zhengzhou"></carcenter>
+        <carcenter v-if="$store.state.cart.japan.length != 0" :goods="$store.state.cart.japan" ref="japan"></carcenter>
+        <div class="tishi" v-if="$store.state.cart.zhengzhou.length == 0 && $store.state.cart.japan.length == 0 && frag">您的购物车还没有物品，快去找找你喜欢的物品加入购物车吧O(∩_∩)O</div>
+      </div>
+      <carfooter :list="goodsList"></carfooter>
     </div>
-    <carfooter :list="goodsList"></carfooter>
-
 
   </div>
 </template>
@@ -77,29 +78,25 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-.all
-  height 100vh
+.header
+  width 100%
+  height 0.44rem
+  box-sizing border-box
+  border-top 1px solid #e9e9e9 
+  border-bottom 1px solid #e9e9e9 
+  display flex
+  background #fff
+  z-index 999
+  justify-content space-between
+  padding .12rem .1rem 0 .16rem
+  h2
+    font-size .14rem
+  p
+    font-size .14rem
+    color #9e9e9e
+.dong
+  height 85vh
   overflow-y scroll
-  padding .44rem 0 0.48rem
-  .header
-    width 100%
-    height 0.44rem
-    box-sizing border-box
-    border-top 1px solid #e9e9e9 
-    border-bottom 1px solid #e9e9e9 
-    display flex
-    position fixed
-    left 0
-    top 0
-    background #fff
-    z-index 999
-    justify-content space-between
-    padding .12rem .1rem 0 .16rem
-    h2
-      font-size .14rem
-    p
-      font-size .14rem
-      color #9e9e9e
   .info
     margin-top .15rem
     .tishi

@@ -130,7 +130,19 @@ export default {
     frgplace(){
       const reg = /^1[3456789]\d{9}$/
       const a = this.info
+      const name = this.$store.state.cellphonenumber
+      const aa = localStorage.getItem(name)
+      if(aa) return
       if(a.name && a.phone && a.nowplace && a.xiangplace && a.shouname && a.id && reg.test(a.phone)){
+        let place = []
+        // console.log(a)
+        
+        let b =  {
+          ...a,
+          checked:true
+        }
+        place.push(b)
+        localStorage.setItem(name,JSON.stringify(place))
         return false
       }
       return true

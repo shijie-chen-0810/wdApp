@@ -44,15 +44,13 @@ export function getlogin(user_id, pwd) {
   })
 }
 
-export function setprofile(user_id, formdata) {
-  return instance({
-    method: 'post',
+export function setprofile(user_id, param) {
+  return instance.patch('/profile/user/setprofile',param,{
     headers: {
-      'Content-Type': 'multipart/form-data;charset=UTF-8'
-    },
-    url:'/profile/user/setprofile',
-    data:{
-      formdata
+      'Content-Type': 'multipart/form-data'
     }
   })
+}
+export function getprofile(user_id) {
+  return instance.get('/profile/user/getprofile?id='+user_id)
 }

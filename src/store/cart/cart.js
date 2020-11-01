@@ -125,11 +125,13 @@ export default {
       context.commit('paypricegoods',{a,time})
     },
     async huangou(context) {
-      const a = await getGoods(200,24)
+      let num = parseInt(Math.random() * 450)
+      const a = await getGoods(num,24)
       context.commit('huangou',a)
     },
     async huangoujapan(context) {
-      const a = await getGoods(300,24)
+      let num = parseInt(Math.random() * 450)
+      const a = await getGoods(num,24)
       context.commit('huangoujapan',a)
     }
   },

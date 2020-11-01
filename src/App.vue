@@ -1,6 +1,6 @@
 <template>
   <div>
-    <keep-alive exclude="detail,profile,homesortpage,setpwd">
+    <keep-alive :exclude="notkeep">
       <router-view :key="$route.fullPath"></router-view>
     </keep-alive>
   </div>
@@ -16,6 +16,11 @@ Vue.use(Toast);
 Vue.use(VanImage);
 Vue.use(Lazyload);
 export default {
+  data(){
+    return{
+      notkeep:['detail','profile','homesortpage','setpwd','loginpwd','modifydata']
+    }
+  }
 }
 </script>
 

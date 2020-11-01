@@ -62,15 +62,6 @@ export default {
         this.frg = true
       }else{
         const name = this.$store.state.cellphonenumber
-        let place = []
-        console.log(a)
-        
-        let b =  {
-          ...a,
-          checked:true
-        }
-        place.push(b)
-        localStorage.setItem(name,JSON.stringify(place))
 
 
         const time = new Date().getTime()

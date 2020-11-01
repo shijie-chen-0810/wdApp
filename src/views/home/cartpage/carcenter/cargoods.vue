@@ -33,6 +33,7 @@ import Vue from 'vue';
 import { Checkbox, Stepper} from 'vant';
 Vue.use(Checkbox).use(Stepper)
 
+import { Dialog } from 'vant';
 
 import cargoodschange from './cargoodschange'
 
@@ -50,17 +51,34 @@ export default {
   },
   methods:{
     clickDelete(goods){
-      var r = confirm("您确定要删除这个物品");
-      if (r == true){
-        const house = this.goods[0].house_id
-        this.$store.commit({
-          type:'cart/delete',
-          house,
-          goods
+      Dialog.confirm({
+        message: '您确定要删除这个物品',
+      })
+        .then(() => {
+          console.log('queding')
+         const house = this.goods[0].house_id
+          this.$store.commit({
+            type:'cart/delete',
+            house,
+            goods
+          })
+          const user_id = this.$store.state.cellphonenumber
+          deleteCart(user_id,goods.goods_id)
         })
-      }
-      const user_id = this.$store.state.cellphonenumber
-      deleteCart(user_id,goods.goods_id)
+        .catch(() => {
+          // on cancel
+          console.log('quxiao')
+        });
+      // var r = confirm("您确定要删除这个物品");
+      // if (r == true){
+      //   const house = this.goods[0].house_id
+      //   this.$store.commit({
+      //     type:'cart/delete',
+      //     house,
+      //     goods
+      //   })
+      // }
+      
     },
     plus(goods){
       const house = this.goods[0].house_id

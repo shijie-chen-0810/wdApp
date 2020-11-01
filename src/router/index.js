@@ -34,6 +34,7 @@ import Comingcommit from '../views/goodsorder/orderdetail/Comingcommit.vue'
 import $store from 'store'
 
 import { islogin } from 'network/commonRequest/commonRequest'
+import { getprofile } from 'network/profileRequest/profileRequest'
 
 Vue.use(VueRouter)
 
@@ -215,7 +216,10 @@ router.beforeEach(async (to, from, next) => {
   if (result.code === 200) {
     $store.commit('changeislogin', { islogin: true })
     const cellphonenumber = JSON.parse(result.msg).cellphonenumber
-    $store.commit('changephonenumroot',{cellphonenumber})
+    $store.commit('changephonenumroot', { cellphonenumber })
+    const profile = await getprofile(cellphonenumber)
+    const avator = profile.data.avator==null?'':profile.data.avator
+    $store.commit('changeavatorroot',{avator})
   }
   next()
 }) 
