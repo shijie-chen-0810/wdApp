@@ -91,7 +91,7 @@ const routes = [
   },
   {
     path:'/pay',
-    component:()=>import('views/home/cartpage/pay/Pay')
+    component:()=>import('views/home/cartpage/pay/Pay'),
   },
   {
     path:'/cart/see',
