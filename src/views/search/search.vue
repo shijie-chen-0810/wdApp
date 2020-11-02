@@ -65,7 +65,7 @@ export default {
         },
         async getitem(){
             const res = await instance.get("/home/gethotkey")
-            console.log(res)
+            // console.log(res)
             this.name = res
             // console.log(this.name) 
         },
