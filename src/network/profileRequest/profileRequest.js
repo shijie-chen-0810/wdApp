@@ -54,3 +54,8 @@ export function setprofile(user_id, param) {
 export function getprofile(user_id) {
   return instance.get('/profile/user/getprofile?id='+user_id)
 }
+
+
+export function checkcaptcha(captcha) {
+  return instance.get('/profile/user/checkcaptcha?captcha='+captcha)
+}

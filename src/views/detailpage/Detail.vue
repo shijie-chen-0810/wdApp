@@ -206,7 +206,6 @@ export default {
     },
     collect(){
       this.isCollect = !this.isCollect
-      console.log(this.goodsDetail)
     },
     goBuy(){
       this.show = true

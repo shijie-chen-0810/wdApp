@@ -14,6 +14,12 @@
         >
       </div>
       <em>未注册的手机号验证通过后将自动注册</em>
+      <div class="captcha-con">
+        <input type="text" v-model="captcha" placeholder="请输入验证码">
+        <span @click='changeCaptcha'>
+          <img ref='imgYzm' src="http://106.13.129.90:5000/profile/getCaptcha" alt="">
+        </span>
+      </div>
       <button 
         class="login-get" 
         type="button" 
@@ -30,6 +36,7 @@
 import { Dialog } from 'vant';
 import axios from 'axios';
 import { mapMutations } from 'vuex';
+import { checkcaptcha } from 'network/profileRequest/profileRequest'
 export default {
   data(){
     return {
@@ -37,7 +44,8 @@ export default {
       verifycode:'',
       getstyle:{
         background:'#d7d7d9'
-      }
+      },
+      captcha:''
     }
   },
   methods:{
@@ -49,6 +57,9 @@ export default {
       'changephonenum',
       'changephonenumroot'
     ]),
+    changeCaptcha(){
+      this.$refs.imgYzm.src = 'http://106.13.129.90:5000/profile/getCaptcha?d='+Math.random()
+    },
     //点击获取验证码,将手机号与验证码存入vuex,登录状态为false
     async getverify(){
       if(this.cellphonebumber.length === 11){
@@ -57,11 +68,14 @@ export default {
           Dialog.alert({
             message: '请输入正确的手机号',
             theme: 'round-button',
-          }).then(() => {
-            // on close
-          });
+          })
           return;
         };
+        const {data} = await checkcaptcha(this.captcha)
+        if(data.code===400){
+          this.$toast.fail('验证码输入不正确')
+          return 
+        }
         //随机生成6位验证码
         let randomcode = ''
         for(let i = 1; i <= 6; i++){
@@ -110,6 +124,11 @@ export default {
         })
         // console.log(this.$store.state.cellphonenumber)
         this.$emit("myclick")
+      }else{
+        Dialog.alert({
+            message: '请输入正确的手机号',
+            theme: 'round-button',
+          })
       }
     }
   },
@@ -181,4 +200,21 @@ export default {
       font-size .12rem
       margin-top .12rem
       font-weight normal
+    >.captcha-con
+      display flex
+      margin-top 0.1rem
+      justify-content flex-start
+      input 
+        border-radius 0.2rem
+        border none 
+        background-color #eee
+        width 1rem
+        height 0.3rem
+        font-size 0.12rem
+        padding 0 0.1rem
+      >span
+        margin-left 0.1rem
+        >img 
+          width 0.8rem
+          height 0.3rem
 </style>
