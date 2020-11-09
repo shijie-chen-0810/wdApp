@@ -32,11 +32,11 @@ export function setpwd(user_id, pwd) {
 //登录
 export function getlogin(user_id, pwd) {
   return instance({
-    method: 'get',
+    method: 'post',
     headers:{
       'content-type':'application/json'
     },
-    url:'/profile/users/setpwd',
+    url:'/profile/user/pwdlogin',
     data:{
       user_id,
       pwd
@@ -44,3 +44,18 @@ export function getlogin(user_id, pwd) {
   })
 }
 
+export function setprofile(user_id, param) {
+  return instance.patch('/profile/user/setprofile',param,{
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  })
+}
+export function getprofile(user_id) {
+  return instance.get('/profile/user/getprofile?id='+user_id)
+}
+
+
+export function checkcaptcha(captcha) {
+  return instance.get('/profile/user/checkcaptcha?captcha='+captcha)
+}

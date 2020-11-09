@@ -23,7 +23,7 @@
         <input type="text" placeholder="输入地址" v-model.lazy="info.xiangplace">
       </div>
     </div>
-    <div class="allplace" v-else>
+    <div class="allplace" v-else @click="placechange">
       <div class="left">
         <img src="~assets/images/see/pay6.png" alt="">
         <div>
@@ -54,7 +54,7 @@
     <div class="goods">
         <paygoods class="good"  :class="{active:frg}"></paygoods>
     </div>
-    <div class="num" @click="yundong">{{type}}共{{num}}件物品
+    <div class="num" @click="yundong">{{type}}共{{num+huangou}}件物品
       <span class="iconfont" v-if="dong">&#xe665;</span> 
       <span class="iconfont" v-else>&#xe65a;</span> 
     </div>
@@ -111,6 +111,18 @@ export default {
     paygoods
   },
   computed:{
+    huangou(){
+      const {house_id} = this.$route.query
+      if(house_id == 200){
+        const a = this.$store.state.cart.goodsList.filter(item=>item.checked==true)
+        if(a.length == 0) return 0
+        return 1
+      }else{
+        const a = this.$store.state.cart.goodsjapan.filter(item=>item.checked==true)
+        if(a.length == 0) return 0
+        return 1
+      }
+    },
     num(){
       const {house_id} = this.$route.query
       return this.$store.getters['cart/paynum'](house_id)
@@ -118,7 +130,19 @@ export default {
     frgplace(){
       const reg = /^1[3456789]\d{9}$/
       const a = this.info
+      const name = this.$store.state.cellphonenumber
+      const aa = localStorage.getItem(name)
+      if(aa) return
       if(a.name && a.phone && a.nowplace && a.xiangplace && a.shouname && a.id && reg.test(a.phone)){
+        let place = []
+        // console.log(a)
+        
+        let b =  {
+          ...a,
+          checked:true
+        }
+        place.push(b)
+        localStorage.setItem(name,JSON.stringify(place))
         return false
       }
       return true
@@ -133,6 +157,9 @@ export default {
     }
   },
   methods: {
+    placechange(){
+      this.$router.push({path:'/cart/cartplace'})
+    },
     yundong(){
       this.dong = !this.dong
       this.frg = !this.frg
@@ -162,7 +189,7 @@ export default {
       const username = this.$store.state.cellphonenumber
       const place = localStorage.getItem(username)
       if(place){
-        this.info = JSON.parse(place)
+        this.info = JSON.parse(place).filter(item=>item.checked == true)[0]
       }
     }
   },

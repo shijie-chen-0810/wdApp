@@ -3,8 +3,8 @@
     <div class="user">
 
       <div class="user-top">
-        <div>
-          <img src="~assets/images/profile/my_wandoulogotop.png" alt="">
+        <div @click='setProfile'>
+          <img :src="avatorsrc" alt="">
         </div>
         <p v-if="islogin" @click="enterlogin">点击登录 / 注册</p>
         <p v-else>{{querynum}}</p>
@@ -12,10 +12,10 @@
       </div>
       
       <ul class="user-content">
-        <li v-for="data in datalist" :key="data.id">
+        <router-link tag="li" v-for="data in datalist" :key="data.id" :to="data.active">
           <p>{{islogin? '-':data.number}}</p>
           <span>{{data.modulename}}</span>
-        </li>
+        </router-link>
       </ul>
     </div>
     <Profilevip></Profilevip>
@@ -30,7 +30,7 @@ import Profilevip from "./profilefeature/Profilevip"
 import Profileorder from "./profilefeature/Profileorder"
 import Profileserve from "./profilefeature/Profileserve"
 import Profiledownload from "./profilefeature/Profiledownload"
-
+import { mapState } from 'vuex'
 export default {
   name:'profile',
   data(){
@@ -41,17 +41,20 @@ export default {
         {
           id:'001',
           number:0,
-          modulename:'低现积分'
+          modulename:'低现积分',
+          active:'/integral'
         },
         {
           id:'002',
           number:0,
-          modulename:'优惠卷'
+          modulename:'优惠卷',
+          active:''
         },
         {
           id:'003',
           number:0,
-          modulename:'公主说'
+          modulename:'公主说',
+          active:''
         }
       ]
     }
@@ -74,6 +77,12 @@ export default {
       this.islogin = true;
     }
   },
+  computed:{
+    ...mapState(['avator']),
+    avatorsrc(){
+      return  this.avator===''?'http://106.13.129.90:5000/avator/wandouavator.png':this.avator
+    }
+  },
   components:{
     Profilevip,
     Profileorder,
@@ -92,6 +101,13 @@ export default {
     },
     setpwd(){
       this.$router.push('/setpwd')
+    },
+    setProfile(){
+      if(this.$store.state.islogin){
+        this.$router.push('/modifydata')
+      }else{
+        this.$toast.fail('您还未登录')
+      }
     }
   }
 }
@@ -117,6 +133,8 @@ export default {
       align-items center
       padding-top .35rem
       >div
+        border-radius 50%
+        overflow hidden
         margin-left .15rem
         width .5rem
         height .5rem

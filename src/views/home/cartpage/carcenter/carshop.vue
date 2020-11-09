@@ -56,7 +56,7 @@ export default {
 .head
   padding 0.14rem 0 .14rem .15rem
   position sticky 
-  top 0
+  top -.02rem
   background #fff
   z-index 11
   .shop

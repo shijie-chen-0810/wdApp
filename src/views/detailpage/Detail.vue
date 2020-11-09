@@ -33,7 +33,18 @@
         <span @click="toCart">购物袋</span>
       </div>
       <div @click='addToCart'>加入购物车</div>
-      <div>立即购买</div>
+      <div @click="goBuy">立即购买</div>
+      <van-sku
+        v-model="show"
+        :sku="sku"
+        :goods="goods"
+        :goods-id="goodsId"
+        :quota="quota"
+        :quota-used="quotaUsed"
+        :hide-stock="sku.hide_stock"
+        :show-add-cart-btn="false"
+        @buy-clicked="onBuyClicked"
+        />
     </footer>
   </div>
 </template>
@@ -46,7 +57,11 @@ import Recommend from './Recommend'
 import BScroll from '@better-scroll/core'
 import MouseWheel from '@better-scroll/mouse-wheel'
 import addItemToCart from 'utils/addToCart'
-import { mapState } from 'vuex'
+import { mapActions, mapState } from 'vuex'
+import Vue from 'vue';
+import { Sku } from 'vant';
+
+Vue.use(Sku);
 BScroll.use(MouseWheel)
 export default {
   name: 'detail',
@@ -60,7 +75,45 @@ export default {
       detailTop: '',
       recommendTop: '',
       bs:null,
-      timer:0
+      timer:0,
+      show: false,
+      goodsId: '',
+      quota: 0,
+      quotaUsed: 0,
+      sku: {
+        tree: [
+            {
+            k: '规格', // skuKeyName：规格类目名称
+            k_s: 's1', // skuKeyStr：sku 组合列表（下方 list）中当前类目对应的 key 值，value 值会是从属于当前类目的一个规格值 id
+            v: [
+                {
+                id: '1', // skuValueId：规格值 id
+                name: '红色', // skuValueName：规格值名称
+                imgUrl: 'https://img.yzcdn.cn/1.jpg', // 规格类目图片，只有第一个规格类目可以定义图片
+                }
+            ],
+            largeImageMode: false, //  是否展示大图模式
+            }
+        ],
+        // 所有 sku 的组合列表，比如红色、M 码为一个 sku 组合，红色、S 码为另一个组合
+        list: [
+            {
+            id: 2259, // skuId
+            s1: '1', // 规格类目 k_s 为 s1 的对应规格值 id
+            s2: '1', // 规格类目 k_s 为 s2 的对应规格值 id
+            price: 99, // 价格（单位分）
+            stock_num: 110 // 当前 sku 组合对应的库存
+            }
+        ],
+        price: '10.00', // 默认价格（单位元）
+        stock_num: 227, // 商品总库存
+        collection_id: 2261, // 无规格商品 skuId 取 collection_id，否则取所选 sku 组合对应的 id
+        none_sku: false, // 是否无规格商品
+        hide_stock: false // 是否隐藏剩余库存
+      },
+      goods: {
+        picture: 'https://img.yzcdn.cn/1.jpg'
+      }
     }
   },  
   components: {
@@ -68,6 +121,9 @@ export default {
     Comment,
     GoodsDetail,
     Recommend,
+  },
+  created() {
+    this.loadData(this.$route.params.id)
   },
   mounted() {
     this.$nextTick(()=>{
@@ -84,9 +140,11 @@ export default {
     })
   },
   computed:{
-    ...mapState(['islogin','cellphonenumber'])
+    ...mapState(['islogin','cellphonenumber']),
+    ...mapState('goodsDetail', ['goodsDetail'])
   },
   methods: {
+    ...mapActions('goodsDetail', ['loadData']),
     scrollPos(position){
       if(this.flag){
         this.flag = false
@@ -109,7 +167,7 @@ export default {
       if(Math.abs(topy) >= this.detailTop - 50){
         this.isSelected = 'goodsdetail'
       }
-      if(Math.abs(topy) >= this.recommendTop - 45){
+      if(Math.abs(topy) >= this.recommendTop - 50){
         this.isSelected = 'recommend'
       }
     },
@@ -148,6 +206,21 @@ export default {
     },
     collect(){
       this.isCollect = !this.isCollect
+    },
+    goBuy(){
+      this.show = true
+      this.goodsId = this.goodsDetail.goods_id
+      this.goods.picture = this.goodsDetail.img_middle
+      this.sku.tree[0].v[0].imgUrl = this.goodsDetail.img_middle
+      // this.sku.tree[0].v[0].id = this.goodsDetail.goods_id
+      this.sku.tree[0].v[0].name = this.goodsDetail.short_title
+      this.sku.list[0].stock_num = Number(this.goodsDetail.residue_count)
+      this.sku.list[0].price = this.goodsDetail.finalPrice * 100
+      this.sku.price = this.goodsDetail.finalPrice
+      this.sku.stock_num = Number(this.goodsDetail.residue_count)
+    },
+    onBuyClicked(){
+      console.log('~~~~~~~~~')
     }
   }
 }

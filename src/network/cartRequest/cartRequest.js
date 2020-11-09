@@ -19,3 +19,14 @@ export function updateCart(arr) {
   })
 }
 
+
+export function deleteCart(user_id,goods_id) {
+  return instance({
+    method:'DELETE',
+    url:'/cart/deletecart',
+    data:{
+      user_id,
+      goods_id
+    }
+  })
+}

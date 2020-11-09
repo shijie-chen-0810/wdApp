@@ -11,13 +11,17 @@ const Sort =  () => import('views/home/sortpage/Sort')
 const Cart =  () => import('views/home/cartpage/Cart')
 const Profile =  () => import('views/home/profilepage/Profile')
 const Err =  () => import('views/err/err')
-const Grade =  () => import('views/grade/grade')
+const Grade =  () => import('views/myservice/grade')
 const Search =  () => import('views/search/search')
-
+const Customerservice =  () => import('views/myservice/Customerservice')
+const Aboutus =  () => import('views/myservice/Aboutus')
+const Selfcomment =  () => import('views/myservice/Selfcomment')
 //profile
 import Userlogin from '../views/user/Userlogin.vue'
 import Setpwd from '../views/user/Setpwd.vue'
 import Loginpwd from '../views/user/usercon/Loginpwd.vue'
+import Modifydata from '../views/user/Modifydata.vue'
+import Integral from '../views/user/Integral.vue'
 //Order
 import Order from '../views/goodsorder/Order.vue'
 import Orderall from '../views/goodsorder/orderdetail/Orderall.vue'
@@ -30,6 +34,7 @@ import Comingcommit from '../views/goodsorder/orderdetail/Comingcommit.vue'
 import $store from 'store'
 
 import { islogin } from 'network/commonRequest/commonRequest'
+import { getprofile } from 'network/profileRequest/profileRequest'
 
 Vue.use(VueRouter)
 
@@ -101,6 +106,21 @@ const routes = [
     component:()=>import('views/home/cartpage/payprice/Payprice')
   },
   {
+    path:'/cart/cartplace',
+    component:()=>import('views/home/cartpage/carplace/Carplace'),
+    redirect:'/cart/cartplace/show',
+    children:[
+      {
+        path:'show',
+        component:()=>import('views/home/cartpage/carplace/carplacecenter')
+      },
+      {
+        path:'set',
+        component:()=>import('views/home/cartpage/carplace/carplaceset')
+      },
+    ]
+  },
+  {
     path: '/detail/:id',
     name:'detail',
     component:Detail
@@ -109,18 +129,6 @@ const routes = [
     path: '/homesort/:sortType',
     name:'homesort',
     component:HomeSortPage
-  },
-  {
-    path: '/login',
-    component: Userlogin,
-  },
-  {
-    path: '/loginpwd',
-    component: Loginpwd,
-  },
-  {
-    path: '/setpwd',
-    component: Setpwd
   },
   {
     path: '/order',
@@ -150,6 +158,38 @@ const routes = [
     ]
   },
   {
+    path: '/customerservice',
+    component:Customerservice 
+  },
+  {
+    path: '/aboutus',
+    component:Aboutus 
+  },
+  {
+    path: '/selfcomment',
+    component: Selfcomment
+  },
+  {
+    path: '/login',
+    component: Userlogin,
+  },
+  {
+    path: '/loginpwd',
+    component: Loginpwd,
+  },
+  {
+    path: '/setpwd',
+    component: Setpwd 
+  },
+  {
+    path: '/modifydata',
+    component: Modifydata
+  },
+  {
+    path: '/integral',
+    component: Integral
+  },
+  {
     path: '/comments/:id',
     name: 'comments',
     component: Comments
@@ -176,7 +216,10 @@ router.beforeEach(async (to, from, next) => {
   if (result.code === 200) {
     $store.commit('changeislogin', { islogin: true })
     const cellphonenumber = JSON.parse(result.msg).cellphonenumber
-    $store.commit('changephonenumroot',{cellphonenumber})
+    $store.commit('changephonenumroot', { cellphonenumber })
+    const profile = await getprofile(cellphonenumber)
+    const avator = profile.data.avator==null?'':profile.data.avator
+    $store.commit('changeavatorroot',{avator})
   }
   next()
 }) 

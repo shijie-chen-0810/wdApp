@@ -37,19 +37,19 @@ export default {
           id:115,
           photourl:"background:url('https://s3.wandougongzhu.cn/s/b7/2x_758d9d.png') no-repeat 0 0/100% 100%",
           title:'我的点评',
-          active:""
+          active:"/selfcomment"
         },
         {
           id:116,
           photourl:"background:url('https://s5.wandougongzhu.cn/s/e8/2x_1ca83d.png') no-repeat 0 0/100% 100%",
           title:'联系客服',
-          active:""
+          active:"/customerservice"
         },
         {
           id:117,
           photourl:"background:url('https://s1.wandougongzhu.cn/s/a3/_9d2bd8.png') no-repeat 0 0/100% 100%",
           title:'关于我们',
-          active:""
+          active:"/aboutus"
         }
       ]
     }
